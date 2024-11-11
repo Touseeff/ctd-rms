@@ -460,13 +460,14 @@
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log('Error details:', textStatus, errorThrown);
                             console.log('Response Text:', jqXHR.responseText);
-                            alert('Failed to load sections');
+                            alert('Failed to load sections please tray again');
                         }
                     });
                 }
             });
         });
     </script>
+
 
 
 
