@@ -1,0 +1,8 @@
+@include('layout.header')
+@yield('register-content')
+@yield('login-section')
+@yield('forgot-section')
+@yield('reset_password')
+@yield('hr-dashboard')
+@yield('404-content')
+@include('layout.footer')
