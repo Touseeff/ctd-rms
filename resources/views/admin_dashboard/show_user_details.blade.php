@@ -107,29 +107,39 @@
                                                     <h5 class="card-title mb-5">Profile staus</h5>
                                                     <div
                                                         class="progress animated-progress custom-progress progress-label">
-                                                        {{-- @if (Auth::user()->status == 'pendding')
-                                                            <div class="progress-bar bg-success" role="progressbar"
-                                                                style="width: 30%" aria-valuenow="30" aria-valuemin="0"
-                                                                aria-valuemax="100">
-                                                                <div class="label">30%</div>
+                                                        @if ($user->status == 'approve')
+                                                            <div class="progress-bar bg-primary" role="progressbar"
+                                                                style="width: 50%" aria-valuenow="50" aria-valuemin="50"
+                                                                aria-valuemax="50">
+                                                                <div class="label">50%</div>
                                                             </div>
-                                                        @elseif (Auth::user()->status == 'Inactive')
+                                                        @elseif ($user->status == 'approve')
+                                                            <div class="progress-bar bg-primary" role="progressbar"
+                                                                style="width: 80%" aria-valuenow="100  "
+                                                                aria-valuemin="0" aria-valuemax="100">
+                                                                <div class="label">50%</div>
+                                                        @elseif ($user->status == 'active')
+                                                            <div class="progress-bar bg-success" role="progressbar"
+                                                                style="width: 80%" aria-valuenow="80  "
+                                                                aria-valuemin="0" aria-valuemax="80">
+                                                                <div class="label">10%</div>
+                                                        @elseif ($user->status == 'inactive')
                                                             <div class="progress-bar bg-danger" role="progressbar"
                                                                 style="width: 10%" aria-valuenow="10  "
                                                                 aria-valuemin="0" aria-valuemax="10">
                                                                 <div class="label">10%</div>
-                                                        @elseif (Auth::user()->status == 'pendding')
+                                                        @elseif ($user->status == 'reject')
                                                             <div class="progress-bar bg-danger" role="progressbar"
-                                                                style="width: 30%" aria-valuenow="30  "
-                                                                aria-valuemin="0" aria-valuemax="30">
-                                                                <div class="label">30%</div>
+                                                                style="width: 5%" aria-valuenow="5"
+                                                                aria-valuemin="0" aria-valuemax="5">
+                                                                <div class="label">5%</div>
                                                             @else
-                                                            @endif --}}
-                                                        <div class="progress-bar bg-warning" role="progressbar"
-                                                            style="width: 30%" aria-valuenow="30" aria-valuemin="0"
-                                                            aria-valuemax="30">
+                                                            <div class="progress-bar bg-warning" role="progressbar"
+                                                            style="width: 30%" aria-valuenow="30  "
+                                                            aria-valuemin="0" aria-valuemax="30">
                                                             <div class="label">30%</div>
-                                                        </div>
+                                                            @endif
+                                                    
                                                     </div>
                                                 </div>
                                             </div>
