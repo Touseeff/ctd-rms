@@ -1,7 +1,7 @@
 @include('layout.header')
     <!-- Begin page -->
     <div id="layout-wrapper">
-       @include('admin_dashboard.header')
+       @include('user_dashboard.header')
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->
@@ -35,6 +35,18 @@
                             <div class="h-100">
                                 <div class="row mb-3 pb-1">
                                     <div class="col-12">
+                                        @if (session('success'))
+                                        <div id="alert-message" class="alert alert-success">
+                                            {{ session('success') }}
+                    
+                                        </div>
+                                    @endif
+                    
+                                    @if (session('error'))
+                                        <div id="alert-message" class="alert alert-danger">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
                                         <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                                             <div class="flex-grow-1">
                                                 <h4 class="fs-16 mb-1">Good Morning, {{Auth::user()->first_name}}!</h4>
@@ -53,7 +65,7 @@
                                                         </div>
                                                         <!--end col-->
                                                         <div class="col-auto">
-                                                            <a href="{{route('admin.edit.profile',['id'=>Auth::user()->id])}}" type="button" class="btn btn-soft-success material-shadow-none"><i class="ri-add-circle-line align-middle me-1"></i> Edit Profile</a>
+                                                            <a href="{{route('user.edit.profile',['id'=>Auth::user()->id])}}" type="button" class="btn btn-soft-success material-shadow-none"><i class="ri-add-circle-line align-middle me-1"></i> Edit Profile</a>
                                                         </div>
                                                         <!--end col-->
                                                         <div class="col-auto">
@@ -77,14 +89,14 @@
                                             <div class="card-body">
                                                 <div class="d-flex align-items-center">
                                                     <div class="flex-grow-1 overflow-hidden">
-                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Department</p>
+                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Tasks</p>
                                                     </div>
                                                    
                                                 </div>
                                                 <div class="d-flex align-items-end justify-content-between mt-4">
                                                     <div>
                                                         <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="50">0</span></h4>
-                                                        <a href="#" class="text-decoration-underline">View all department</a>
+                                                        <a href="#" class="text-decoration-underline">View all tasks</a>
                                                     </div>
                                                     <div class="avatar-sm flex-shrink-0">
                                                         <span class="avatar-title bg-success-subtle rounded fs-3">
@@ -102,7 +114,7 @@
                                             <div class="card-body">
                                                 <div class="d-flex align-items-center">
                                                     <div class="flex-grow-1 overflow-hidden">
-                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total Head</p>
+                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Completed Tasks</p>
                                                     </div>
                                                     <div class="flex-shrink-0">
                                                         
@@ -111,7 +123,7 @@
                                                 <div class="d-flex align-items-end justify-content-between mt-4">
                                                     <div>
                                                         <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="10">0</span></h4>
-                                                        <a href="#" class="text-decoration-underline">View all Head</a>
+                                                        <a href="#" class="text-decoration-underline">View all task</a>
                                                     </div>
                                                     <div class="avatar-sm flex-shrink-0">
                                                         <span class="avatar-title bg-info-subtle rounded fs-3">
@@ -129,7 +141,7 @@
                                             <div class="card-body">
                                                 <div class="d-flex align-items-center">
                                                     <div class="flex-grow-1 overflow-hidden">
-                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total Users</p>
+                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Pending tasks</p>
                                                     </div>
                                                     <div class="flex-shrink-0">
                                                        
@@ -138,7 +150,7 @@
                                                 <div class="d-flex align-items-end justify-content-between mt-4">
                                                     <div>
                                                         <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="200">0</span> </h4>
-                                                        <a href="index.html" class="text-decoration-underline">See all users</a>
+                                                        <a href="index.html" class="text-decoration-underline">See all pending tasks</a>
                                                     </div>
                                                     <div class="avatar-sm flex-shrink-0">
                                                         <span class="avatar-title bg-warning-subtle rounded fs-3">
@@ -156,14 +168,14 @@
                                             <div class="card-body">
                                                 <div class="d-flex align-items-center">
                                                     <div class="flex-grow-1 overflow-hidden">
-                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> XYZ....</p>
+                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Todo Tasks</p>
                                                     </div>
                                                     
                                                 </div>
                                                 <div class="d-flex align-items-end justify-content-between mt-4">
                                                     <div>
                                                         <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="165.89">0</span>.... </h4>
-                                                        <a href="index.html" class="text-decoration-underline">xyz.....</a>
+                                                        <a href="index.html" class="text-decoration-underline">View all to do tasks</a>
                                                     </div>
                                                     <div class="avatar-sm flex-shrink-0">
                                                         <span class="avatar-title bg-primary-subtle rounded fs-3">
@@ -201,7 +213,7 @@
                                                     <div class="flex-grow-1 ms-3">
                                                         <h6 class="mb-1 lh-base">Purchase by James Price</h6>
                                                         <p class="text-muted mb-1">Product noise evolve smartwatch </p>
-                                                        <small class="mb-0 text-muted">02:14 PM Today</small>
+                                                        <smaTotal Departmentll class="mb-0 text-muted">02:14 PM Today</small>
                                                     </div>
                                                 </div>
                                                 <div class="acitivity-item py-3 d-flex">
@@ -625,7 +637,7 @@
                         <div class="col-sm-6">
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> © Craf Tech Digital.
+                            </script> © Craftech Digital.
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">
@@ -641,8 +653,8 @@
     </div>
 
     <!-- END layout-wrapper -->
-   @include('admin_dashboard.preloader')
+   @include('user_dashboard.preloader')
 
     <!-- Theme Settings -->
 
-@include('layout.footer');
+@include('layout.footer')

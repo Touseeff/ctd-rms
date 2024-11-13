@@ -53,6 +53,7 @@
                                 <div class="live-preview">
 
                                     {{--  --}}
+
                                     <form action="{{ route($url) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
@@ -62,19 +63,10 @@
                                                     <input type="hidden" name="id"
                                                         value="{{ isset($user) ? $user->id : '' }}">
                                                     <label for="firstNameinput" class="form-label">First Name</label>
-                                                    <input type="text" {{ isset($user) ? 'disabled' : '' }}
+                                                    <input type="text"
+                                                        value="{{ isset($user) ? $user->first_name : '' }}"
                                                         class="form-control" placeholder="Enter first name"
                                                         id="firstNameinput" name="firstName">
-                                                </div>
-                                            </div>
-
-                                            <!-- Middle Name -->
-                                            <div class="col-md-4">
-                                                <div class="mb-3">
-                                                    <label for="middleNameinput" class="form-label">Middle Name</label>
-                                                    <input type="text" {{ isset($user) ? 'disabled' : '' }}
-                                                        class="form-control" placeholder="Enter middle name"
-                                                        id="middleNameinput" name="middleName">
                                                 </div>
                                             </div>
 
@@ -82,7 +74,8 @@
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label for="lastNameinput" class="form-label">Last Name</label>
-                                                    <input type="text"{{ isset($user) ? 'disabled' : '' }}
+                                                    <input type="text"
+                                                        value="{{ isset($user) ? $user->last_name : '' }}"
                                                         class="form-control" placeholder="Enter last name"
                                                         id="lastNameinput" name="lastName">
                                                 </div>
@@ -97,44 +90,43 @@
                                                         name="email">
                                                 </div>
                                             </div>
-
-                                            <!-- Password (disabled for editing) -->
-                                            <div class="col-md-4">
-                                                <div class="mb-3">
-                                                    <label for="passwordinput" class="form-label">Password</label>
-                                                    <input type="password" class="form-control"
-                                                        placeholder="Enter password" id="passwordinput" name="password"
-                                                        {{ isset($user) ? 'disabled' : '' }}>
-                                                </div>
-                                            </div>
-
                                             <!-- Contact Number -->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label for="contactNumberinput" class="form-label">Contact
+                                                    <label for="contactNumberinput" class="form-label">Cell
                                                         Number</label>
-                                                    <input type="tel" {{ isset($user) ? 'disabled' : '' }}
-                                                        class="form-control" placeholder="Enter contact number"
+                                                    <input type="tel"
+                                                        value="{{ isset($user) ? $user->contact_number : '' }}"
+                                                        class="form-control" placeholder="Enter cell number"
                                                         id="contactNumberinput" name="contactNumber">
                                                 </div>
                                             </div>
-
                                             <!-- Id Number -->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label for="nicNumberInput" class="form-label">NIC Number</label>
                                                     <input type="text"
-                                                    {{ isset($user) ? 'disabled' : '' }}
+                                                        value="{{ isset($user) ? $user->nic_number : '' }}"
                                                         class="form-control" placeholder="Enter NIC number"
                                                         id="nicNumberInput" name="nicNumber">
                                                 </div>
                                             </div>
-
-                                            <!-- Gender -->
+                                            <!-- Qualification -->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
+                                                    <label for="qualificationinput"
+                                                        class="form-label">Qualification</label>
+                                                    <input type="text"
+                                                        value="{{ isset($user) ? $user->qualification : '' }}"
+                                                        class="form-control" placeholder="Enter qualification"
+                                                        id="qualificationinput" name="qualification">
+                                                </div>
+                                            </div>
+                                            <!-- Gender -->
+                                            <div class="col-md-2">
+                                                <div class="mb-3">
                                                     <label for="genderinput" class="form-label">Gender</label>
-                                                    <select name="gender" class="form-select" id="genderinput" >
+                                                    <select name="gender" class="form-select" id="genderinput">
                                                         <option value="male"
                                                             {{ isset($user) && $user->gender == 'male' ? 'selected' : '' }}>
                                                             Male</option>
@@ -147,25 +139,12 @@
                                                     </select>
                                                 </div>
                                             </div>
-
-                                            <!-- Qualification -->
-                                            <div class="col-md-4">
-                                                <div class="mb-3">
-                                                    <label for="qualificationinput"
-                                                        class="form-label">Qualification</label>
-                                                    <input type="text"
-                                                        value="{{ isset($user) ? $user->qualification : '' }}"
-                                                        class="form-control" placeholder="Enter qualification"
-                                                        id="qualificationinput" name="qualification">
-                                                </div>
-                                            </div>
-
                                             <!-- Date of Birth -->
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="mb-3">
                                                     <label for="dobinput" class="form-label">Date of Birth</label>
-                                                    <input type="date"  {{ isset($user) ? 'disabled' : '' }}
-                                                        
+                                                    <input type="date"
+                                                        value="{{ isset($user) ? $user->date_of_birth : '' }}"
                                                         class="form-control" id="dobinput" name="dateOfBirth">
                                                 </div>
                                             </div>
@@ -175,14 +154,13 @@
                                                     <label for="designationinput"
                                                         class="form-label">Designation</label>
                                                     <input type="text"
-                                                    {{ isset($user) ? 'disabled' : '' }}
+                                                        value="{{ isset($user) ? $user->designation : '' }}"
                                                         class="form-control" placeholder="Enter designation"
                                                         id="designationinput" name="designation">
                                                 </div>
                                             </div>
-
                                             <!-- Date of Joining -->
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="mb-3">
                                                     <label for="dateOfJoininginput" class="form-label">Date of
                                                         Joining</label>
@@ -192,10 +170,13 @@
                                                         name="dateOfJoining">
                                                 </div>
                                             </div>
+
+
                                             <!-- Skills -->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label for="skillsinput" class="form-label">Address 01 (Current Address)</label>
+                                                    <label for="skillsinput" class="form-label">Address 01 (Current
+                                                        Address)</label>
                                                     <textarea class="form-control" id="skillsinput" rows="3" name="addressOne"
                                                         placeholder="Enter Current address">{{ isset($user) ? $user->address_one : '' }}</textarea>
                                                 </div>
@@ -204,7 +185,8 @@
                                             <!-- Address -->
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label for="addressinput" class="form-label">Address 02 (Permanent Address)</label>
+                                                    <label for="addressinput" class="form-label">Address 02 (Permanent
+                                                        Address)</label>
                                                     <textarea class="form-control" id="addressinput" rows="3" name="addressTwo"
                                                         placeholder="Enter permanent address">{{ isset($user) ? $user->address_two : '' }}</textarea>
                                                 </div>
@@ -212,7 +194,7 @@
 
 
                                             {{--  --}}
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="mb-3">
                                                     <label for="departmentSelect"
                                                         class="form-label">Department</label>
@@ -232,7 +214,7 @@
                                             </div>
                                             {{-- <div class="col-md-3"> --}}
 
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="mb-3">
                                                     <label for="sectionSelect" class="form-label">Section</label>
                                                     <select class="form-select" name="section" id="sectionSelect">
@@ -247,13 +229,14 @@
                                                     </select>
                                                 </div>
                                             </div>
-
                                             {{--  --}}
                                             <div class="col-md-2">
                                                 <div class="mb-3">
-                                                    <label for="roleSelect" class="form-label">Designation Role</label>
-                                                    <select class="form-select" data-choices=""  {{ isset($user) ? 'disabled' : '' }}
-                                                        data-choices-sorting="true" id="roleSelect" name="designationRole">
+                                                    <label for="roleSelect" class="form-label">Designation
+                                                        Role</label>
+                                                    <select class="form-select" data-choices=""
+                                                        data-choices-sorting="true" id="roleSelect"
+                                                        name="designationRole">
                                                         @foreach ($roles as $role)
                                                             <option value="{{ $role->role_type }}"
                                                                 {{ isset($user) && $user->role_id == $role->id ? 'selected' : '' }}>
@@ -262,11 +245,11 @@
                                                     </select>
                                                 </div>
                                             </div>
-
                                             <div class="col-md-2">
                                                 <div class="mb-3">
-                                                    <label for="roleSelect" class="form-label">Role (for Dashboard)</label>
-                                                    <select name="role" class="form-select" data-choices=""  {{ isset($user) ? 'disabled' : '' }}
+                                                    <label for="roleSelect" class="form-label">Role (for
+                                                        Dashboard)</label>
+                                                    <select name="role" class="form-select" data-choices=""
                                                         data-choices-sorting="true" id="roleSelect">
                                                         @foreach ($roles as $role)
                                                             <option value="{{ $role->id }}"
@@ -279,33 +262,30 @@
                                             <div class="col-md-2">
                                                 <div class="mb-3">
                                                     <label for="statusSelect" class="form-label">Status</label>
-                                                    <select name="status"
-                                                        class="form-select" data-choices=""
+                                                    <select name="status" class="form-select" data-choices=""
                                                         data-choices-sorting="true" id="statusSelect">
-                                                        <option value="active"
-                                                            {{ isset($user) && $user->status == 'active' ? 'selected' : '' }}>
-                                                            Active</option>
-                                                        <option value="inactive"
-                                                            {{ isset($user) && $user->status == 'inactive' ? 'selected' : '' }}>
-                                                            InActive</option>
-                                                        <option value="pending" selected
-                                                            {{ isset($user) && $user->status == 'pending' ? 'selected' : '' }}>
-                                                            Pending</option>
+
                                                         <option value="approve"
                                                             {{ isset($user) && $user->status == 'approve' ? 'selected' : '' }}>
                                                             Approve</option>
+                                                        <option value="pending" selected
+                                                            {{ isset($user) && $user->status == 'pending' ? 'selected' : '' }}>
+                                                            Pending</option>
+                                                        <option value="inactive"
+                                                            {{ isset($user) && $user->status == 'inactive' ? 'selected' : '' }}>
+                                                            InActive</option>
                                                         <option value="reject"
                                                             {{ isset($user) && $user->status == 'reject' ? 'selected' : '' }}>
                                                             Reject</option>
+
+
                                                     </select>
                                                 </div>
-                                            </div> 
-
-
+                                            </div>
                                             <div class="col-lg-12">
                                                 <div class="text-end">
                                                     <a class="btn btn-light"
-                                                        href="{{ route('hr.dashboard') }}">Cancel</a>
+                                                        href="{{ route('admin.dashboard') }}">Cancel</a>
                                                     <button type="submit" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </div>
@@ -313,6 +293,7 @@
                                             {{--  --}}
 
                                         </div>
+                                    </form>
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -335,7 +316,7 @@
                         <div class="col-sm-6">
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> © Velzon.
+                            </script> © Craftech Digital.
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">
@@ -371,7 +352,7 @@
 
                 if (departmentId) {
                     $.ajax({
-                        url: `{{ url('/hr-dashboard/user-create') }}/${departmentId}`,
+                        url: `{{ url('/admin-dashboard/user-create') }}/${departmentId}`,
                         type: 'GET',
                         dataType: 'json',
                         // headers: {

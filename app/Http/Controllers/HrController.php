@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Department;
-use App\Models\Section;
 use App\Mail\AuthMail;
+use App\Models\Section;
+use App\Models\Department;
 
+use Illuminate\Support\Str;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -55,6 +56,8 @@ class HrController extends Controller
     {
         $users = User::with(['department', 'section'])->orderBy('id', 'DESC')->get();
         // dd($users->toArray());
+
+
         return view('hr_dashboard.show_user', compact('users'));
     }
 
@@ -76,7 +79,7 @@ class HrController extends Controller
         $existingUser = User::where('email', $request->email)->first();
 
         if ($existingUser) {
-            return redirect()->route('create.user')->with('error', 'Email is already registered. Please use a different email.');
+            return redirect()->route('show.user')->with('error', 'Email is already registered. Please use a different email.');
         }
         // Validate the request data here if needed
         // dd($request->toArray());
@@ -87,10 +90,12 @@ class HrController extends Controller
         $user->department_id = $request->department;
         $user->section_id = $request->section;
         $user->first_name = $request->firstName;
-        $user->middle_name = $request->middleName;
+        // $user->middle_name = $request->middleName;
         $user->last_name = $request->lastName;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $password = Str::random(10);
+        // $user->password = bcrypt($password);
+        $user->password = $password;
         // Log::debug('Hashed Password:', ['password' => $user->password]);
         $user->contact_number = $request->contactNumber;
         $user->nic_number = $request->nicNumber;
@@ -102,9 +107,6 @@ class HrController extends Controller
         $user->designation_role = $request->designationRole;
         $user->address_one = $request->addressOne;
         $user->address_two = $request->addressTwo;
-        // $user->department = $request->department;
-
-        // $user->status = 'pending';
 
         if ($user->save()) {
             $notification_obj = new Notification;
@@ -150,10 +152,10 @@ class HrController extends Controller
         // }
     }
 
-
     /**
      * Show the form for editing the specified resource.p
      */
+
     public function editUser(string $id)
     {
         // Define view data
@@ -165,23 +167,18 @@ class HrController extends Controller
         $user = User::with('department', 'section')->where('id', $id)->first();
         // dd($user->toArray());
 
-
-
         // Check if the user exists
         if (!$user) {
             return redirect()->route('show.user')->with('error', 'User not found.');
         }
-
         // Render the view with the user data and other variables
 
         return view('hr_dashboard.add_user', compact('user', 'url', 'title'));
     }
 
-
     public function updateUser(Request $request)
     {
         // dd($request->toArray());
-
 
         // dd($request->toArray());
 
@@ -189,16 +186,17 @@ class HrController extends Controller
         $user = User::find($id);
 
         // dd($user->toArray());
+
         $user->role_id = $request->role;
         $user->department_id = $request->department;
-        $user->department_id = $request->section;
-        // $user->first_name = $request->firstName;
-        // $user->middle_name = $request->middleName;
-        // $user->last_name = $request->lastName;
-        // $user->email = $request->email;
-        // $user->password = bcrypt($request->password);
-        // $user->contact_number = $request->contactNumber;
-        // $user->nic_number = $request->nicNumber;
+        $user->section_id = $request->section;
+        $user->first_name = $request->firstName;
+        $user->middle_name = $request->middleName;
+        $user->last_name = $request->lastName;
+        $user->email = $request->email;
+        // $user->password = bcrypt($password);
+        $user->contact_number = $request->contactNumber;
+        $user->nic_number = $request->nicNumber;
         $user->gendar = $request->gender;
         $user->qualification = $request->qualification;
         $user->date_of_birth = $request->dateOfBirth;
@@ -219,9 +217,6 @@ class HrController extends Controller
         }
     }
 
-
-
-
     public function viewUser(string $id)
     {
 
@@ -232,14 +227,12 @@ class HrController extends Controller
         // $user = User::find($id);
         // // $user = DB::table('users')()
         // return view('hr_dashboard.show_user_details', compact('user'));
+
     }
     public function edit(string $id)
     {
         //
     }
-
-
-
 
     /**
      * Update the specified resource in storage.
@@ -260,12 +253,104 @@ class HrController extends Controller
 
     }
 
-
-
-
     /**
      * Remove the specified resource from storage.
      */
+
+    //  Profile controller methods 
+
+    public function viewProfile(string $id)
+    {
+        // $user = User::find($id);
+        $user = User::with('department', 'section')->where('id', $id)->first();
+        return view('hr_dashboard.show_hr_profile_details', compact('user'));
+    }
+    public function editProfile(string $id)
+    {
+        // Define view data
+        $url = 'hr.update.profile';
+        $title = 'Edit Profile';
+
+        // Retrieve user by ID
+        // $user = User::find($id);
+        $user = User::with('department', 'section')->where('id', $id)->first();
+        // dd($user->toArray());
+
+
+
+        // Check if the user exists
+        if (!$user) {
+            return redirect()->route('hr_dashboard')->with('error', 'User not found.');
+        }
+
+        // Render the view with the user data and other variables
+
+        return view('hr_dashboard.edit_hr_profile', compact('user', 'url', 'title'));
+    }
+
+
+
+
+
+
+    public function updateProfile(Request $request)
+    {
+        $id = $request->id;
+        $user = User::find($id);
+
+        // Store the fields that can be updated
+        $fieldsToUpdate = [
+            'first_name' => $request->firstName,
+            // 'middle_name' => $request->middleName,
+            'last_name' => $request->lastName,
+            // 'contact_number' => $request->contactNumber,
+            'nic_number' => $request->nicNumber,
+            'gendar' => $request->gender,
+            'qualification' => $request->qualification,
+            'date_of_birth' => $request->dateOfBirth,
+            'address_one' => $request->addressOne,
+            'address_two' => $request->addressTwo,
+        ];
+
+        // Track if any field is actually modified
+        $isModified = false;
+
+        foreach ($fieldsToUpdate as $field => $newValue) {
+            if ($user->$field != $newValue) {
+                $user->$field = $newValue;
+                $isModified = true;
+            }
+        }
+
+        // Handle profile image upload
+        if ($request->hasFile('profileImage')) {
+            // Define the upload path
+            $uploadPath = 'uploads/profile_images/';
+
+            // Delete the previous image if it exists
+            if ($user->profile_image && file_exists(public_path($uploadPath . $user->profile_image))) {
+                unlink(public_path($uploadPath . $user->profile_image));
+            }
+
+            // Store the new image
+            $newImageName = $user->first_name."_".time() . '_' . $request->file('profileImage')->getClientOriginalName();
+            $request->file('profileImage')->move(public_path($uploadPath), $newImageName);
+
+            // Update the user's profile image field
+            $user->profile_image = $newImageName;
+            $isModified = true;
+        }
+
+
+        // Save only if any field is modified
+        if ($isModified && $user->save()) {
+            return redirect()->route('hr.dashboard')->with('success', 'User record updated successfully.');
+        } elseif (!$isModified) {
+            return redirect()->route('hr.dashboard')->with('info', 'No changes detected.');
+        } else {
+            return redirect()->route('hr.dashboard')->with('error', 'Failed to update user. Please try again.');
+        }
+    }
 
     public function hrLogout()
     {

@@ -1,7 +1,7 @@
 @include('layout.header')
 <!-- Begin page -->
 <div id="layout-wrapper">
-    @include('hr_dashboard.header')
+    @include('head_dashboard.header')
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->
@@ -29,52 +29,30 @@
                         </div>
 
                     </div> --}}
+                    @if (session('success'))
+                                        <div id="alert-message" class="alert alert-success">
+                                            {{ session('success') }}
+
+                                        </div>
+                                    @endif
+
+                                    @if (session('error'))
+                                        <div id="alert-message" class="alert alert-danger">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
                 <div class="row">
                     <div class="col">
-
                         <div class="h-100">
                             <div class="row mb-3 pb-1">
                                 <div class="col-12">
+                                   
                                     <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                                         <div class="flex-grow-1">
-                                            <h4 class="fs-16 mb-1">Good Morning, {{Auth::user()->first_name}}!</h4>
-                                            <p class="text-muted mb-0">Here's what's happening with your store today.
-                                            </p>
+                                            <h4 class="fs-16 mb-1">Deveopment:</h4>
                                         </div>
-                                        <div class="mt-3 mt-lg-0">
-                                            <form action="javascript:void(0);">
-                                                <div class="row g-3 mb-0 align-items-center">
-                                                    <div class="col-sm-auto">
-                                                        <div class="input-group">
-                                                            <input type="text"
-                                                                class="form-control border-0 minimal-border dash-filter-picker shadow"
-                                                                data-provider="flatpickr" data-range-date="true"
-                                                                data-date-format="d M, Y"
-                                                                data-deafult-date="01 Jan 2022 to 31 Jan 2022">
-                                                            <div
-                                                                class="input-group-text bg-primary border-primary text-white">
-                                                                <i class="ri-calendar-2-line"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end col-->
-                                                    <div class="col-auto">
-                                                        <a href="{{ route('hr.edit.profile',['id'=>Auth::user()->id]) }}" type="button"
-                                                            class="btn btn-soft-success material-shadow-none"><i
-                                                                class="ri-add-circle-line align-middle me-1"></i>Edit Profile</a>
-                                                    </div>
-                                                    <!--end col-->
-                                                    <div class="col-auto">
-                                                        <button type="button"
-                                                            class="btn btn-soft-info btn-icon waves-effect material-shadow-none waves-light layout-rightside-btn"><i
-                                                                class="ri-pulse-line"></i></button>
-                                                    </div>
-                                                    <!--end col-->
-                                                </div>
-                                                <!--end row-->
-                                            </form>
-                                        </div>
-                                    </div><!-- end card header -->
+                                    </div>
+                                    <!-- end card header -->
                                 </div>
                                 <!--end col-->
                             </div>
@@ -88,7 +66,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-grow-1 overflow-hidden">
                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
-                                                        Total Department</p>
+                                                        Total Tasks</p>
                                                 </div>
 
                                             </div>
@@ -97,7 +75,7 @@
                                                     <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
                                                             class="counter-value" data-target="50">0</span></h4>
                                                     <a href="#" class="text-decoration-underline">View all
-                                                        department</a>
+                                                        tasks</a>
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
                                                     <span class="avatar-title bg-success-subtle rounded fs-3">
@@ -116,7 +94,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-grow-1 overflow-hidden">
                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
-                                                        Total Head</p>
+                                                        Completed Tasks</p>
                                                 </div>
                                                 <div class="flex-shrink-0">
 
@@ -127,7 +105,7 @@
                                                     <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
                                                             class="counter-value" data-target="10">0</span></h4>
                                                     <a href="#" class="text-decoration-underline">View all
-                                                        Head</a>
+                                                        task</a>
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
                                                     <span class="avatar-title bg-info-subtle rounded fs-3">
@@ -146,7 +124,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-grow-1 overflow-hidden">
                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
-                                                        Total Users</p>
+                                                        Pending tasks</p>
                                                 </div>
                                                 <div class="flex-shrink-0">
 
@@ -157,7 +135,7 @@
                                                     <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
                                                             class="counter-value" data-target="200">0</span> </h4>
                                                     <a href="index.html" class="text-decoration-underline">See all
-                                                        users</a>
+                                                        pending tasks</a>
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
                                                     <span class="avatar-title bg-warning-subtle rounded fs-3">
@@ -176,7 +154,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-grow-1 overflow-hidden">
                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
-                                                        XYZ....</p>
+                                                        Todo Tasks</p>
                                                 </div>
 
                                             </div>
@@ -185,7 +163,8 @@
                                                     <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
                                                             class="counter-value" data-target="165.89">0</span>....
                                                     </h4>
-                                                    <a href="index.html" class="text-decoration-underline">xyz.....</a>
+                                                    <a href="index.html" class="text-decoration-underline">View all to
+                                                        do tasks</a>
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
                                                     <span class="avatar-title bg-primary-subtle rounded fs-3">
@@ -196,13 +175,298 @@
                                         </div><!-- end card body -->
                                     </div><!-- end card -->
                                 </div><!-- end col -->
-                            </div> <!-- end row-->
-
-
-
+                                <a href="" class=""
+                                    style="    display: flex;
+    justify-content: end;">view more</a>
+                            </div>
+                            <!-- end row-->
                         </div> <!-- end .h-100-->
-
                     </div> <!-- end col -->
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="h-100">
+                            <div class="row mb-3 pb-1">
+                                <div class="col-12">
+                                   
+                                    <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                        <div class="flex-grow-1">
+                                            <h4 class="fs-16 mb-1">Wordpres:</h4>
+                                        </div>
+                                    </div>
+                                    <!-- end card header -->
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6">
+                                    <!-- card -->
+                                    <div class="card card-animate">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1 overflow-hidden">
+                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                                        Total Tasks</p>
+                                                </div>
+
+                                            </div>
+                                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                                <div>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
+                                                            class="counter-value" data-target="50">0</span></h4>
+                                                    <a href="#" class="text-decoration-underline">View all
+                                                        tasks</a>
+                                                </div>
+                                                <div class="avatar-sm flex-shrink-0">
+                                                    <span class="avatar-title bg-success-subtle rounded fs-3">
+                                                        <i class="bx bx-user-circle text-warning"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div><!-- end card -->
+                                </div><!-- end col -->
+
+                                <div class="col-xl-3 col-md-6">
+                                    <!-- card -->
+                                    <div class="card card-animate">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1 overflow-hidden">
+                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                                        Completed Tasks</p>
+                                                </div>
+                                                <div class="flex-shrink-0">
+
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                                <div>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
+                                                            class="counter-value" data-target="10">0</span></h4>
+                                                    <a href="#" class="text-decoration-underline">View all
+                                                        task</a>
+                                                </div>
+                                                <div class="avatar-sm flex-shrink-0">
+                                                    <span class="avatar-title bg-info-subtle rounded fs-3">
+                                                        <i class="bx bx-user-circle text-warning"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div><!-- end card -->
+                                </div><!-- end col -->
+
+                                <div class="col-xl-3 col-md-6">
+                                    <!-- card -->
+                                    <div class="card card-animate">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1 overflow-hidden">
+                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                                        Pending tasks</p>
+                                                </div>
+                                                <div class="flex-shrink-0">
+
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                                <div>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
+                                                            class="counter-value" data-target="200">0</span> </h4>
+                                                    <a href="index.html" class="text-decoration-underline">See all
+                                                        pending tasks</a>
+                                                </div>
+                                                <div class="avatar-sm flex-shrink-0">
+                                                    <span class="avatar-title bg-warning-subtle rounded fs-3">
+                                                        <i class="bx bx-user-circle text-warning"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div><!-- end card -->
+                                </div><!-- end col -->
+
+                                <div class="col-xl-3 col-md-6">
+                                    <!-- card -->
+                                    <div class="card card-animate">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1 overflow-hidden">
+                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                                        Todo Tasks</p>
+                                                </div>
+
+                                            </div>
+                                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                                <div>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
+                                                            class="counter-value" data-target="165.89">0</span>....
+                                                    </h4>
+                                                    <a href="index.html" class="text-decoration-underline">View all to
+                                                        do tasks</a>
+                                                </div>
+                                                <div class="avatar-sm flex-shrink-0">
+                                                    <span class="avatar-title bg-primary-subtle rounded fs-3">
+                                                        <i class="bx bx-wallet text-primary"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div><!-- end card -->
+                                </div><!-- end col -->
+                                <a href="" class=""
+                                    style="    display: flex;
+    justify-content: end;">view more</a>
+                            </div>
+                            <!-- end row-->
+                        </div> <!-- end .h-100-->
+                    </div> <!-- end col -->
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="h-100">
+                            <div class="row mb-3 pb-1">
+                                <div class="col-12">
+                                   
+                                    <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                        <div class="flex-grow-1">
+                                            <h4 class="fs-16 mb-1">Designing:</h4>
+                                        </div>
+                                    </div>
+                                    <!-- end card header -->
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6">
+                                    <!-- card -->
+                                    <div class="card card-animate">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1 overflow-hidden">
+                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                                        Total Tasks</p>
+                                                </div>
+
+                                            </div>
+                                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                                <div>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
+                                                            class="counter-value" data-target="50">0</span></h4>
+                                                    <a href="#" class="text-decoration-underline">View all
+                                                        tasks</a>
+                                                </div>
+                                                <div class="avatar-sm flex-shrink-0">
+                                                    <span class="avatar-title bg-success-subtle rounded fs-3">
+                                                        <i class="bx bx-user-circle text-warning"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div><!-- end card -->
+                                </div><!-- end col -->
+
+                                <div class="col-xl-3 col-md-6">
+                                    <!-- card -->
+                                    <div class="card card-animate">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1 overflow-hidden">
+                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                                        Completed Tasks</p>
+                                                </div>
+                                                <div class="flex-shrink-0">
+
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                                <div>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
+                                                            class="counter-value" data-target="10">0</span></h4>
+                                                    <a href="#" class="text-decoration-underline">View all
+                                                        task</a>
+                                                </div>
+                                                <div class="avatar-sm flex-shrink-0">
+                                                    <span class="avatar-title bg-info-subtle rounded fs-3">
+                                                        <i class="bx bx-user-circle text-warning"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div><!-- end card -->
+                                </div><!-- end col -->
+
+                                <div class="col-xl-3 col-md-6">
+                                    <!-- card -->
+                                    <div class="card card-animate">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1 overflow-hidden">
+                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                                        Pending tasks</p>
+                                                </div>
+                                                <div class="flex-shrink-0">
+
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                                <div>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
+                                                            class="counter-value" data-target="200">0</span> </h4>
+                                                    <a href="index.html" class="text-decoration-underline">See all
+                                                        pending tasks</a>
+                                                </div>
+                                                <div class="avatar-sm flex-shrink-0">
+                                                    <span class="avatar-title bg-warning-subtle rounded fs-3">
+                                                        <i class="bx bx-user-circle text-warning"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div><!-- end card -->
+                                </div><!-- end col -->
+
+                                <div class="col-xl-3 col-md-6">
+                                    <!-- card -->
+                                    <div class="card card-animate">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1 overflow-hidden">
+                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                                        Todo Tasks</p>
+                                                </div>
+
+                                            </div>
+                                            <div class="d-flex align-items-end justify-content-between mt-4">
+                                                <div>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
+                                                            class="counter-value" data-target="165.89">0</span>....
+                                                    </h4>
+                                                    <a href="index.html" class="text-decoration-underline">View all to
+                                                        do tasks</a>
+                                                </div>
+                                                <div class="avatar-sm flex-shrink-0">
+                                                    <span class="avatar-title bg-primary-subtle rounded fs-3">
+                                                        <i class="bx bx-wallet text-primary"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div><!-- end card -->
+                                </div><!-- end col -->
+                                <a href="" class=""
+                                    style="    display: flex;
+    justify-content: end;">view more</a>
+                            </div>
+                            <!-- end row-->
+                        </div> <!-- end .h-100-->
+                    </div> <!-- end col -->
+                </div>
 
                     <div class="col-auto layout-rightside-col">
                         <div class="overlay"></div>
@@ -224,7 +488,8 @@
                                                 <div class="flex-grow-1 ms-3">
                                                     <h6 class="mb-1 lh-base">Purchase by James Price</h6>
                                                     <p class="text-muted mb-1">Product noise evolve smartwatch </p>
-                                                    <small class="mb-0 text-muted">02:14 PM Today</small>
+                                                    <smaTotal Departmentll class="mb-0 text-muted">02:14 PM
+                                                        Today</small>
                                                 </div>
                                             </div>
                                             <div class="acitivity-item py-3 d-flex">
@@ -738,8 +1003,8 @@
 </div>
 
 <!-- END layout-wrapper -->
-@include('hr_dashboard.preloader')
+@include('head_dashboard.preloader')
 
 <!-- Theme Settings -->
 
-@include('layout.footer');
+@include('layout.footer')

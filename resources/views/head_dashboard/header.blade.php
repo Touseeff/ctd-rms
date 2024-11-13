@@ -161,15 +161,14 @@
                                 alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Hi!.</span>
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Anna
-                                    Adame</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{Auth::user()->first_name}}</span>
                             </span>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <h6 class="dropdown-header">Welcome {{Auth::user()->first_name}}!</h6>
-                        <a class="dropdown-item" href="{{route('admin.view.profile',['id'=>Auth::user()->id])}}"><i
+                        <a class="dropdown-item" href="{{route('head.view.profile',['id'=>Auth::user()->id])}}"><i
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profile</span></a>
 
@@ -181,7 +180,7 @@
                         {{-- <a class="dropdown-item" href="auth-lockscreen-basic.html"><i
                                 class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Lock screen</span></a> --}}
-                        <a class="dropdown-item" href="{{route('admin.logout')}}"><i
+                        <a class="dropdown-item" href="{{route('head.logout')}}"><i
                                 class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle" data-key="t-logout">Logout</span></a>
                     </div>
@@ -195,7 +194,7 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
-        <a href="{{route('admin.dashboard')}}" class="logo logo-dark">
+        <a href="{{route('head.dashboard')}}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ asset('./public/assets/images/logo-sm.png') }}" alt="" height="22">
             </span>
@@ -208,7 +207,7 @@
             </span>
         </a>
         <!-- Light Logo-->
-        <a href="{{route('admin.dashboard')}}" class="logo logo-light">
+        <a href="{{route('head.dashboard')}}" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ asset('./public/assets/images/logo-sm.png') }}" alt="" height="22">
             </span>
@@ -232,7 +231,7 @@
             <span class="d-flex align-items-center gap-2">
                 <img class="rounded header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
                 <span class="text-start">
-                    <span class="d-block fw-medium sidebar-user-name-text">Anna Adame</span>
+                    <span class="d-block fw-medium sidebar-user-name-text">{{Auth::user()->first_name}}</span>
                     <span class="d-block fs-14 sidebar-user-name-sub-text"><i
                             class="ri ri-circle-fill fs-10 text-success align-baseline"></i> <span
                             class="align-middle">Online</span></span>
@@ -241,7 +240,7 @@
         </button>
         <div class="dropdown-menu dropdown-menu-end">
             <!-- item-->
-            <h6 class="dropdown-header">Welcome {{Auth::user()->first_name}}!</h6>
+            <h6 class="dropdown-header">Welcome {{Auth::user()->first_name}}</h6>
             <a class="dropdown-item" href="pages-profile.html"><i
                     class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                     class="align-middle">Profile</span></a>
@@ -276,7 +275,7 @@
             <div id="two-column-menu">
             </div>
             <ul class="navbar-nav" id="navbar-nav">
-                <li class="menu-title"><span data-key="t-menu">Admin</span></li>
+                <li class="menu-title"><span data-key="t-menu">{{Auth::user()->designation_role}}</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="pages-starter.html#sidebarDashboards"
                         data-bs-toggle="collapse" role="button" aria-expanded="false"
@@ -285,9 +284,29 @@
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarDashboards">
                         <ul class="nav nav-sm flex-column">
+                          
                             <li class="nav-item">
-                                <a href="{{route('admin.show.user')}}" class="nav-link" data-key="t-analytics">
-                                    Users</a>
+                                <a class="nav-link menu-link" href="index.html#sidebarMultilevel" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMultilevel">
+                                    <i class="ri-share-line"></i> <span data-key="t-multi-level">Sections</span>
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarMultilevel">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="index.html#" class="nav-link" data-key="t-level-1.1">Development</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="index.html#" class="nav-link" data-key="t-level-1.1">Designing</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="index.html#" class="nav-link" data-key="t-level-1.1">Markeeting</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="index.html#" class="nav-link" data-key="t-level-1.1">Ebook</a>
+                                        </li>
+                                      
+                                    
+                                    </ul>
+                                </div>
                             </li>
 
                         </ul>

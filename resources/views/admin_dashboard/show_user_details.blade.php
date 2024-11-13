@@ -107,39 +107,44 @@
                                                     <h5 class="card-title mb-5">Profile staus</h5>
                                                     <div
                                                         class="progress animated-progress custom-progress progress-label">
-                                                        @if ($user->status == 'approve')
+                                                        @if ($user->status == 'approve' &&  $user->profile_image == null)
                                                             <div class="progress-bar bg-primary" role="progressbar"
                                                                 style="width: 50%" aria-valuenow="50" aria-valuemin="50"
                                                                 aria-valuemax="50">
                                                                 <div class="label">50%</div>
                                                             </div>
-                                                        @elseif ($user->status == 'approve')
-                                                            <div class="progress-bar bg-primary" role="progressbar"
-                                                                style="width: 80%" aria-valuenow="100  "
+                                                        @elseif ($user->status == 'active' && $user->profile_image !== null)
+                                                            <div class="progress-bar bg-success" role="progressbar"
+                                                                style="width: 100%" aria-valuenow="100  "
                                                                 aria-valuemin="0" aria-valuemax="100">
-                                                                <div class="label">50%</div>
-                                                        @elseif ($user->status == 'active')
+                                                                <div class="label"> 0%</div>
+                                                            </div> 
+                                                        @elseif ($user->status == 'active' &&  $user->profile_image == null)
                                                             <div class="progress-bar bg-success" role="progressbar"
                                                                 style="width: 80%" aria-valuenow="80  "
                                                                 aria-valuemin="0" aria-valuemax="80">
-                                                                <div class="label">10%</div>
-                                                        @elseif ($user->status == 'inactive')
+                                                                <div class="label">80%</div>
+                                                            </div>
+                                                        @elseif ($user->status == 'inactive'  &&  $user->profile_image == null)
                                                             <div class="progress-bar bg-danger" role="progressbar"
                                                                 style="width: 10%" aria-valuenow="10  "
                                                                 aria-valuemin="0" aria-valuemax="10">
                                                                 <div class="label">10%</div>
-                                                        @elseif ($user->status == 'reject')
+                                                            </div>
+                                                        @elseif ($user->status == 'reject'  &&  $user->profile_image == null)
                                                             <div class="progress-bar bg-danger" role="progressbar"
-                                                                style="width: 5%" aria-valuenow="5"
-                                                                aria-valuemin="0" aria-valuemax="5">
+                                                                style="width: 5%" aria-valuenow="5" aria-valuemin="0"
+                                                                aria-valuemax="5">
                                                                 <div class="label">5%</div>
-                                                            @else
+                                                            </div>
+                                                        @else
                                                             <div class="progress-bar bg-warning" role="progressbar"
-                                                            style="width: 30%" aria-valuenow="30  "
-                                                            aria-valuemin="0" aria-valuemax="30">
-                                                            <div class="label">30%</div>
-                                                            @endif
-                                                    
+                                                                style="width: 30%" aria-valuenow="30  "
+                                                                aria-valuemin="0" aria-valuemax="30">
+                                                                <div class="label">30%</div>
+                                                            </div>
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -158,12 +163,14 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="ps-0" scope="row">Mobile :</th>
-                                                                    <td class="text-muted">{{ $user['contact_number'] }}
+                                                                    <td class="text-muted">
+                                                                        {{ $user['contact_number'] }}
                                                                     </td>
                                                                     <hr>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th class="ps-0" scope="row">NIC Number :</th>
+                                                                    <th class="ps-0" scope="row">NIC Number :
+                                                                    </th>
                                                                     <td class="text-muted">{{ $user['nic_number'] }}
                                                                     </td>
                                                                 </tr>
@@ -188,7 +195,8 @@
                                                                     <td class="text-muted">{{ $joiningDate }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th class="ps-0" scope="row">Department :</th>
+                                                                    <th class="ps-0" scope="row">Department :
+                                                                    </th>
                                                                     <td class="text-muted text-uppercase">
                                                                         {{ $user->department['department_name'] ?? 'NA' }}
                                                                     </td>
@@ -324,7 +332,7 @@
                     <div class="col-sm-6">
                         <script>
                             document.write(new Date().getFullYear())
-                        </script> © Velzon.
+                        </script> © Craftech Digital.
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">

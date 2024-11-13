@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
-class UserController extends Controller
+class HeadController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('user_dashboard.user_dashboard');
+        return view('head_dashboard.head_dashboard');
     }
 
     /**
@@ -50,7 +50,7 @@ class UserController extends Controller
     {
         // $user = User::find($id);
         $user = User::with('department', 'section')->where('id', $id)->first();
-        return view('user_dashboard.show_user_profile_details', compact('user'));
+        return view('head_dashboard.show_head_profile_details', compact('user'));
     }
 
 
@@ -70,7 +70,7 @@ class UserController extends Controller
     public function editProfile(string $id)
     {
         // Define view data
-        $url = 'hr.update.profile';
+        $url = 'head.update.profile';
         $title = 'Edit Profile';
 
         // Retrieve user by ID
@@ -82,12 +82,12 @@ class UserController extends Controller
 
         // Check if the user exists
         if (!$user) {
-            return redirect()->route('user_dashboard')->with('error', 'User not found.');
+            return redirect()->route('head_dashboard')->with('error', 'User not found.');
         }
 
         // Render the view with the user data and other variables
 
-        return view('user_dashboard.edit_user_profile', compact('user', 'url', 'title'));
+        return view('head_dashboard.edit_head_profile', compact('user', 'url', 'title'));
     }
 
 
@@ -146,11 +146,11 @@ class UserController extends Controller
 
         // Save only if any field is modified
         if ($isModified && $user->save()) {
-            return redirect()->route('user.dashboard')->with('success', 'User record updated successfully.');
+            return redirect()->route('head.dashboard')->with('success', 'User record updated successfully.');
         } elseif (!$isModified) {
-            return redirect()->route('user.dashboard')->with('info', 'No changes detected.');
+            return redirect()->route('head.dashboard')->with('info', 'No changes detected.');
         } else {
-            return redirect()->route('user.dashboard')->with('error', 'Failed to update user. Please try again.');
+            return redirect()->route('head.dashboard')->with('error', 'Failed to update user. Please try again.');
         }
     }
 
@@ -174,7 +174,7 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      */
 
-    public function userLogout()
+    public function headLogout()
     {
         Auth::logout();
         return redirect()->route('signin.create')->with('success', 'You have been logged out successfully.');

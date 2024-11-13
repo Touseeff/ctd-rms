@@ -49,6 +49,7 @@
                                             <th>SR No.</th>
                                             <th>Full Name</th>
                                             <th>Email</th>
+                                            <th>Password</th>
                                             <th>Department</th>
                                             <th>Section</th>
                                             <th>Designation</th>
@@ -77,6 +78,7 @@
                                                     {{ $user['first_name'] . ' ' . $user['middle_name'] . ' ' . $user['last_name'] }}
                                                 </td>
                                                 <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
+                                                <td>{{ $user->password }}</td>
                                                 {{-- <td>{{ $user->department->department_name ?? 'N/A' }} --}}
                                                 <td  class="text-capitalize">{{ $user->department['department_name'] ?? 'N/A' }}</td>
                                                 <td  class="text-capitalize">{{ $user->section['section_name'] ?? 'N/A' }}</td>
@@ -161,7 +163,7 @@
                     <div class="col-sm-6">
                         <script>
                             document.write(new Date().getFullYear())
-                        </script> © Velzon.
+                        </script> © Craftech Digital.
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">

@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HrController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HeadController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 // use App\Http\Middleware\AuthMiddleWare;
 
 
@@ -38,11 +39,12 @@ Route::post('/auth/password-store', [AuthController::class, 'passwordstore'])->n
 
 
 
+
+
+
+
 Route::middleware(['auth.redirect'])->group(function () {
-Route::post('/sign-up', [UserController::class, 'store'])->name('signup.store');
-
-
-
+// Route::post('/sign-up', [UserController::class, 'store'])->name('signup.store');
 
 // HR Dashboard routes
 Route::get('/hr-dashboard', [HrController::class, 'index'])->name('hr.dashboard');
@@ -59,6 +61,25 @@ Route::get('/hr-dashboard/user-view/{id}',[HrController::class, 'viewUser'])->na
 Route::get('/hr-dashboard/user-create/{department_id}', [HrController::class, 'getSections'])->name('get.sections');
 
 
+//HR Profile Update 
+Route::get('/hr-profile/hr-profile-edit/{id}', [HrController::class, 'editProfile'])->name('hr.edit.profile');
+Route::post('/hr-profile/hr-profile-update', [HrController::class, 'updateProfile'])->name('hr.update.profile');
+Route::get('/hr-profile/hr-profile-view/{id}',[HrController::class, 'viewProfile'])->name('hr.view.profile');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Admin Dashboard reoutes
@@ -70,6 +91,60 @@ Route::post('/admin-dashboard/user-store', [AdminController::class, 'storeUser']
 Route::get('/admin-dashboard/user-edit/{id}', [AdminController::class, 'editUser'])->name('admin.edit.user');
 Route::post('/admin-dashboard/user-update', [AdminController::class, 'updateUser'])->name('admin.update.user');
 Route::get('/admin-dashboard/user-view/{id}',[AdminController::class, 'viewUser'])->name('admin.view.user');
+
+//
+
+Route::get('/admin-dashboard/user-create/{department_id}', [AdminController::class, 'getSections'])->name('get.sections');
+
+
+
+//Admin Profile Routes
+Route::get('/admin-profile/admin-profile-edit/{id}', [AdminController::class, 'editProfile'])->name('admin.edit.profile');
+Route::post('/admin-profile/admin-profile-update', [AdminController::class, 'updateProfile'])->name('admin.update.profile');
+Route::get('/admin-profile/admin-profile-view/{id}',[AdminController::class, 'viewProfile'])->name('admin.view.profile');
+
+
+
+
+
+
+
+
+
+
+
+
+
+//User Dashboard routes
+Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+Route::get('/user/auth/logout', [UserController::class, 'userLogout'])->name('user.logout');
+
+//for testing profiles routes
+
+Route::get('/user-profile/user-profile-edit/{id}', [UserController::class, 'editProfile'])->name('user.edit.profile');
+Route::post('/user-profile/user-profile-update', [UserController::class, 'updateProfile'])->name('user.update.profile');
+Route::get('/user-profile/user-profile-view/{id}',[UserController::class, 'viewProfile'])->name('user.view.profile');
+
+
+
+
+
+//User Dashboard routes
+Route::get('/head/dashboard', [HeadController::class, 'index'])->name('head.dashboard');
+Route::get('/head/auth/logout', [HeadController::class, 'headLogout'])->name('head.logout');
+
+
+Route::get('/head-profile/head-profile-edit/{id}', [HeadController::class, 'editProfile'])->name('head.edit.profile');
+Route::post('/head-profile/head-profile-update', [HeadController::class, 'updateProfile'])->name('head.update.profile');
+Route::get('/head-profile/head-profile-view/{id}',[HeadController::class, 'viewProfile'])->name('head.view.profile');
+
+
+
+
+
+
+
+
 
 
 

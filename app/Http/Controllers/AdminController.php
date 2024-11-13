@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Mail\AuthMail;
+use Illuminate\Support\Str;
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -72,21 +74,22 @@ class AdminController extends Controller
         $existingUser = User::where('email', $request->email)->first();
 
         if ($existingUser) {
-            return redirect()->route('create.user')->with('error', 'Email is already registered. Please use a different email.');
+            return redirect()->route('admin.show.user')->with('error', 'Email is already registered. Please use a different email.');
         }
         // Validate the request data here if needed
         // dd($request->toArray());
         // Create a new User instance
-
         $user = new User();
         $user->role_id = $request->role;
         $user->department_id = $request->department;
         $user->section_id = $request->section;
         $user->first_name = $request->firstName;
-        $user->middle_name = $request->middleName;
+        // $user->middle_name = $request->middleName;
         $user->last_name = $request->lastName;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $password = Str::random(10);
+        // $user->password = bcrypt($password);
+        $user->password = $password;
         // Log::debug('Hashed Password:', ['password' => $user->password]);
         $user->contact_number = $request->contactNumber;
         $user->nic_number = $request->nicNumber;
@@ -129,11 +132,11 @@ class AdminController extends Controller
                 }
 
                 // Redirect to the login page regardless of email success or failure
-                return redirect()->route('show.user')->with('success', 'User registered successfully!');
+                return redirect()->route('admin.show.user')->with('success', 'User registered successfully!');
             }
         } else {
             Log::error('User registration failed for: ' . $user->email);
-            return redirect()->route('create.user')->with('error', 'Failed to register user. Please try again.');
+            return redirect()->route('admin.show.user')->with('error', 'Failed to register user. Please try again.');
         }
 
         // Handle the image upload if the file exists
@@ -220,13 +223,27 @@ class AdminController extends Controller
 
     // Store the fields that can be updated
     $fieldsToUpdate = [
+        
+        'role_id' => $request->role,
         'department_id' => $request->department,
         'section_id' => $request->section, 
+        'first_name' => $request->firstName,
+        'last_name' => $request->lastName,
+        // 'email' => $user->email,
+        // 'password' => bcrypt($request->password),
+        // Log::debug('Hashed Password:', ['password' => 'password]);
+        'contact_number' => $request->contactNumber,
+        'nic_number' => $request->nicNumber,
+        'date_of_birth' => $request->dateOfBirth,
+        'designation' => $request->designation,
+        'gendar' => $request->gender,
         'qualification' => $request->qualification,
         'joining_date' => $request->dateOfJoining,
         'address_one' => $request->addressOne,
         'address_two' => $request->addressTwo,
-        'status' => $request->status,
+        'designation_role' => $request->designationRole,
+        'status' => $request->status
+
     ];
 
     // Track if any field is actually modified
@@ -268,10 +285,116 @@ class AdminController extends Controller
         //
     }
 
+
+    public function getSections($department_id)
+    {
+        // echo $department_id;
+
+        $sections = DB::table('sections')
+            ->where('department_id', $department_id)
+            ->get();
+        return response()->json($sections);
+
+    }
     /**
      * Remove the specified resource from storage.
      */
 
+     
+    //  Profile controller methods 
+
+    public function viewProfile(string $id)
+    {
+        // $user = User::find($id);
+        $user = User::with('department', 'section')->where('id', $id)->first();
+        return view('admin_dashboard.show_admin_profile_details', compact('user'));
+    }
+    public function editProfile(string $id)
+    {
+        // Define view data
+        $url = 'admin.update.profile';
+        $title = 'Edit Profile';
+
+        // Retrieve user by ID
+        // $user = User::find($id);
+        $user = User::with('department', 'section')->where('id', $id)->first();
+        // dd($user->toArray());
+
+
+
+        // Check if the user exists
+        if (!$user) {
+            return redirect()->route('admin_dashboard')->with('error', 'User not found.');
+        }
+
+        // Render the view with the user data and other variables
+
+        return view('admin_dashboard.edit_admin_profile', compact('user', 'url', 'title'));
+    }
+
+
+
+
+
+
+    public function updateProfile(Request $request)
+    {
+        $id = $request->id;
+        $user = User::find($id);
+
+        // Store the fields that can be updated
+        $fieldsToUpdate = [
+            'first_name' => $request->firstName,
+            // 'middle_name' => $request->middleName,
+            'last_name' => $request->lastName,
+            // 'contact_number' => $request->contactNumber,
+            'nic_number' => $request->nicNumber,
+            'gendar' => $request->gender,
+            'qualification' => $request->qualification,
+            'date_of_birth' => $request->dateOfBirth,
+            'address_one' => $request->addressOne,
+            'address_two' => $request->addressTwo,
+        ];
+
+        // Track if any field is actually modified
+        $isModified = false;
+
+        foreach ($fieldsToUpdate as $field => $newValue) {
+            if ($user->$field != $newValue) {
+                $user->$field = $newValue;
+                $isModified = true;
+            }
+        }
+
+        // Handle profile image upload
+        if ($request->hasFile('profileImage')) {
+            // Define the upload path
+            $uploadPath = 'uploads/profile_images/';
+
+            // Delete the previous image if it exists
+            if ($user->profile_image && file_exists(public_path($uploadPath . $user->profile_image))) {
+                unlink(public_path($uploadPath . $user->profile_image));
+            }
+
+            // Store the new image
+            $newImageName = $user->first_name."_".time() . '_' . $request->file('profileImage')->getClientOriginalName();
+            $request->file('profileImage')->move(public_path($uploadPath), $newImageName);
+
+            // Update the user's profile image field
+            $user->profile_image = $newImageName;
+            $isModified = true;
+        }
+
+
+        // Save only if any field is modified
+        if ($isModified && $user->save()) {
+            return redirect()->route('admin.dashboard')->with('success', 'User record updated successfully.');
+        } elseif (!$isModified) {
+            return redirect()->route('admin.dashboard')->with('info', 'No changes detected.');
+        } else {
+            return redirect()->route('admin.dashboard')->with('error', 'Failed to update user. Please try again.');
+        }
+    }
     public function adminLogout()
     {
         Auth::logout();

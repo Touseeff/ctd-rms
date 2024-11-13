@@ -11,7 +11,7 @@
 @endphp
 <!-- Begin page -->
 <div id="layout-wrapper">
-    @include('hr_dashboard.header')
+    @include('admin_dashboard.header')
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->
@@ -22,18 +22,27 @@
             <div class="container-fluid">
                 <div class="profile-foreground position-relative mx-n4 mt-n4">
                     <div class="profile-wid-bg">
-                        <img src="{{ asset('./public/assets/images/users/user-dummy-img.jpg') }}" alt=""
-                            class="profile-wid-img" />
+                        {{-- <img src="{{ asset('/public/uploads/profile_images/'.$user->profile_image) }}" alt="" class="profile-wid-img" /> --}}
                     </div>
                 </div>
                 <div class="pt-4 mb-4 mb-lg-3 pb-lg-4 profile-wrapper">
                     <div class="row g-4">
-                        <div class="col-auto">
-                            <div class="avatar-lg">
-                                <img src="{{ asset('./public/assets/images/users/user-dummy-img.jpg') }}" alt="user-img"
-                                    class="img-thumbnail rounded-circle" />
+                        @if (Auth::user()->profile_image == null)
+                            <div class="col-auto">
+                                <div class="avatar-lg">
+                                    <img src="{{ asset('./public/assets/images/users/user-dummy-img.jpg') }}"
+                                        alt="user-img" class="img-thumbnail rounded-circle" />
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="col-auto">
+                                <div class="avatar-lg">
+                                    <img src="{{ asset('/public/uploads/profile_images/' . $user->profile_image) }}"
+                                        alt="user-img" class="img-thumbnail rounded-circle" />
+                                </div>
+                            </div>
+                        @endif
+
                         <!--end col-->
                         <div class="col">
                             <div class="p-2">
@@ -64,6 +73,7 @@
                                         <p class="fs-14 mb-0 text-uppercase">{{ $user->status }}</p>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <!--end col-->
@@ -92,7 +102,7 @@
 
                                 </ul>
                                 <div class="flex-shrink-0">
-                                    <a href="{{ route('edit.user', ['id' => $user->id]) }}"
+                                    <a href="{{ route('admin.edit.profile', ['id' => $user->id]) }}"
                                         class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Edit
                                         Profile</a>
                                 </div>
@@ -113,6 +123,12 @@
                                                                 aria-valuemax="50">
                                                                 <div class="label">50%</div>
                                                             </div>
+                                                        @elseif ($user->status == 'approve' &&  $user->profile_image == null)
+                                                            <div class="progress-bar bg-primary" role="progressbar"
+                                                                style="width: 80%" aria-valuenow="100  "
+                                                                aria-valuemin="0" aria-valuemax="100">
+                                                                <div class="label">80%</div>
+                                                            </div>
                                                         @elseif ($user->status == 'active' && $user->profile_image !== null)
                                                             <div class="progress-bar bg-success" role="progressbar"
                                                                 style="width: 100%" aria-valuenow="100  "
@@ -120,7 +136,7 @@
                                                                 <div class="label"> 0%</div>
                                                             </div> 
                                                         @elseif ($user->status == 'active' &&  $user->profile_image == null)
-                                                            <div class="progress-bar bg-success" role="progressbar"
+                                                            <div class="progress-bar bg-primary" role="progressbar"
                                                                 style="width: 80%" aria-valuenow="80  "
                                                                 aria-valuemin="0" aria-valuemax="80">
                                                                 <div class="label">80%</div>
@@ -157,18 +173,20 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <th class="ps-0" scope="row">Full Name :</th>
-                                                                    <td class="text-muted">
+                                                                    <td class="text-muted text-capitalize">
                                                                         {{ $user['first_name'] . ' ' . $user['middle_name'] . ' ' . $user['last_name'] }}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="ps-0" scope="row">Mobile :</th>
-                                                                    <td class="text-muted">{{ $user['contact_number'] }}
+                                                                    <td class="text-muted">
+                                                                        {{ $user['contact_number'] }}
                                                                     </td>
                                                                     <hr>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th class="ps-0" scope="row">NIC Number :</th>
+                                                                    <th class="ps-0" scope="row">NIC Number :
+                                                                    </th>
                                                                     <td class="text-muted">{{ $user['nic_number'] }}
                                                                     </td>
                                                                 </tr>
@@ -182,7 +200,8 @@
                                                                     <td class="text-muted">{{ $birthDate }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th class="ps-0" scope="row">Qualification :
+                                                                    <th class="ps-0 text-capitalize" scope="row">
+                                                                        Qualification :
                                                                     </th>
                                                                     <td class="text-muted">{{ $user->qualification }}
                                                                     </td>
@@ -193,7 +212,8 @@
                                                                     <td class="text-muted">{{ $joiningDate }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th class="ps-0" scope="row">Department :</th>
+                                                                    <th class="ps-0" scope="row">Department :
+                                                                    </th>
                                                                     <td class="text-muted text-uppercase">
                                                                         {{ $user->department['department_name'] ?? 'NA' }}
                                                                     </td>
@@ -259,7 +279,7 @@
                                                                 </div>
                                                                 <div class="flex-grow-1 overflow-hidden">
                                                                     <p class="mb-1">Designation :</p>
-                                                                    <h6 class="text-truncate mb-0">
+                                                                    <h6 class="text-truncate mb-0 text-capitalize">
                                                                         {{ $user->designation }}</h6>
                                                                 </div>
                                                             </div>
@@ -290,12 +310,12 @@
                                                                 </div>
                                                                 <div class="flex-grow-1 overflow-hidden">
                                                                     <p class="mb-1">Address 01 :</p>
-                                                                    <h6 class="text-truncate mb-0">
+                                                                    <h6 class="text-truncate mb-0 text-capitalize">
                                                                         {{ $user->address_one }}</h6>
                                                                 </div>
                                                                 <div class="flex-grow-1 overflow-hidden">
                                                                     <p class="mb-1">Address 02 :</p>
-                                                                    <h6 class="text-truncate mb-0">
+                                                                    <h6 class="text-truncate mb-0 text-capitalize">
                                                                         {{ $user->address_two }}</h6>
                                                                 </div>
                                                             </div>
@@ -342,7 +362,7 @@
     </div><!-- end main content-->
 
     <!-- END layout-wrapper -->
-    @include('hr_dashboard.preloader')
+    @include('admin_dashboard.preloader')
 
     <!-- Theme Settings -->
 
