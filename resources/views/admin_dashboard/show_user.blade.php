@@ -32,7 +32,11 @@
                         <div class="card">
                             <div class="card-header" style="display: flex; justify-content: end;">
                                 {{-- <h5 class="card-title mb-0"></h5> --}}
+<<<<<<< HEAD
                                 <a class="btn btn-primary" href="{{ route('admin.create.user') }}">Add User</a>
+=======
+                                <a class="btn btn-primary" href="{{route('admin.create.user')}}">Add User</a>
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                 {{-- <button id="addRow" class="btn btn-primary">Add New Row</button> --}}
                             </div>
 
@@ -50,27 +54,37 @@
                                             <th>Full Name</th>
                                             <th>Email</th>
                                             <th>Department</th>
+<<<<<<< HEAD
                                             <th>Section</th>
+=======
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                             <th>Designation</th>
                                             <th>Designation Role</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
+<<<<<<< HEAD
                                
+=======
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                     <tbody>
                                         @php
                                             $count = 1;
                                         @endphp
                                         @foreach ($users as $user)
                                             <tr>
+<<<<<<< HEAD
                                                 {{-- <pre>{{ print_r($user->toArray()) }}</pre> --}}
+=======
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                                 <th scope="row">
                                                     {{-- <div class="form-check">
                                                         <input class="form-check-input fs-15" type="checkbox"
                                                             name="checkAll" value="option1">
                                                     </div> --}}
                                                 </th>
+<<<<<<< HEAD
 
                                                 <td>{{ $count }}</td>
                                                 <td class="text-capitalize">
@@ -85,6 +99,18 @@
                                                 <td  class="text-capitalize">{{ $user->designation }}</td>
 
                                                 <td  class="text-capitalize">{{ $user->designation_role }}</td>
+=======
+                                                <td>{{ $count }}</td>
+                                                <td class="text-capitalize">{{ $user['first_name'] . ' ' . $user['middle_name'] . ' ' . $user['last_name'] }}
+                                                </td>
+                                                <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
+                                                <td class="text-capitalize" >{{ $user->department }}
+                                                </td>
+                                                <td class="text-capitalize">{{ $user->designation }}</td>
+
+                                                <td class="text-capitalize">{{ $user->designation_role }}</td>
+
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 
                                                 @if ($user->status == 'active')
                                                     <td><span class="badge bg-success text-uppercase">Active</span>
@@ -102,6 +128,10 @@
                                                     <td><span class="badge bg-warning text-uppercase">Pending</span>
                                                     </td>
                                                 @endif
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                                 <td>
                                                     <div class="dropdown d-inline-block">
                                                         <button class="btn btn-soft-secondary btn-sm dropdown"
@@ -161,7 +191,11 @@
                     <div class="col-sm-6">
                         <script>
                             document.write(new Date().getFullYear())
+<<<<<<< HEAD
                         </script> © Craf Tech Digitalech Digital.
+=======
+                        </script> © Velzon.
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">

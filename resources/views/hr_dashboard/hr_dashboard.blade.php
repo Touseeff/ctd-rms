@@ -37,7 +37,11 @@
                                 <div class="col-12">
                                     <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                                         <div class="flex-grow-1">
+<<<<<<< HEAD
                                             <h4 class="fs-16 mb-1">Good Morning, {{Auth::user()->first_name}}!</h4>
+=======
+                                            <h4 class="fs-16 mb-1">Good Morning, Anna!</h4>
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                             <p class="text-muted mb-0">Here's what's happening with your store today.
                                             </p>
                                         </div>
@@ -59,9 +63,16 @@
                                                     </div>
                                                     <!--end col-->
                                                     <div class="col-auto">
+<<<<<<< HEAD
                                                         <a href="{{ route('hr.edit.profile',['id'=>Auth::user()->id]) }}" type="button"
                                                             class="btn btn-soft-success material-shadow-none"><i
                                                                 class="ri-add-circle-line align-middle me-1"></i>Edit Profile</a>
+=======
+                                                        <a href="{{ route('create.user') }}" type="button"
+                                                            class="btn btn-soft-success material-shadow-none"><i
+                                                                class="ri-add-circle-line align-middle me-1"></i> Add
+                                                            New User</a>
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                                     </div>
                                                     <!--end col-->
                                                     <div class="col-auto">
@@ -722,7 +733,11 @@
                     <div class="col-sm-6">
                         <script>
                             document.write(new Date().getFullYear())
+<<<<<<< HEAD
                         </script> © Craftech Digital.
+=======
+                        </script> © Velzon.
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">

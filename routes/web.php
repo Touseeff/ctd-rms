@@ -1,11 +1,19 @@
 <?php
 
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HrController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HeadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+=======
+use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HrController;
+use App\Http\Controllers\UserController;
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 // use App\Http\Middleware\AuthMiddleWare;
 
 
@@ -39,12 +47,20 @@ Route::post('/auth/password-store', [AuthController::class, 'passwordstore'])->n
 
 
 
+<<<<<<< HEAD
 
 
 
 
 Route::middleware(['auth.redirect'])->group(function () {
 // Route::post('/sign-up', [UserController::class, 'store'])->name('signup.store');
+=======
+Route::middleware(['auth.redirect'])->group(function () {
+Route::post('/sign-up', [UserController::class, 'store'])->name('signup.store');
+
+
+
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 
 // HR Dashboard routes
 Route::get('/hr-dashboard', [HrController::class, 'index'])->name('hr.dashboard');
@@ -57,6 +73,7 @@ Route::post('/hr-dashboard/user-update', [HrController::class, 'updateUser'])->n
 Route::get('/hr-dashboard/user-view/{id}',[HrController::class, 'viewUser'])->name('view.user');
 // Route::post('/hr-dashboard/user-store', [HrController::class, 'storeUser'])->name('store.user');
 
+<<<<<<< HEAD
 // 
 Route::get('/hr-dashboard/user-create/{department_id}', [HrController::class, 'getSections'])->name('get.sections');
 
@@ -79,6 +96,12 @@ Route::get('/hr-profile/hr-profile-view/{id}',[HrController::class, 'viewProfile
 
 
 
+=======
+// web.php
+Route::get('/hr-dashboard/user-create/{department_id}', [HrController::class, 'getSections'])->name('get.sections');
+
+
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 
 
 
@@ -92,6 +115,7 @@ Route::get('/admin-dashboard/user-edit/{id}', [AdminController::class, 'editUser
 Route::post('/admin-dashboard/user-update', [AdminController::class, 'updateUser'])->name('admin.update.user');
 Route::get('/admin-dashboard/user-view/{id}',[AdminController::class, 'viewUser'])->name('admin.view.user');
 
+<<<<<<< HEAD
 //
 
 Route::get('/admin-dashboard/user-create/{department_id}', [AdminController::class, 'getSections'])->name('get.sections');
@@ -144,10 +168,15 @@ Route::get('/head-profile/head-profile-view/{id}',[HeadController::class, 'viewP
 
 
 
+=======
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 
 
 
 
 
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a

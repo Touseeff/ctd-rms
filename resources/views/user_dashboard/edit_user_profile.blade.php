@@ -74,7 +74,7 @@
                                             {{-- <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label for="middleNameinput" class="form-label">Middle Name</label>
-                                                    <input type="text"
+                      <input type="text"
                                                         value="{{ isset($user) ? $user->middle_name : '' }}"
                                                         class="form-control" placeholder="Enter middle name"
                                                         id="middleNameinput" name="middleName">

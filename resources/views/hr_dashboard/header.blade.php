@@ -169,8 +169,13 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
+<<<<<<< HEAD
                         <h6 class="dropdown-header">Welcome {{Auth::user()->first_name}}!</h6>
                         <a class="dropdown-item" href="{{route('hr.view.profile',['id'=>Auth::user()->id])}}"><i
+=======
+                        <h6 class="dropdown-header">Welcome Anna!</h6>
+                        <a class="dropdown-item" href="pages-profile.html"><i
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profile</span></a>
 
@@ -237,8 +242,13 @@
         </button>
         <div class="dropdown-menu dropdown-menu-end">
             <!-- item-->
+<<<<<<< HEAD
             <h6 class="dropdown-header">Welcome {{Auth::user()->first_name}}!</h6>
             <a class="dropdown-item" href="#"><i
+=======
+            <h6 class="dropdown-header">Welcome Anna!</h6>
+            <a class="dropdown-item" href="pages-profile.html"><i
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                     class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                     class="align-middle">Profile</span></a>
             <a class="dropdown-item" href="apps-chat.html"><i
@@ -251,7 +261,11 @@
                     class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span
                     class="align-middle">Help</span></a>
             <div class="dropdown-divider"></div>
+<<<<<<< HEAD
             <a class="dropdown-item" href="#"><i
+=======
+            <a class="dropdown-item" href="pages-profile.html"><i
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                     class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance
                     : <b>$5971.67</b></span></a>
             <a class="dropdown-item" href="pages-profile-settings.html"><span

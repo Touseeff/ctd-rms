@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Mail\AuthMail;
+<<<<<<< HEAD
 use Illuminate\Support\Str;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+=======
+use App\Models\Notification;
+use Illuminate\Http\Request;
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -43,14 +48,21 @@ class AdminController extends Controller
      */
     public function showUser()
     {
+<<<<<<< HEAD
         $users = User::with(['department', 'section'])->orderBy('id', 'DESC')->get();
         // dd($users->toArray());
         return view('admin_dashboard.show_user', compact('users'));
+=======
+        $users = User::orderBy('id', 'DESC')->get();
+        return view('admin_dashboard.show_user', compact('users'));
+        // return view('admin_dashboard.show_user', compact('users'));
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     }
 
 
     public function viewUser(string $id)
     {
+<<<<<<< HEAD
         // $user = User::find($id);
         $user = User::with('department','section')->where('id', $id)->first();
         return view('admin_dashboard.show_user_details', compact('user'));
@@ -58,6 +70,11 @@ class AdminController extends Controller
 
 
 
+=======
+        $user = User::find($id);
+        return view('admin_dashboard.show_user_details', compact('user'));
+    }
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     public function createUser()
     {
         $url = 'admin.store.user';
@@ -74,11 +91,16 @@ class AdminController extends Controller
         $existingUser = User::where('email', $request->email)->first();
 
         if ($existingUser) {
+<<<<<<< HEAD
             return redirect()->route('admin.show.user')->with('error', 'Email is already registered. Please use a different email.');
+=======
+            return redirect()->route('create.user')->with('error', 'Email is already registered. Please use a different email.');
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
         }
         // Validate the request data here if needed
         // dd($request->toArray());
         // Create a new User instance
+<<<<<<< HEAD
         $user = new User();
         $user->role_id = $request->role;
         $user->department_id = $request->department;
@@ -90,6 +112,16 @@ class AdminController extends Controller
         $password = Str::random(10);
         // $user->password = bcrypt($password);
         $user->password = $password;
+=======
+
+        $user = new User();
+        $user->role_id = $request->role;
+        $user->first_name = $request->firstName;
+        $user->middle_name = $request->middleName;
+        $user->last_name = $request->lastName;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
         // Log::debug('Hashed Password:', ['password' => $user->password]);
         $user->contact_number = $request->contactNumber;
         $user->nic_number = $request->nicNumber;
@@ -99,10 +131,19 @@ class AdminController extends Controller
         $user->designation = $request->designation;
         $user->joining_date = $request->dateOfJoining;
         $user->designation_role = $request->designationRole;
+<<<<<<< HEAD
         $user->address_one = $request->addressOne;
         $user->address_two = $request->addressTwo;
         $user->status = $request->status;
 
+=======
+        $user->skills = $request->skills;
+        $user->address = $request->address;
+        $user->department = $request->department;
+        $user->status = $request->status;
+
+
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
         // $user->status = 'pending';
 
         if ($user->save()) {
@@ -136,8 +177,14 @@ class AdminController extends Controller
             }
         } else {
             Log::error('User registration failed for: ' . $user->email);
+<<<<<<< HEAD
             return redirect()->route('admin.show.user')->with('error', 'Failed to register user. Please try again.');
         }
+=======
+            return redirect()->route('admin.create.user')->with('error', 'Failed to register user. Please try again.');
+        }
+        
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 
         // Handle the image upload if the file exists
         // if ($request->hasFile('image')) {
@@ -147,6 +194,10 @@ class AdminController extends Controller
         //     $image->move($destinationPath, $file_name); 
         //     $user->profile_image = $file_name; 
         // }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     }
 
 
@@ -157,6 +208,7 @@ class AdminController extends Controller
         $title = 'Edit User';
 
         // Retrieve user by ID
+<<<<<<< HEAD
         // $user = User::find($id);
         $user = User::with('department', 'section')->where('id', $id)->first();
         // dd($user->toArray());
@@ -270,13 +322,67 @@ class AdminController extends Controller
 
 }
 
+=======
+        $user = User::find($id);
+
+        // Check if the user exists
+        if (!$user) {
+            return redirect()->route('show.user')->with('error', 'User not found.');
+        }
+
+        // Render the view with the user data and other variables
+        return view('admin_dashboard.add_user', compact('user', 'url', 'title'));
+    }
+
+    public function updateUser(Request $request)
+    {
+        // dd($request->toArray());
+
+
+        // dd($request->toArray());
+
+        $id = $request->id;
+        $user = User::find($id);
+
+        // dd($user->toArray());
+        $user->first_name = $request->firstName;
+        $user->middle_name = $request->middleName;
+        $user->last_name = $request->lastName;
+        // $user->email = $user['email'];
+        // $user->password = $user['password'];
+        $user->contact_number = $request->contactNumber;
+        $user->nic_number = $request->nicNumber;
+        $user->date_of_birth = $request->dateOfBirth;
+        $user->gendar = $request->gender;
+        $user->qualification = $request->qualification;
+        $user->designation = $request->designation;
+        $user->joining_date = $request->dateOfJoining;
+        $user->designation_role = $request->designationRole;
+        $user->skills = $request->skills;
+        $user->address = $request->address;
+        $user->department = $request->department;
+        $user->status = $request->status;
+
+        if ($user->save()) {
+            // echo "ok";
+            return redirect()->route('admin.show.user')->with('success', 'User record updated successfully.');
+        } else {
+            // echo "not ok";
+            return redirect()->route('admin.show.user')->with('error', 'Failed to update user. Please try again.');
+        }
+    }
+
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 
     /**
      * Show the form for editing the specified resource.
      */
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     /**
      * Update the specified resource in storage.
      */
@@ -285,6 +391,7 @@ class AdminController extends Controller
         //
     }
 
+<<<<<<< HEAD
 
     public function getSections($department_id)
     {
@@ -296,10 +403,13 @@ class AdminController extends Controller
         return response()->json($sections);
 
     }
+=======
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     /**
      * Remove the specified resource from storage.
      */
 
+<<<<<<< HEAD
      
     //  Profile controller methods 
 
@@ -395,14 +505,19 @@ class AdminController extends Controller
             return redirect()->route('admin.dashboard')->with('error', 'Failed to update user. Please try again.');
         }
     }
+=======
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     public function adminLogout()
     {
         Auth::logout();
         return redirect()->route('signin.create')->with('success', 'You have been logged out successfully.');
 
     }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     public function destroy(string $id)
     {
         //
