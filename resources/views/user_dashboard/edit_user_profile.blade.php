@@ -11,9 +11,9 @@
 <div id="layout-wrapper">
     @include('user_dashboard.header')
 
-    <!-- ============================================================== -->
+    <!-- ====== -->
     <!-- Start right Content here -->
-    <!-- ============================================================== -->
+    <!-- ====== -->
     <div class="main-content">
 
         <div class="page-content">

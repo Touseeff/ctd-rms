@@ -5,11 +5,8 @@
 <head>
 
     <meta charset="utf-8" />
-<<<<<<< HEAD
+
     <title>Starter | Craf Tech Digital - Admin & Dashboard Template</title>
-=======
-    <title>Starter | Velzon - Admin & Dashboard Template</title>
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />

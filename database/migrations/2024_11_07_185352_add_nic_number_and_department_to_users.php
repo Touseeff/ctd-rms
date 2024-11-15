@@ -16,10 +16,7 @@ return new class extends Migration
             $table->string('department')->nullable()->default(null)->after('designation');
         });
     }
-<<<<<<< HEAD
     
-=======
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 
     /**
      * Reverse the migrations.

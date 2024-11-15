@@ -72,7 +72,6 @@ class AuthController extends Controller
      */
     public function signinMatching(Request $request)
     {
-<<<<<<< HEAD
         // $validatedData = $request->validate([
         //     'email' => ['required', 'email'],
         //     'password' => ['required'],
@@ -105,49 +104,10 @@ class AuthController extends Controller
             } else if (Auth::check() && Auth::user()->role_id == 2) {
                 $user = Auth::user();
                 $user->status = 'active';
-=======
-        $validatedData = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        // $remember = $request->remaber;
-        $remember = $request->has('remember');
-        if (Auth::attempt($validatedData, $remember)) {
-            if (Auth::user()->role_id == 1) {
-                $notification = new Notification();
-                $notification->user_id = Auth::user()->id;
-                $notification->notification_type = "Super Admin Login";
-
-                if ($notification->save()) {
-                    // Prepare email details
-                    $details = [
-                        'sbuject' => 'Login Successful!.',
-                        'first_name' => Auth::user()->first_name,
-                        'message' => 'Thank you for logging in! We’re excited to have you with us.',
-                        'cc' => 'tauseefdevelopment000@gmail.com'
-                    ];
-                    $template = 'emails.login_notification';
-
-                    // Send email
-                    Mail::to(Auth::user()->email)
-                        ->cc($details['cc'])
-                        ->send(new LoginMail($details, $template));
-
-                    Log::info('Login successful for user: ' . Auth::user()->email);
-                    return view('super_admin_dashboard');
-                    // return redirect()->route('user')->with('success', 'User logged in successfully!');
-                } else {
-                    Log::error('Failed to save notification for user: ' . Auth::user()->email);
-                    return redirect()->route('signin.create')->with('error', 'Failed to save login notification. Please try again.');
-                }
-            } else if (Auth::user()->role_id == 2) {
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                 $notification = new Notification();
                 $notification->user_id = Auth::user()->id;
                 $notification->notification_type = "Admin Login";
 
-<<<<<<< HEAD
                 if ($notification->save() && $user->save()) {
                     // Prepare email details
                     // return view('admin.dashboard');
@@ -182,94 +142,10 @@ class AuthController extends Controller
             } else if (Auth::check() && Auth::user()->role_id == 5) {
                 $user = Auth::user();
                 $user->status = 'active';
-=======
-                if ($notification->save()) {
-                    // Prepare email details
-                    $details = [
-                        'sbuject' => 'Login Successful!.',
-                        'first_name' => Auth::user()->first_name,
-                        'message' => 'Thank you for logging in! We’re excited to have you with us.',
-                        'cc' => 'tauseefdevelopment000@gmail.com'
-                    ];
-                    $template = 'emails.login_notification';
-
-                    // Send email
-                    Mail::to(Auth::user()->email)
-                        ->cc($details['cc'])
-                        ->send(new LoginMail($details, $template));
-
-                    Log::info('Login successful for user: ' . Auth::user()->email);
-                    // return view('admin.dashboard');
-                    return redirect()->route('admin.dashboard')->with('success', 'User logged in successfully!');
-                } else {
-                    Log::error('Failed to save notification for user: ' . Auth::user()->email);
-                    return redirect()->route('signin.create')->with('error', 'Failed to save login notification. Please try again.');
-                }
-            } else if (Auth::user()->role_id == 3) {
-                $notification = new Notification();
-                $notification->user_id = Auth::user()->id;
-                $notification->notification_type = "HR Login";
-
-                if ($notification->save()) {
-                    // Prepare email details
-                    $details = [
-                        'sbuject' => 'Login Successful!.',
-                        'first_name' => Auth::user()->first_name,
-                        'message' => 'Thank you for logging in! We’re excited to have you with us.',
-                        'cc' => 'tauseefdevelopment000@gmail.com'
-                    ];
-                    $template = 'emails.login_notification';
-
-                    // Send email
-                    Mail::to(Auth::user()->email)
-                        ->cc($details['cc'])
-                        ->send(new LoginMail($details, $template));
-
-                    Log::info('Login successful for user: ' . Auth::user()->email);
-                    // return view('agent_dashboard');
-                    return redirect()->route('hr.dashboard')->with('success', 'User logged in successfully!');
-                } else {
-                    Log::error('Failed to save notification for user: ' . Auth::user()->email);
-                    return redirect()->route('signin.create')->with('error', 'Failed to save login notification. Please try again.');
-                }
-            } else if (Auth::user()->role_id == 4) {
-
-
-                $notification = new Notification();
-                $notification->user_id = Auth::user()->id;
-                $notification->notification_type = "Head Login";
-
-                if ($notification->save()) {
-                    // Prepare email details
-                    $details = [
-                        'sbuject' => 'Login Successful!.',
-                        'first_name' => Auth::user()->first_name,
-                        'message' => 'Thank you for logging in! We’re excited to have you with us.',
-                        'cc' => 'tauseefdevelopment000@gmail.com'
-                    ];
-                    $template = 'emails.login_notification';
-
-                    // Send email
-                    Mail::to(Auth::user()->email)
-                        ->cc($details['cc'])
-                        ->send(new LoginMail($details, $template));
-
-                    Log::info('Login successful for user: ' . Auth::user()->email);
-                    return view('head_dashboard');
-                    // return redirect()->route('user')->with('success', 'User logged in successfully!');
-                } else {
-                    Log::error('Failed to save notification for user: ' . Auth::user()->email);
-                    return redirect()->route('signin.create')->with('error', 'Failed to save login notification. Please try again.');
-                }
-            } else if (Auth::user()->role_id == 5) {
-
-
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                 $notification = new Notification();
                 $notification->user_id = Auth::user()->id;
                 $notification->notification_type = "Mananger Login";
 
-<<<<<<< HEAD
                 if ($notification->save() && $user->save()) {
                     // Prepare email details
 
@@ -294,67 +170,10 @@ class AuthController extends Controller
             } else if (Auth::check() && Auth::user()->role_id == 7) {
                 $user = Auth::user();
                 $user->status = 'active';
-=======
-                if ($notification->save()) {
-                    // Prepare email details
-                    $details = [
-                        'sbuject' => 'Login Successful!.',
-                        'first_name' => Auth::user()->first_name,
-                        'message' => 'Thank you for logging in! We’re excited to have you with us.',
-                        'cc' => 'tauseefdevelopment000@gmail.com'
-                    ];
-                    $template = 'emails.login_notification';
-
-                    // Send email
-                    Mail::to(Auth::user()->email)
-                        ->cc($details['cc'])
-                        ->send(new LoginMail($details, $template));
-
-                    Log::info('Login successful for user: ' . Auth::user()->email);
-                    return view('manager_dashboard');
-                    // return redirect()->route('user')->with('success', 'User logged in successfully!');
-                } else {
-                    Log::error('Failed to save notification for user: ' . Auth::user()->email);
-                    return redirect()->route('signin.create')->with('error', 'Failed to save login notification. Please try again.');
-                }
-            } else if (Auth::user()->role_id == 6) {
-
-
-                $notification = new Notification();
-                $notification->user_id = Auth::user()->id;
-                $notification->notification_type = "Lead Login";
-
-                if ($notification->save()) {
-                    // Prepare email details
-                    $details = [
-                        'sbuject' => 'Login Successful!.',
-                        'first_name' => Auth::user()->first_name,
-                        'message' => 'Thank you for logging in! We’re excited to have you with us.',
-                        'cc' => 'tauseefdevelopment000@gmail.com'
-                    ];
-                    $template = 'emails.login_notification';
-
-                    // Send email
-                    Mail::to(Auth::user()->email)
-                        ->cc($details['cc'])
-                        ->send(new LoginMail($details, $template));
-
-                    Log::info('Login successful for user: ' . Auth::user()->email);
-                    return view('lead_dashboard');
-                    // return redirect()->route('user')->with('success', 'User logged in successfully!');
-                } else {
-                    Log::error('Failed to save notification for user: ' . Auth::user()->email);
-                    return redirect()->route('signin.create')->with('error', 'Failed to save login notification. Please try again.');
-                }
-            } else if (Auth::user()->role_id == 7) {
-
-
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                 $notification = new Notification();
                 $notification->user_id = Auth::user()->id;
                 $notification->notification_type = "Agent Login";
 
-<<<<<<< HEAD
                 if ($notification->save() && $user->save()) {
                     // Prepare email details
 
@@ -367,65 +186,16 @@ class AuthController extends Controller
                 $user = Auth::user();
                 // Update user status to 'active'
                 $user->status = 'active';
-=======
-                if ($notification->save()) {
-                    // Prepare email details
-                    $details = [
-                        'sbuject' => 'Login Successful!.',
-                        'first_name' => Auth::user()->first_name,
-                        'message' => 'Thank you for logging in! We’re excited to have you with us.',
-                        'cc' => 'tauseefdevelopment000@gmail.com'
-                    ];
-                    $template = 'emails.login_notification';
-
-                    // Send email
-                    Mail::to(Auth::user()->email)
-                        ->cc($details['cc'])
-                        ->send(new LoginMail($details, $template));
-
-                    Log::info('Login successful for user: ' . Auth::user()->email);
-                    return view('agent_dashboard');
-                    // return redirect()->route('hr.dashboard')->with('success', 'User logged in successfully!');
-                } else {
-                    Log::error('Failed to save notification for user: ' . Auth::user()->email);
-                    return redirect()->route('signin.create')->with('error', 'Failed to save login notification. Please try again.');
-                }
-            } else if (Auth::user()->role_id == 8) {
-
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 
                 $notification = new Notification();
                 $notification->user_id = Auth::user()->id;
                 $notification->notification_type = "User Login";
 
-<<<<<<< HEAD
                 if ($notification->save() && $user->save()) {
                     // Prepare email details
                     return view('user_dashboard.user_dashboard');
                     // return redirect()->route('hr.dashboard')->with('success', 'User logged in successfully!');
                 } else {
-=======
-                if ($notification->save()) {
-                    // Prepare email details
-                    $details = [
-                        'sbuject' => 'Login Successful!.',
-                        'first_name' => Auth::user()->first_name,
-                        'message' => 'Thank you for logging in! We’re excited to have you with us.',
-                        'cc' => 'tauseefdevelopment000@gmail.com'
-                    ];
-                    $template = 'emails.login_notification';
-
-                    // Send email
-                    Mail::to(Auth::user()->email)
-                        ->cc($details['cc'])
-                        ->send(new LoginMail($details, $template));
-
-                    Log::info('Login successful for user: ' . Auth::user()->email);
-                    return view('user_dashboard');
-                    // return redirect()->route('hr.dashboard')->with('success', 'User logged in successfully!');
-                } else {
-                    Log::error('Failed to save notification for user: ' . Auth::user()->email);
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                     return redirect()->route('signin.create')->with('error', 'Failed to save login notification. Please try again.');
                 }
             } else {
@@ -553,13 +323,8 @@ class AuthController extends Controller
         $notification->notification_type = "Create New Password Successfully Updated";
 
         if ($notification->save()) {
-<<<<<<< HEAD
             // Update user password and clear taaaahe reset token
             $user_obj->password = $request->password;
-=======
-            // Update user password and clear the reset token
-            $user_obj->password = Hash::make($request->password);
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
             // die();
             $user_obj->forgot_password_token = null;
             // dd($user_obj->toArray());

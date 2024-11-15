@@ -49,40 +49,29 @@
                                             <th>SR No.</th>
                                             <th>Full Name</th>
                                             <th>Email</th>
-<<<<<<< HEAD
                                             <th>Password</th>
                                             <th>Department</th>
                                             <th>Section</th>
-=======
-                                            <th>Department</th>
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                             <th>Designation</th>
                                             <th>Designation Role</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-<<<<<<< HEAD
                                
-=======
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                     <tbody>
                                         @php
                                             $count = 1;
                                         @endphp
                                         @foreach ($users as $user)
                                             <tr>
-<<<<<<< HEAD
                                                 {{-- <pre>{{ print_r($user->toArray()) }}</pre> --}}
-=======
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                                 <th scope="row">
                                                     {{-- <div class="form-check">
                                                         <input class="form-check-input fs-15" type="checkbox"
                                                             name="checkAll" value="option1">
                                                     </div> --}}
                                                 </th>
-<<<<<<< HEAD
 
                                                 <td>{{ $count }}</td>
                                                 <td class="text-capitalize">
@@ -98,18 +87,6 @@
                                                 <td  class="text-capitalize">{{ $user->designation }}</td>
 
                                                 <td  class="text-capitalize">{{ $user->designation_role }}</td>
-=======
-                                                <td>{{ $count }}</td>
-                                                <td class="text-capitalize" >{{ $user['first_name'] . ' ' . $user['middle_name'] . ' ' . $user['last_name'] }}
-                                                </td>
-                                                <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                                <td>{{ $user->department }}
-                                                </td>
-                                                <td>{{ $user->designation }}</td>
-
-                                                <td>{{ $user->designation_role }}</td>
-
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 
                                                 @if ($user->status == 'active')
                                                     <td><span class="badge bg-success text-uppercase">Active</span>
@@ -186,11 +163,7 @@
                     <div class="col-sm-6">
                         <script>
                             document.write(new Date().getFullYear())
-<<<<<<< HEAD
                         </script> © Craftech Digital.
-=======
-                        </script> © Velzon.
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">

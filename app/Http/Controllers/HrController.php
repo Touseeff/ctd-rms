@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Mail\AuthMail;
-<<<<<<< HEAD
 use App\Models\Section;
 use App\Models\Department;
 
 use Illuminate\Support\Str;
-=======
-
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -53,7 +49,6 @@ class HrController extends Controller
     /**
      * Display the specified resource.
      */
-<<<<<<< HEAD
 
 
 
@@ -70,16 +65,6 @@ class HrController extends Controller
 
 
 
-=======
-    public function showUser()
-    {
-
-        $users = User::orderBy('id', 'DESC')->get();
-        return view('hr_dashboard.show_user', compact('users'));
-
-    }
-
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     public function createUser()
     {
         $url = 'store.user';
@@ -94,11 +79,7 @@ class HrController extends Controller
         $existingUser = User::where('email', $request->email)->first();
 
         if ($existingUser) {
-<<<<<<< HEAD
             return redirect()->route('show.user')->with('error', 'Email is already registered. Please use a different email.');
-=======
-            return redirect()->route('create.user')->with('error', 'Email is already registered. Please use a different email.');
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
         }
         // Validate the request data here if needed
         // dd($request->toArray());
@@ -106,7 +87,6 @@ class HrController extends Controller
 
         $user = new User();
         $user->role_id = $request->role;
-<<<<<<< HEAD
         $user->department_id = $request->department;
         $user->section_id = $request->section;
         $user->first_name = $request->firstName;
@@ -116,13 +96,6 @@ class HrController extends Controller
         $password = Str::random(10);
         // $user->password = bcrypt($password);
         $user->password = $password;
-=======
-        $user->first_name = $request->firstName;
-        $user->middle_name = $request->middleName;
-        $user->last_name = $request->lastName;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
         // Log::debug('Hashed Password:', ['password' => $user->password]);
         $user->contact_number = $request->contactNumber;
         $user->nic_number = $request->nicNumber;
@@ -133,14 +106,7 @@ class HrController extends Controller
         $user->joining_date = $request->dateOfJoining;
         $user->designation_role = $request->designationRole;
         $user->address_one = $request->addressOne;
-<<<<<<< HEAD
         $user->address_two = $request->addressTwo;
-=======
-        $user->address_Two = $request->addressTwo;
-        $user->department = $request->department;
-
-        // $user->status = 'pending';
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 
         if ($user->save()) {
             $notification_obj = new Notification;
@@ -180,7 +146,6 @@ class HrController extends Controller
         // if ($request->hasFile('image')) {
         //     $image = $request->file('image');
         //     $file_name = time() . '_' . $image->getClientOriginalName();
-<<<<<<< HEAD
         //     $destinationPath = public_path('assets/images/users'); 
         //     $image->move($destinationPath, $file_name); 
         //     $user->profile_image = $file_name; 
@@ -191,18 +156,6 @@ class HrController extends Controller
      * Show the form for editing the specified resource.p
      */
 
-=======
-        //     $destinationPath = public_path('assets/images/users');
-        //     $image->move($destinationPath, $file_name);
-        //     $user->profile_image = $file_name;
-        // }
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.p
-     */
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     public function editUser(string $id)
     {
         // Define view data
@@ -210,40 +163,23 @@ class HrController extends Controller
         $title = 'Edit User';
 
         // Retrieve user by ID
-<<<<<<< HEAD
         // $user = User::find($id);
         $user = User::with('department', 'section')->where('id', $id)->first();
         // dd($user->toArray());
-=======
-        $user = User::find($id);
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 
         // Check if the user exists
         if (!$user) {
             return redirect()->route('show.user')->with('error', 'User not found.');
         }
-<<<<<<< HEAD
         // Render the view with the user data and other variables
 
         return view('hr_dashboard.add_user', compact('user', 'url', 'title'));
     }
 
-=======
-
-        // Render the view with the user data and other variables
-        return view('hr_dashboard.add_user', compact('user', 'url', 'title'));
-    }
-
-
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     public function updateUser(Request $request)
     {
         // dd($request->toArray());
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
         // dd($request->toArray());
 
         $id = $request->id;
@@ -251,7 +187,6 @@ class HrController extends Controller
 
         // dd($user->toArray());
 
-<<<<<<< HEAD
         $user->role_id = $request->role;
         $user->department_id = $request->department;
         $user->section_id = $request->section;
@@ -271,24 +206,6 @@ class HrController extends Controller
         $user->address_one = $request->addressOne;
         $user->address_two = $request->addressTwo;
         // $user->department = $request->department;
-=======
-        // $user->first_name = $request->firstName;
-        // $user->middle_name = $request->middleName;
-        // $user->last_name = $request->lastName;
-        // $user->email = $request->email;
-        // $user->password = bcrypt($request->password);
-        // $user->contact_number = $request->contactNumber;
-        // $user->nic_number = $request->nicNumber;
-        $user->date_of_birth = $request->dateOfBirth;
-        $user->gendar = $request->gender;
-        $user->qualification = $request->qualification;
-        $user->designation = $request->designation;
-        $user->joining_date = $request->dateOfJoining;
-        $user->designation_role = $request->designationRole;
-        $user->skills = $request->skills;
-        $user->address = $request->address;
-        $user->department = $request->department;
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
         // $user->status = $request->status;
 
         if ($user->save()) {
@@ -300,7 +217,6 @@ class HrController extends Controller
         }
     }
 
-<<<<<<< HEAD
     public function viewUser(string $id)
     {
 
@@ -312,15 +228,6 @@ class HrController extends Controller
         // // $user = DB::table('users')()
         // return view('hr_dashboard.show_user_details', compact('user'));
 
-=======
-
-
-
-    public function viewUser(string $id)
-    {
-        $user = User::find($id);
-        return view('hr_dashboard.show_user_details', compact('user'));
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     }
     public function edit(string $id)
     {
@@ -337,36 +244,19 @@ class HrController extends Controller
     // YourController.php
     public function getSections($department_id)
     {
-<<<<<<< HEAD
-=======
-//
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
         // echo $department_id;
 
         $sections = DB::table('sections')
             ->where('department_id', $department_id)
             ->get();
-<<<<<<< HEAD
         return response()->json($sections);
 
     }
 
-=======
-            return response()->json($sections);
-
-    }
-
-
-
-
-
-
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     /**
      * Remove the specified resource from storage.
      */
 
-<<<<<<< HEAD
     //  Profile controller methods 
 
     public function viewProfile(string $id)
@@ -462,8 +352,6 @@ class HrController extends Controller
         }
     }
 
-=======
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
     public function hrLogout()
     {
         Auth::logout();

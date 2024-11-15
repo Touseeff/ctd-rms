@@ -4,13 +4,10 @@
     $joiningDate = date('d M Y', strtotime($date));
     $joiningDate; // Output: 04 Sep 2018
 
-<<<<<<< HEAD
     $birthDate = $user->date_of_birth;
     $birthDate = date('d M Y', strtotime($birthDate));
     $birthDate; // Output: 04 Sep 2018
 
-=======
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
 @endphp
 <!-- Begin page -->
 <div id="layout-wrapper">
@@ -44,11 +41,7 @@
                                 <p class="text-white text-opacity-75 text-uppercase">{{ $user['designation'] }}</p>
                                 <div class="hstack text-white-50 gap-1">
                                     <div class="me-2"><i
-<<<<<<< HEAD
                                             class="ri-map-pin-user-line me-1 text-white text-opacity-75 fs-16 align-middle"></i>{{ $user->address_one ?? $user->address_two }}
-=======
-                                            class="ri-map-pin-user-line me-1 text-white text-opacity-75 fs-16 align-middle"></i>{{ $user->address }}
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                     </div>
 
                                 </div>
@@ -58,11 +51,6 @@
                         <!--end col-->
                         <div class="col-12 col-lg-auto order-last order-lg-0">
                             <div class="row text text-white-50 text-center">
-<<<<<<< HEAD
-
-=======
-                                
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                 <div class="col-lg-6 col-4">
                                     <div class="p-2">
                                         <h4 class="text-white mb-1 text-uppercase">Role</h4>
@@ -103,14 +91,9 @@
 
                                 </ul>
                                 <div class="flex-shrink-0">
-<<<<<<< HEAD
                                     <a href="{{ route('edit.user', ['id' => $user->id]) }}"
                                         class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Edit
                                         Profile</a>
-=======
-                                    <a href="{{ route('edit.user', ['id' => $user->id]) }}" class="btn btn-success"><i
-                                            class="ri-edit-box-line align-bottom"></i> Edit Profile</a>
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                 </div>
                             </div>
                             <!-- Tab panes -->
@@ -123,7 +106,6 @@
                                                     <h5 class="card-title mb-5">Profile staus</h5>
                                                     <div
                                                         class="progress animated-progress custom-progress progress-label">
-<<<<<<< HEAD
                                                         @if ($user->status == 'approve' &&  $user->profile_image == null)
                                                             <div class="progress-bar bg-primary" role="progressbar"
                                                                 style="width: 50%" aria-valuenow="50" aria-valuemin="50"
@@ -134,7 +116,7 @@
                                                             <div class="progress-bar bg-success" role="progressbar"
                                                                 style="width: 100%" aria-valuenow="100  "
                                                                 aria-valuemin="0" aria-valuemax="100">
-                                                                <div class="label"> 0%</div>
+                                                                <div class="label"> 100%</div>
                                                             </div> 
                                                         @elseif ($user->status == 'active' &&  $user->profile_image == null)
                                                             <div class="progress-bar bg-success" role="progressbar"
@@ -143,20 +125,10 @@
                                                                 <div class="label">80%</div>
                                                             </div>
                                                         @elseif ($user->status == 'inactive'  &&  $user->profile_image == null)
-=======
-                                                        {{-- @if (Auth::user()->status == 'pendding')
-                                                            <div class="progress-bar bg-success" role="progressbar"
-                                                                style="width: 30%" aria-valuenow="30" aria-valuemin="0"
-                                                                aria-valuemax="100">
-                                                                <div class="label">30%</div>
-                                                            </div>
-                                                        @elseif (Auth::user()->status == 'Inactive')
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                                             <div class="progress-bar bg-danger" role="progressbar"
                                                                 style="width: 10%" aria-valuenow="10  "
                                                                 aria-valuemin="0" aria-valuemax="10">
                                                                 <div class="label">10%</div>
-<<<<<<< HEAD
                                                             </div>
                                                         @elseif ($user->status == 'reject'  &&  $user->profile_image == null)
                                                             <div class="progress-bar bg-danger" role="progressbar"
@@ -172,20 +144,6 @@
                                                             </div>
                                                         @endif
 
-=======
-                                                        @elseif (Auth::user()->status == 'pendding')
-                                                            <div class="progress-bar bg-danger" role="progressbar"
-                                                                style="width: 30%" aria-valuenow="30  "
-                                                                aria-valuemin="0" aria-valuemax="30">
-                                                                <div class="label">30%</div>
-                                                            @else
-                                                            @endif --}}
-                                                            <div class="progress-bar bg-warning" role="progressbar"
-                                                                style="width: 30%" aria-valuenow="30"
-                                                                aria-valuemin="0" aria-valuemax="30">
-                                                                <div class="label">30%</div>
-                                                            </div>
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                                     </div>
                                                 </div>
                                             </div>
@@ -206,22 +164,18 @@
                                                                     <th class="ps-0" scope="row">Mobile :</th>
                                                                     <td class="text-muted">{{ $user['contact_number'] }}
                                                                     </td>
-<<<<<<< HEAD
                                                                     <hr>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="ps-0" scope="row">NIC Number :</th>
                                                                     <td class="text-muted">{{ $user['nic_number'] }}
                                                                     </td>
-=======
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="ps-0" scope="row">E-mail :</th>
                                                                     <td class="text-muted">{{ $user->email }}</td>
                                                                 </tr>
                                                                 <tr>
-<<<<<<< HEAD
                                                                     <th class="ps-0" scope="row">Date of Birth :
                                                                     </th>
                                                                     <td class="text-muted">{{ $birthDate }}</td>
@@ -252,21 +206,6 @@
 
                                                                 </tr>
 
-=======
-                                                                    <th class="ps-0" scope="row">Qualification :</th>
-                                                                    <td class="text-muted">{{ $user->qualification }}</td>
-                                                                </tr>
-                                                               
-                                                                <tr>
-                                                                    <th class="ps-0" scope="row">Department :</th>
-                                                                    <td class="text-muted text-uppercase">{{ $user->department }}</td>
-
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="ps-0" scope="row">Joining Date :</th>
-                                                                    <td class="text-muted">{{$joiningDate}}</td>
-                                                                </tr>
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -303,22 +242,12 @@
                                         <div class="col">
                                             <div class="card">
                                                 <div class="card-body">
-<<<<<<< HEAD
 
                                                     <h5 class="card-title mb-3">Designation</h5>
                                                     <p>{{ $user->skills }}</p>
                                                     <hr>
                                                     <div class="row">
                                                         <div class="col-12 col-md-12">
-=======
-                                                    <h5 class="card-title mb-3">Address</h5>
-                                                    <p>{{ $user->address }}</p>
-                                                    <h5 class="card-title mb-3">Skills</h5>
-                                                    <p>{{ $user->skills }}</p>
-
-                                                    <div class="row">
-                                                        <div class="col-6 col-md-4">
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                                             <div class="d-flex mt-4">
                                                                 <div
                                                                     class="flex-shrink-0 avatar-xs align-self-center me-3">
@@ -335,7 +264,6 @@
                                                             </div>
                                                         </div>
                                                         <!--end col-->
-<<<<<<< HEAD
 
                                                         <!--end col-->
                                                     </div>
@@ -351,9 +279,6 @@
                                                         <!--end col-->
 
                                                         <div class="col-12 col-md-12">
-=======
-                                                        <div class="col-6 col-md-4">
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                                             <div class="d-flex mt-4">
                                                                 <div
                                                                     class="flex-shrink-0 avatar-xs align-self-center me-3">
@@ -363,7 +288,6 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 overflow-hidden">
-<<<<<<< HEAD
                                                                     <p class="mb-1">Address 01 :</p>
                                                                     <h6 class="text-truncate mb-0">
                                                                         {{ $user->address_one }}</h6>
@@ -372,11 +296,6 @@
                                                                     <p class="mb-1">Address 02 :</p>
                                                                     <h6 class="text-truncate mb-0">
                                                                         {{ $user->address_two }}</h6>
-=======
-                                                                    <p class="mb-1">Website :</p>
-                                                                    <a href="pages-profile.html#"
-                                                                        class="fw-semibold">www.velzon.com</a>
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -409,11 +328,7 @@
                     <div class="col-sm-6">
                         <script>
                             document.write(new Date().getFullYear())
-<<<<<<< HEAD
                         </script> © Craf Tech Digital.
-=======
-                        </script> © Velzon.
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">

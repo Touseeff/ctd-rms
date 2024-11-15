@@ -44,11 +44,11 @@
                 <div class="col-lg-12">
                     <div class="text-center">
                         <p class="mb-0 text-muted">&copy;
-<<<<<<< HEAD
+
                             <script>document.write(new Date().getFullYear())</script> Craftech Digital. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
-=======
+
                             <script>document.write(new Date().getFullYear())</script> Velzon. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
+>
                         </p>
                     </div>
                 </div>
