@@ -271,7 +271,7 @@
             <h3 class="text-light" style="margin-left: 25px;"><a class="text-white" href="#"></a></h3>
             <div id="two-column-menu">
             </div>
-            <ul class="navbar-nav" id="navbar-nav">
+            {{-- <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">HR</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="pages-starter.html#sidebarDashboards"
@@ -291,7 +291,42 @@
                     </div>
                 </li>
                 <!-- end Dashboard Menu -->
+            </ul> --}}
+
+            {{--  --}}
+            <ul class="navbar-nav" id="navbar-nav">
+                <li class="menu-title"><span data-key="t-menu">{{ Auth::user()->designation_role }}</span></li>
+                {{-- <li class="menu-title"><span data-key="t-menu">{{ Auth::user()->designation_role }}</span></li> --}}
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('hr.dashboard')}}" aria-expanded="false">
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('show.user') }}" aria-expanded="false">
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Users</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('department.view')}}" aria-expanded="false">
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Department</span>
+                    </a>
+                </li>
+                {{--  --}}
+                {{-- <li class="nav-item">
+                    <a class="nav-link menu-link collapsed" href="apps-projects-overview.html#sidebarAdvanceUI"
+                        data-bs-toggle="collapse" role="button" aria-expanded="false"
+                        aria-controls="sidebarAdvanceUI">
+                        <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Sections</span>
+                    </a>
+                    <div class="menu-dropdown collapse" id="sidebarAdvanceUI" style="">
+                        <ul class="nav nav-sm flex-column">
+                        </ul>
+                    </div>
+                </li> --}}
+                <!-- end Dashboard Menu -->
             </ul>
+            {{--  --}}
         </div>
         <!-- Sidebar -->
     </div>
