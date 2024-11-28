@@ -304,30 +304,21 @@
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Create Workspace</span>
                     </a>
                 </li>
-              
-                {{--  --}}
-                {{-- <li class="nav-item">
-                    <a class="nav-link menu-link collapsed" href="apps-projects-overview.html#sidebarAdvanceUI"
-                        data-bs-toggle="collapse" role="button" aria-expanded="false"
-                        aria-controls="sidebarAdvanceUI">
-                        <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Sections</span>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#" aria-expanded="false">
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Create Board</span>
                     </a>
-                    <div class="menu-dropdown collapse" id="sidebarAdvanceUI" style="">
-                        <ul class="nav nav-sm flex-column">
-
-
-                            @foreach ($sections as $section)
-                                <li class="nav-item">
-                                    <a href="advance-ui-sweetalerts.html" class="nav-link"
-                                        data-key="t-sweet-alerts">{{ $section->section_name }}</a>
-                                </li>
-                            @endforeach
-
-
-                        </ul>
-                    </div>
-                </li> --}}
-                <!-- end Dashboard Menu -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#" aria-expanded="false">
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Create Project</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#" aria-expanded="false">
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Create Task</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

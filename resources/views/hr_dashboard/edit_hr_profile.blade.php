@@ -178,27 +178,6 @@
                                                 <label for="formFile" class="form-label">Profile Image</label>
                                                 <input class="form-control" type="file" name="profileImage" id="formFile">
                                             </div>
-                                            {{-- <!-- Designation -->
-                                            <div class="col-md-4">
-                                                <div class="mb-3">
-                                                    <label for="designationinput"
-                                                        class="form-label">Designation</label>
-                                                    <input type="text" {{ isset($user) ? 'disabled' : '' }}
-                                                        class="form-control" placeholder="Enter designation"
-                                                        id="designationinput" name="designation">
-                                                </div>
-                                            </div> --}}
-
-                                            <!-- Date of Joining -->
-                                            {{-- <div class="col-md-4">
-                                                <div class="mb-3">
-                                                    <label for="dateOfJoininginput" class="form-label">Date of
-                                                        Joining</label>
-                                                    <input type="date" {{ isset($user) ? 'disabled' : '' }}
-                                                        class="form-control" id="dateOfJoininginput"
-                                                        name="dateOfJoining">
-                                                </div>
-                                            </div> --}}
                                             <!-- Skills -->
                                             <div class="col-md-6">
                                                 <div class="mb-3">

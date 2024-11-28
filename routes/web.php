@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\BoardController;
 
 // use App\Http\Middleware\AuthMiddleWare;
 
@@ -89,9 +90,7 @@ Route::post('/admin-dashboard/user-update', [AdminController::class, 'updateUser
 Route::get('/admin-dashboard/user-view/{id}',[AdminController::class, 'viewUser'])->name('admin.view.user');
 
 //
-
 Route::get('/admin-dashboard/user-create/{department_id}', [AdminController::class, 'getSections'])->name('get.sections');
-
 
 
 //Admin Profile Routes
@@ -100,15 +99,11 @@ Route::post('/admin-profile/admin-profile-update', [AdminController::class, 'upd
 Route::get('/admin-profile/admin-profile-view/{id}',[AdminController::class, 'viewProfile'])->name('admin.view.profile');
 
 
-
-
-
 //User Dashboard routes
 Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
 Route::get('/user/auth/logout', [UserController::class, 'userLogout'])->name('user.logout');
 
 //for testing profiles routes
-
 Route::get('/user-profile/user-profile-edit/{id}', [UserController::class, 'editProfile'])->name('user.edit.profile');
 Route::post('/user-profile/user-profile-update', [UserController::class, 'updateProfile'])->name('user.update.profile');
 Route::get('/user-profile/user-profile-view/{id}',[UserController::class, 'viewProfile'])->name('user.view.profile');
@@ -126,8 +121,6 @@ Route::post('/head-profile/head-profile-update', [HeadController::class, 'update
 Route::get('/head-profile/head-profile-view/{id}',[HeadController::class, 'viewProfile'])->name('head.view.profile');
 
 
-
-
 //Sections Route
 Route::get('/section/dashboard',[SectionController::class,'index'])->name('section.dashboard');
 Route::get('/section/dashboard/section-create',[SectionController::class,'create'])->name('section.create');
@@ -137,10 +130,35 @@ Route::post('/section/dashboard/section-update',[SectionController::class,'updat
 Route::get('/section/dashboard/sections-show/{id}',[SectionController::class,'show'])->name('section.show');
 
 
-
+//Workspace Route
+Route::get('/workspace/dashboard/{id}',[WorkspaceController::class,'index'])->name('add.dashboard');
 Route::get('/workspace/create/',[WorkspaceController::class,'create'])->name('workspace.create');
 Route::post('/workspace/add/',[WorkspaceController::class,'store'])->name('add.workspace');
 Route::get('/workspace/get-user/{sectionId}', [WorkspaceController::class, 'getUsers'])->name('get.user');
+
+// Route::get('/user-workspace/{sec_id}',[WorkspaceController::class,'userWorkSpace'])->name('view.user.workspace');
+
+// Route::get('/user-workspace-borad/',[WorkspaceController::class,'userWorkSpace'])->name('view.user.workspace');
+
+Route::get('/user-board/dashboard/{id}',[BoardController::class,'index'])->name('view.board.dashboard');
+// Route::get('/user-board/create/',[BoardController::class,'create'])->name('user-board.create');
+// Route::post('/user-board/add',[BoardController::class,'store'])->name('add.user-board');
+// Route::get('/user-board/edit/{ws_id}',[BoardController::class,'edit'])->name('edit.user-board');
+Route::post('/add-user-board', [BoardController::class, 'store'])->name('add.user-board');
+
+
+
+
+// Route::get('/user-board',[BoardController::class''])
+
+
+
+
+
+
+
+
+
 
 
 

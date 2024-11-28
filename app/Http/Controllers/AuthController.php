@@ -294,13 +294,7 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    // public function passwordCreate(Request $request)
-    // {
-    //     return view('reset_password');
-    // }
+
     public function passwordstore(Request $request)
     {
         // dd($request->toArray());

@@ -45,7 +45,6 @@ class SectionController extends Controller
     {
 
         $sections = new Section();
-
         $exist_section = Section::where('section_name', $request->section)->first();
         if (!$exist_section) {
             $sections->department_id = $request->departmentId;
@@ -53,14 +52,13 @@ class SectionController extends Controller
             $sections->section_lead_name = $request->sectionLeadName;
             $sections->status = $request->status;
             if ($sections->save()) {
-                return redirect()->route('section.view')->with('success', 'Record added successfully.');
+                return redirect()->route('section.dashboard')->with('success', 'Record added successfully.');
             } else {
                 return redirect()->route('section.create')->with('error', 'Record could not be stored. Please try again.');
             }
         } else {
             return redirect()->route('section.create')->with('error', 'This section already exists. Please try again.');
         }
-
     }
 
     /**

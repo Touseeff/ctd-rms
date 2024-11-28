@@ -34,27 +34,21 @@
                                         <div class="mt-3 mt-lg-0">
                                            
                                                 <div class="row g-3 mb-0 align-items-center">
-                                                   
+
                                                     <!--end col-->
                                                     <div class="col-auto">
                                                         <a href="{{route('section.create')}}" type="button" class="btn btn-soft-success material-shadow-none"><i class="ri-add-circle-line align-middle me-1"></i>Add Section</a>
                                                     </div>
-                                                  
                                                 </div>
                                                 <!--end row-->
-                                          
                                         </div>
                                     </div><!-- end card header -->
                                 </div>
                                 <!--end col-->
                             </div>
                             <!--end row-->
-
                             <div class="row">
-                              
                                 @foreach ($sections as $section )
-                              
-
                                 <div class="col-xl-3 col-md-6">
                                     <!-- card -->
                                     <div class="card card-animate">
@@ -64,8 +58,7 @@
                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> {{$section->section_name}}</p></p>
                                                 </div>
                                                 <div class="flex-shrink-0">
-                                                    <h5 class="text-success fs-14 mb-0">
-                                                        
+                                                    <h5 class="text-success fs-14 mb-0">                                                        
                                                         <div class="dropdown">
                                                             <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 material-shadow-none" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal icon-sm"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
@@ -84,7 +77,7 @@
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
                                                     <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{$section->users->count()}}">{{$section->users->count()}}</span> </h4>
-                                                    <a href="index.html" class="text-decoration-underline">View more</a>
+                                                    <a href="{{route('add.dashboard',['id'=>$section->id])}}" class="text-decoration-underline">View Section</a>
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
                                                     <span class="avatar-title bg-success-subtle rounded fs-3">
@@ -96,7 +89,6 @@
                                     </div><!-- end card -->
                                 </div>
                                 @endforeach
-                               
                             </div>
                             <!-- end row-->
                         </div> <!-- end .h-100-->

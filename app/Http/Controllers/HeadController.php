@@ -142,8 +142,6 @@ class HeadController extends Controller
             $user->profile_image = $newImageName;
             $isModified = true;
         }
-
-
         // Save only if any field is modified
         if ($isModified && $user->save()) {
             return redirect()->route('head.dashboard')->with('success', 'User record updated successfully.');

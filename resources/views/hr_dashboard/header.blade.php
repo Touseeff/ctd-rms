@@ -162,8 +162,7 @@
                                 alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Hi!.</span>
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Anna
-                                    Adame</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{Auth::user()->first_name}}</span>
                             </span>
                         </span>
                     </button>
@@ -173,15 +172,7 @@
                         <a class="dropdown-item" href="{{route('hr.view.profile',['id'=>Auth::user()->id])}}"><i
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profile</span></a>
-
-
-
                         <div class="dropdown-divider"></div>
-
-
-                        {{-- <a class="dropdown-item" href="auth-lockscreen-basic.html"><i
-                                class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span
-                                class="align-middle">Lock screen</span></a> --}}
                         <a class="dropdown-item" href="{{ route('hr.logout') }}"><i
                                 class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle" data-key="t-logout">Logout</span></a>
@@ -271,29 +262,6 @@
             <h3 class="text-light" style="margin-left: 25px;"><a class="text-white" href="#"></a></h3>
             <div id="two-column-menu">
             </div>
-            {{-- <ul class="navbar-nav" id="navbar-nav">
-                <li class="menu-title"><span data-key="t-menu">HR</span></li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="pages-starter.html#sidebarDashboards"
-                        data-bs-toggle="collapse" role="button" aria-expanded="false"
-                        aria-controls="sidebarDashboards">
-                        <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboard </span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarDashboards">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-
-                                <a href="{{ route('show.user') }}" class="nav-link" data-key="t-analytics">
-                                    Users</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </li>
-                <!-- end Dashboard Menu -->
-            </ul> --}}
-
-            {{--  --}}
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">{{ Auth::user()->designation_role }}</span></li>
                 {{-- <li class="menu-title"><span data-key="t-menu">{{ Auth::user()->designation_role }}</span></li> --}}
@@ -312,19 +280,6 @@
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Department</span>
                     </a>
                 </li>
-                {{--  --}}
-                {{-- <li class="nav-item">
-                    <a class="nav-link menu-link collapsed" href="apps-projects-overview.html#sidebarAdvanceUI"
-                        data-bs-toggle="collapse" role="button" aria-expanded="false"
-                        aria-controls="sidebarAdvanceUI">
-                        <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Sections</span>
-                    </a>
-                    <div class="menu-dropdown collapse" id="sidebarAdvanceUI" style="">
-                        <ul class="nav nav-sm flex-column">
-                        </ul>
-                    </div>
-                </li> --}}
-                <!-- end Dashboard Menu -->
             </ul>
             {{--  --}}
         </div>

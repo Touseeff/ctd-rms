@@ -160,7 +160,7 @@ class HrController extends Controller
     {
         // Define view data
         $url = 'update.user';
-        $title = 'Edit User';
+        $title = 'Edit User'; 
 
         // Retrieve user by ID
         // $user = User::find($id);
@@ -178,10 +178,6 @@ class HrController extends Controller
 
     public function updateUser(Request $request)
     {
-        // dd($request->toArray());
-
-        // dd($request->toArray());
-
         $id = $request->id;
         $user = User::find($id);
 

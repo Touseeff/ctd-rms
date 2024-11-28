@@ -39,4 +39,6 @@ class Section extends Model
     return $this->belongsTo(Department::class, 'department_id');
 }
 
+
+
 }

@@ -42,9 +42,6 @@
                                 <h4 class="card-title mb-0 flex-grow-1">{{ $title }}</h4>
                                 <div class="flex-shrink-0">
                                     <div class="form-check form-switch form-switch-right form-switch-md">
-                                        {{-- <label for="form-grid-showcode" class="form-label text-muted">Show Code</label> --}}
-                                        {{-- <input class="form-check-input code-switcher" type="checkbox"
-                                            id="form-grid-showcode"> --}}
                                     </div>
                                 </div>
                             </div><!-- end card header -->
@@ -67,17 +64,14 @@
                                                     <input type="text"
                                                         value="{{ isset($user) ? $user->first_name : '' }}"
                                                         class="form-control" placeholder="Enter first name"
-                                                        id="firstNameinput" name="firstName">
+                                                        id="firstNameinput" name="workspaceTitle">
                                                 </div>
                                             </div>
-
-
-
                                             {{--  --}}
                                             <div class="col-md-3">
                                                 <div class="mb-3">
                                                     <label for="departmentSelect" class="form-label">Department</label>
-                                                    <select class="form-select" name="department" id="departmentSelect">
+                                                    <select class="form-select" name="department_id" id="departmentSelect">
                                                         <option value="">Select Department</option>
                                                         @foreach ($departments as $department)
                                                             <option value="{{ $department->id }}"
@@ -92,7 +86,7 @@
                                             <div class="col-md-3">
                                                 <div class="mb-3">
                                                     <label for="sectionSelect" class="form-label">Section</label>
-                                                    <select class="form-select" name="section" id="sectionSelect">
+                                                    <select class="form-select" name="section_id" id="sectionSelect">
                                                         <option value="">Select Section</option>
                                                         @foreach ($sections as $section)
                                                             <option value="{{ $section->id }}"
@@ -135,25 +129,9 @@
                                                         <option value="reject"
                                                             {{ isset($user) && $user->status == 'reject' ? 'selected' : '' }}>
                                                             Reject</option>
-
-
                                                     </select>
                                                 </div>
                                             </div>
-                                            {{-- <div class="col-md-2">
-                                                <div class="mb-3">
-                                                    <label for="roleSelect" class="form-label">Role (for
-                                                        Dashboard)</label>
-                                                    <select name="role" class="form-select" data-choices=""
-                                                        data-choices-sorting="true" id="roleSelect">
-                                                        @foreach ($roles as $role)
-                                                            <option value="{{ $role->id }}"
-                                                                {{ isset($user) && $user->role_id == $role->id ? 'selected' : '' }}>
-                                                                {{ $role->role_type }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div> --}}
                                             <div class="col-lg-12">
                                                 <div class="text-end">
                                                     <a class="btn btn-light"
@@ -200,7 +178,6 @@
             </footer>
         </div>
         <!-- end main content-->
-
     </div>
 
     <!-- END layout-wrapper -->
@@ -219,7 +196,6 @@
 
                 // Clear current options in the section dropdown
                 $('#sectionSelect').empty().append('<option value="">Select Section</option>');
-
                 if (departmentId) {
                     $.ajax({
                         url: `{{ url('/admin-dashboard/user-create') }}/${departmentId}`,

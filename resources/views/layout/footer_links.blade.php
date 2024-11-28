@@ -19,6 +19,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+{{--  --}}
+  <!-- dragula init js -->
+  <script src="{{ asset('./public/assets/libs/dragula/dragula.min.js') }}"></script>
+
+  <!-- dom autoscroll -->
+  <script src="{{ asset('./public/assets/libs/dom-autoscroller/dom-autoscroller.min.js') }}"></script>
+
+  <!--taks-kanban-->
+  <script src="{{ asset('./public/assets/js/pages/tasks-kanban.init.js') }}"></script>
+{{--  --}}
 
  <script src="{{ asset('./public/assets/js/pages/datatables.init.js') }}"></script>
 

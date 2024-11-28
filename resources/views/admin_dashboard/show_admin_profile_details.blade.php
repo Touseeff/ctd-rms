@@ -233,31 +233,6 @@
                                                 </div><!-- end card body -->
                                             </div>
                                             <!-- end card -->
-
-                                            {{-- <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title mb-4">Skills</h5>
-                                                    <div class="d-flex flex-wrap gap-2 fs-15">
-                                                        <a href="javascript:void(0);"
-                                                            class="badge bg-primary-subtle text-primary">Photoshop</a>
-                                                        <a href="javascript:void(0);"
-                                                            class="badge bg-primary-subtle text-primary">illustrator</a>
-                                                        <a href="javascript:void(0);"
-                                                            class="badge bg-primary-subtle text-primary">HTML</a>
-                                                        <a href="javascript:void(0);"
-                                                            class="badge bg-primary-subtle text-primary">CSS</a>
-                                                        <a href="javascript:void(0);"
-                                                            class="badge bg-primary-subtle text-primary">Javascript</a>
-                                                        <a href="javascript:void(0);"
-                                                            class="badge bg-primary-subtle text-primary">Php</a>
-                                                        <a href="javascript:void(0);"
-                                                            class="badge bg-primary-subtle text-primary">Python</a>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
-
-
-
                                         </div>
                                         <!--end col-->
                                         <div class="col">

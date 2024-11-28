@@ -722,11 +722,7 @@
                     <div class="col-sm-6">
                         <script>
                             document.write(new Date().getFullYear())
-<<<<<<< HEAD
                         </script> © Craftech Digital.
-=======
-                        </script> © Velzon.
->>>>>>> 2b95eb976fe92153eb882815a4e7388932a1b19a
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">

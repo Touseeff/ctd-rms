@@ -20394,7 +20394,7 @@ span.flatpickr-weekday {
 }
 
 .tasks-wrapper {
-    max-height: calc(100vh - 418px)
+    max-height: calc(100vh - 300px)
 }
 
 .tasks {
@@ -21197,3 +21197,5 @@ span.flatpickr-weekday {
 
 
 /*# sourceMappingURL=app.min.css.map */
+
+90

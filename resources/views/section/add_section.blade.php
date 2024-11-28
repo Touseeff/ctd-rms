@@ -59,7 +59,7 @@
                                                     <input type="hidden" name="departmentId"
                                                         value="{{Auth::user()->department_id}}">
                                                     <input type="hidden" name="id"
-                                                        value="{{$section->id}}">
+                                                        value="{{ isset($section) ? $section->id : '' }}">
 
                                                     <label for="firstNameinput" class="form-label">Section Name</label>
                                                     <input type="text"

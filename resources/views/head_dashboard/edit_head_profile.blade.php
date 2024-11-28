@@ -69,19 +69,6 @@
                                                         id="firstNameinput" name="firstName">
                                                 </div>
                                             </div>
-
-                                            <!-- Middle Name -->
-                                            {{-- <div class="col-md-4">
-                                                <div class="mb-3">
-                                                    <label for="middleNameinput" class="form-label">Middle Name</label>
-                                                    <input type="text"
-                                                        value="{{ isset($user) ? $user->middle_name : '' }}"
-                                                        class="form-control" placeholder="Enter middle name"
-                                                        id="middleNameinput" name="middleName">
-                                                </div>
-                                            </div> --}}
-
-                                            <!-- Last Name -->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label for="lastNameinput" class="form-label">Last Name</label>
@@ -92,26 +79,7 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Email -->
-                                            {{-- <div class="col-md-4">
-                                                <div class="mb-3">
-                                                    <label for="emailinput" class="form-label">Email</label>
-                                                    <input type="email" {{ isset($user) ? 'disabled' : '' }}
-                                                        class="form-control" placeholder="Enter email" id="emailinput"
-                                                        name="email">
-                                                </div>
-                                            </div> --}}
-
-                                            <!-- Password (disabled for editing) -->
-                                            {{-- <div class="col-md-4">
-                                                <div class="mb-3">
-                                                    <label for="passwordinput" class="form-label">Password</label>
-                                                    <input type="password" class="form-control"
-                                                        placeholder="Enter password" id="passwordinput" name="password"
-                                                        {{ isset($user) ? 'disabled' : '' }}>
-                                                </div>
-                                            </div> --}}
-
+                                        
                                             <!-- Contact Number -->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
@@ -178,27 +146,7 @@
                                                 <label for="formFile" class="form-label">Profile Image</label>
                                                 <input class="form-control" type="file" name="profileImage" id="formFile">
                                             </div>
-                                            {{-- <!-- Designation -->
-                                            <div class="col-md-4">
-                                                <div class="mb-3">
-                                                    <label for="designationinput"
-                                                        class="form-label">Designation</label>
-                                                    <input type="text" {{ isset($user) ? 'disabled' : '' }}
-                                                        class="form-control" placeholder="Enter designation"
-                                                        id="designationinput" name="designation">
-                                                </div>
-                                            </div> --}}
-
-                                            <!-- Date of Joining -->
-                                            {{-- <div class="col-md-4">
-                                                <div class="mb-3">
-                                                    <label for="dateOfJoininginput" class="form-label">Date of
-                                                        Joining</label>
-                                                    <input type="date" {{ isset($user) ? 'disabled' : '' }}
-                                                        class="form-control" id="dateOfJoininginput"
-                                                        name="dateOfJoining">
-                                                </div>
-                                            </div> --}}
+                                           
                                             <!-- Skills -->
                                             <div class="col-md-6">
                                                 <div class="mb-3">

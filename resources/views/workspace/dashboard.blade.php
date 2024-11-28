@@ -20,150 +20,111 @@
                         {{ session('error') }}
                     </div>
                 @endif
+
+
                 <div class="row">
                     <div class="col">
                         <div class="h-100">
                             <div class="row mb-3 pb-1">
                                 <div class="col-12">
-
                                     <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                                         <div class="flex-grow-1">
-                                            <h4 class="fs-16 mb-1">Deveopment:</h4>
+
                                         </div>
-                                    </div>
-                                    <!-- end card header -->
+                                        <div class="mt-3 mt-lg-0">
+
+                                            <div class="row g-3 mb-0 align-items-center">
+
+                                                <!--end col-->
+                                                <div class="col-auto">
+                                                    <a href="{{ route('section.create') }}" type="button"
+                                                        class="btn btn-soft-success material-shadow-none"><i
+                                                            class="ri-add-circle-line align-middle me-1"></i>Add
+                                                        Section</a>
+                                                </div>
+
+                                            </div>
+                                            <!--end row-->
+
+                                        </div>
+                                    </div><!-- end card header -->
                                 </div>
                                 <!--end col-->
                             </div>
                             <!--end row-->
-
+                            {{-- {{ dd($workspaces->toArray()) }} --}}
                             <div class="row">
-                                <div class="col-xl-3 col-md-6">
-                                    <!-- card -->
-                                    <div class="card card-animate">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
-                                                        Total Tasks</p>
+                                @foreach ($workspaces as $workspace)
+                                    <div class="col-xl-3 col-md-6">
+                                        <!-- card -->
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-grow-1 overflow-hidden">
+                                                        <p
+                                                            class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                                            {{ $workspace->first_name }}</p>
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <h5 class="text-success fs-14 mb-0">
+                                                            <div class="dropdown">
+                                                                <button
+                                                                    class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 material-shadow-none"
+                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="feather feather-more-horizontal icon-sm">
+                                                                        <circle cx="12" cy="12" r="1">
+                                                                        </circle>
+                                                                        <circle cx="19" cy="12" r="1">
+                                                                        </circle>
+                                                                        <circle cx="5" cy="12" r="1">
+                                                                        </circle>
+                                                                    </svg>
+                                                                </button>
+                                                                <div class="dropdown-menu dropdown-menu-end"
+                                                                    style="">
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('section.show', ['id' => $workspace->user_id]) }}"><i
+                                                                            class="ri-eye-fill align-bottom me-2 text-muted"></i>
+                                                                        View</a>
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('section.edit', ['id' => $workspace->user_id]) }}"><i
+                                                                            class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                                                                        Edit</a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                    {{-- <a class="dropdown-item" href="apps-projects-list.html#" data-bs-toggle="modal" data-bs-target="#removeProjectModal"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Remove</a> --}}
+                                                                </div>
+                                                            </div>
+                                                        </h5>
+                                                    </div>
                                                 </div>
-
-                                            </div>
-                                            <div class="d-flex align-items-end justify-content-between mt-4">
-                                                <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
-                                                            class="counter-value" data-target="50">0</span></h4>
-                                                    <a href="#" class="text-decoration-underline">View all
-                                                        tasks</a>
+                                                <div class="d-flex align-items-end justify-content-between mt-4">
+                                                    <div>
+                                                        {{-- <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{$workspace->users->count()}}">{{$section->users->count()}}</span> </h4> --}}
+                                                        <a href="{{ route('view.board.dashboard', ['id' => $workspace->workspace_id]) }}"
+                                                            class="text-decoration-underline">View more</a>
+                                                    </div>
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <span class="avatar-title bg-success-subtle rounded fs-3">
+                                                            <i class="bx bx-dollar-circle text-success"></i>
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                                <div class="avatar-sm flex-shrink-0">
-                                                    <span class="avatar-title bg-success-subtle rounded fs-3">
-                                                        <i class="bx bx-user-circle text-warning"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div><!-- end card body -->
-                                    </div><!-- end card -->
-                                </div><!-- end col -->
-
-                                <div class="col-xl-3 col-md-6">
-                                    <!-- card -->
-                                    <div class="card card-animate">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
-                                                        Completed Tasks</p>
-                                                </div>
-                                                <div class="flex-shrink-0">
-
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-end justify-content-between mt-4">
-                                                <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
-                                                            class="counter-value" data-target="10">0</span></h4>
-                                                    <a href="#" class="text-decoration-underline">View all
-                                                        task</a>
-                                                </div>
-                                                <div class="avatar-sm flex-shrink-0">
-                                                    <span class="avatar-title bg-info-subtle rounded fs-3">
-                                                        <i class="bx bx-user-circle text-warning"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div><!-- end card body -->
-                                    </div><!-- end card -->
-                                </div><!-- end col -->
-
-                                <div class="col-xl-3 col-md-6">
-                                    <!-- card -->
-                                    <div class="card card-animate">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
-                                                        Pending tasks</p>
-                                                </div>
-                                                <div class="flex-shrink-0">
-
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-end justify-content-between mt-4">
-                                                <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
-                                                            class="counter-value" data-target="200">0</span> </h4>
-                                                    <a href="index.html" class="text-decoration-underline">See all
-                                                        pending tasks</a>
-                                                </div>
-                                                <div class="avatar-sm flex-shrink-0">
-                                                    <span class="avatar-title bg-warning-subtle rounded fs-3">
-                                                        <i class="bx bx-user-circle text-warning"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div><!-- end card body -->
-                                    </div><!-- end card -->
-                                </div><!-- end col -->
-
-                                <div class="col-xl-3 col-md-6">
-                                    <!-- card -->
-                                    <div class="card card-animate">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
-                                                        Todo Tasks</p>
-                                                </div>
-
-                                            </div>
-                                            <div class="d-flex align-items-end justify-content-between mt-4">
-                                                <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span
-                                                            class="counter-value" data-target="165.89">0</span>....
-                                                    </h4>
-                                                    <a href="index.html" class="text-decoration-underline">View all to
-                                                        do tasks</a>
-                                                </div>
-                                                <div class="avatar-sm flex-shrink-0">
-                                                    <span class="avatar-title bg-primary-subtle rounded fs-3">
-                                                        <i class="bx bx-wallet text-primary"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div><!-- end card body -->
-                                    </div><!-- end card -->
-                                </div><!-- end col -->
-                                <a href="" class=""
-                                    style="    display: flex;justify-content: end;">view more</a>
+                                            </div><!-- end card body -->
+                                        </div><!-- end card -->
+                                    </div>
+                                @endforeach
                             </div>
                             <!-- end row-->
                         </div> <!-- end .h-100-->
                     </div> <!-- end col -->
                 </div>
-
-
-
                 <div class="col-auto layout-rightside-col">
                     <div class="overlay"></div>
                     <div class="layout-rightside">

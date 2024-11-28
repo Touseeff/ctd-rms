@@ -1,8 +1,7 @@
 @include('layout.header')
 <!-- Begin page -->
 <div id="layout-wrapper">
-    @include('hr_dashboard.header')
-
+    @include('head_dashboard.header')
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
@@ -32,7 +31,7 @@
                         <div class="card">
                             <div class="card-header" style="display: flex; justify-content: end;">
                                 {{-- <h5 class="card-title mb-0"></h5> --}}
-                                <a class="btn btn-primary" href="{{ route('create.user') }}">Add User</a>
+                                <a class="btn btn-primary" href="{{ route('deprtment.create') }}">Add Department</a>
                                 {{-- <button id="addRow" class="btn btn-primary">Add New Row</button> --}}
                             </div>
 
@@ -47,23 +46,18 @@
                                                 </div> --}}
                                             </th>
                                             <th>SR No.</th>
-                                            <th>Full Name</th>
-                                            <th>Email</th>
-                                            <th>Password</th>
                                             <th>Department</th>
-                                            <th>Section</th>
-                                            <th>Designation</th>
-                                            <th>Designation Role</th>
+                                            <th>Department Head Name</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-
+                               
                                     <tbody>
                                         @php
                                             $count = 1;
                                         @endphp
-                                        @foreach ($users as $user)
+                                        @foreach ($sectins as $secton)
                                             <tr>
                                                 {{-- <pre>{{ print_r($user->toArray()) }}</pre> --}}
                                                 <th scope="row">
@@ -74,36 +68,21 @@
                                                 </th>
 
                                                 <td>{{ $count }}</td>
-                                                <td class="text-capitalize">
-                                                    {{ $user['first_name'] . ' ' . $user['middle_name'] . ' ' . $user['last_name'] }}
-                                                </td>
-                                                <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                                <td>{{ $user->password }}</td>
-                                                {{-- <td>{{ $user->department->department_name ?? 'N/A' }} --}}
-                                                <td class="text-capitalize">
-                                                    {{ $user->department['department_name'] ?? 'N/A' }}</td>
-                                                <td class="text-capitalize">
-                                                    {{ $user->section['section_name'] ?? 'N/A' }}</td>
-                                                {{-- <td>{{ ($user->department['department_name'] true) }}</td> --}}
-                                                </td>
-                                                <td class="text-capitalize">{{ $user->designation }}</td>
-
-                                                <td class="text-capitalize">{{ $user->designation_role }}</td>
-
-                                                @if ($user->status == 'active')
-                                                    <td><span class="badge bg-success text-uppercase">Active</span>
-                                                    </td>
-                                                @elseif ($user->status == 'inactive')
-                                                    <td><span class="badge bg-primary text-uppercase">Inactive</span>
-                                                    </td>
-                                                @elseif ($user->status == 'approve')
-                                                    <td><span class="badge bg-secondary text-uppercase">Approve</span>
-                                                    </td>
-                                                @elseif ($user->status == 'reject')
-                                                    <td><span class="badge bg-danger text-uppercase">Reject</span>
-                                                    </td>
+                                            
+                                                <td  class="text-capitalize">{{$secton->department_name }}</td>
+                                                <td  class="text-capitalize">{{$secton->department_head_name }}</td>
+                                                @if ($department->status == 'active')
+                                                <td>
+                                                   
+                                                    <span class="badge badge-label bg-success"><i class="mdi mdi-circle-medium"></i>Active</span>
+                                                  
+                                                    </td>   
+                                              
                                                 @else
-                                                    <td><span class="badge bg-warning text-uppercase">Pending</span>
+                                                <td>
+                                                   
+                                                    <span class="badge badge-label bg-danger"><i class="mdi mdi-circle-medium"></i>Inactive</span>
+                                                  
                                                     </td>
                                                 @endif
                                                 <td>
@@ -114,12 +93,12 @@
                                                             <i class="ri-more-fill align-middle"></i>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a href="{{ route('view.user', ['id' => $user->id]) }}"
+                                                            <li><a href="{{ route('show.department', ['id' =>$secton->id]) }}"
                                                                     class="dropdown-item"><i
                                                                         class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                    View</a></li>
+                                                                    View</a></li>   
                                                             <li>
-                                                                <a href="{{ route('edit.user', ['id' => $user->id]) }}"
+                                                                <a href="{{ route('edit.department', ['id' =>$secton->id]) }}"
                                                                     class="dropdown-item edit-item-btn">
                                                                     <i
                                                                         class="ri-pencil-fill align-bottom me-2 text-muted"></i>
@@ -157,6 +136,8 @@
             <!-- container-fluid -->
         </div>
 
+        
+
         <!-- End Page-content -->
 
         <footer class="footer">
@@ -181,8 +162,8 @@
 </div>
 
 <!-- END layout-wrapper -->
-@include('hr_dashboard.preloader')
 
+@include('head_dashboard.preloader')
 <!-- Theme Settings -->
 
 @include('layout.footer');
