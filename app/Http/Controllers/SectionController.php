@@ -61,9 +61,12 @@ class SectionController extends Controller
         }
     }
 
+
     /**
      * Display the specified resource.
      */
+
+
     public function show(string $id)
     {
         // echo $id;
@@ -72,9 +75,12 @@ class SectionController extends Controller
         return view('section.show_section_details',compact('section'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      */
+
+
     public function edit(string $id)
     {
         $url = 'section.update';
@@ -83,9 +89,12 @@ class SectionController extends Controller
         return view('section.add_section',compact('url','title','section'));
     }
 
+
     /**
      * Update the specified resource in storage.
      */
+
+
     public function update(Request $request)
     {
 
@@ -96,7 +105,7 @@ class SectionController extends Controller
             $section->section_name = $request->section;
             $section->section_lead_name = $request->sectionLeadName;
             $section->status = $request->status;
-    
+
             // Save changes and handle response
             if ($section->save()) {
                 return redirect()->route('section.dashboard')

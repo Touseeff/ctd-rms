@@ -17,14 +17,16 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
+    public function create(){
+    $title = "Add Project";
+    $url = "add.project";
+    return view('task.add_task', compact('title', 'url'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
+
+
     public function store(Request $request)
     {
         //
@@ -37,6 +39,8 @@ class TaskController extends Controller
     {
         //
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

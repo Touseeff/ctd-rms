@@ -15,3 +15,14 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
 
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+
+
+
+
+
+
+ <!-- Plugins css -->
+ <link href="{{ asset('./public/assets/libs/dropzone/dropzone.css') }}" rel="stylesheet" type="text/css" />
+ <!--Swiper slider css-->
+ <link href="{{ asset('./public/assets/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
+

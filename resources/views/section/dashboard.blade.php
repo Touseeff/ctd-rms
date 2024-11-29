@@ -31,8 +31,7 @@
                                         <div class="flex-grow-1">
                                            
                                         </div>
-                                        <div class="mt-3 mt-lg-0">
-                                           
+                                        <div class="mt-3 mt-lg-0">                                           
                                                 <div class="row g-3 mb-0 align-items-center">
 
                                                     <!--end col-->

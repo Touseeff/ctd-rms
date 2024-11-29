@@ -4,13 +4,10 @@
     $departments = DB::table('departments')->get();
     $sections = DB::table('sections')->get();
 @endphp
-
-
 @include('layout.header')
 <!-- Begin page -->
 <div id="layout-wrapper">
     @include('admin_dashboard.header')
-
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
@@ -306,9 +303,7 @@
                 </div>
                 <!-- container-fluid -->
             </div>
-
             <!-- End Page-content -->
-
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row">
@@ -329,13 +324,9 @@
         <!-- end main content-->
 
     </div>
-
     <!-- END layout-wrapper -->
     @include('admin_dashboard.preloader')
-
     <!-- Theme Settings -->
-
-
     @include('layout.footer');
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>

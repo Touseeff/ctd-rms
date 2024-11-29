@@ -13,8 +13,6 @@ class BoardController extends Controller
      */
     public function index($id)
     {
-        // echo $id;
-        // die();
         $board = DB::table('work_space')->where('id', $id)->first();
         // dd($board->toArray());
         return view('board.dashboard', compact('board'));
@@ -39,16 +37,15 @@ class BoardController extends Controller
         // echo "fdfdf";
         // dd($request->toArray());
         $board = new Board();
-        $board->user_id = $request->userId    ;
+        $board->user_id = $request->userId;
         $board->work_space_id = $request->workspaceId;
         $board->borad_name = $request->boardName;
         // $board->status = $request->status;
         if ($board->save()) {
-            echo "ok";
+            echo "record add successfully!.";
         } else {
-            echo "not ok";
+            echo "record not be added";
         }
-
     }
 
     /**
@@ -71,6 +68,8 @@ class BoardController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
+
     public function update(Request $request, string $id)
     {
         //

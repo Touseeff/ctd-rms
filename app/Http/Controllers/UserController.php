@@ -153,6 +153,8 @@ class UserController extends Controller
             return redirect()->route('user.dashboard')->with('error', 'Failed to update user. Please try again.');
         }
     }
+
+
     
     /**
      * Update the specified resource in storage.

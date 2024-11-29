@@ -160,7 +160,7 @@ class HrController extends Controller
     {
         // Define view data
         $url = 'update.user';
-        $title = 'Edit User'; 
+        $title = 'Edit User';
 
         // Retrieve user by ID
         // $user = User::find($id);
@@ -278,11 +278,12 @@ class HrController extends Controller
         if (!$user) {
             return redirect()->route('hr_dashboard')->with('error', 'User not found.');
         }
-        
+
 
         // Render the view with the user data and other variables
 
         return view('hr_dashboard.edit_hr_profile', compact('user', 'url', 'title'));
+    
     }
 
 

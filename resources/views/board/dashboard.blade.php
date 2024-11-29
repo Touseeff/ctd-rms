@@ -23,14 +23,14 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="col-lg-auto">
+                            {{-- <div class="col-lg-auto">
                                 <div class="hstack gap-2">
                                     <button class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#createprojectModal" data-user-id="4343" data-workspace-id="434">
                                         <i class="ri-add-line align-bottom me-1"></i> Create Project
                                     </button>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!--end col-->
                         </div>
                         <!--end row-->

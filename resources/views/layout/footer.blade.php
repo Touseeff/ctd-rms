@@ -8,7 +8,6 @@
                           <script>
                               document.write(new Date().getFullYear())
                           </script> Craftech Digital.</i>
-                          
                       </p>
                   </div>
               </div>

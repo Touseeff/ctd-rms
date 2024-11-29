@@ -310,12 +310,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#" aria-expanded="false">
+                    <a class="nav-link menu-link" href="{{route('view.project')}}" aria-expanded="false">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Create Project</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#" aria-expanded="false">
+                    <a class="nav-link menu-link" href="{{route('create.task')}}" aria-expanded="false">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Create Task</span>
                     </a>
                 </li>

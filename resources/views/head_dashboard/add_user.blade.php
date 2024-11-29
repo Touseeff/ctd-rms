@@ -15,7 +15,6 @@
     <!-- Start right Content here -->
     <!-- ============================================================== -->
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
                 {{-- alert message --}}
@@ -327,7 +326,6 @@
             </footer>
         </div>
         <!-- end main content-->
-
     </div>
 
     <!-- END layout-wrapper -->

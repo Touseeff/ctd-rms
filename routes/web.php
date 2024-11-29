@@ -10,6 +10,8 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 
 // use App\Http\Middleware\AuthMiddleWare;
 
@@ -29,7 +31,8 @@ Route::fallback(function () {
 
 
 
-// User Route Controller
+
+/* User Route */
 Route::get('/', [UserController::class, 'create'])->name('signup.create');
 Route::get('/auth', [AuthController::class, 'create'])->name('signin.create');
 
@@ -47,7 +50,8 @@ Route::post('/auth/password-store', [AuthController::class, 'passwordstore'])->n
 Route::middleware(['auth.redirect'])->group(function () {
 // Route::post('/sign-up', [UserController::class, 'store'])->name('signup.store');
 
-// HR Dashboard routes
+
+/* HR dashboard Route */
 Route::get('/hr-dashboard', [HrController::class, 'index'])->name('hr.dashboard');
 Route::get('/auth/logout', [HrController::class, 'hrLogout'])->name('hr.logout');
 Route::get('/hr-dashboard/user-show', [HrController::class, 'showUser'])->name('show.user');
@@ -62,14 +66,16 @@ Route::get('/hr-dashboard/user-view/{id}',[HrController::class, 'viewUser'])->na
 Route::get('/hr-dashboard/user-create/{department_id}', [HrController::class, 'getSections'])->name('get.sections');
 
 
-//HR Profile Update 
+
+/* Hr Profile Route */
 Route::get('/hr-profile/hr-profile-edit/{id}', [HrController::class, 'editProfile'])->name('hr.edit.profile');
 Route::post('/hr-profile/hr-profile-update', [HrController::class, 'updateProfile'])->name('hr.update.profile');
 Route::get('/hr-profile/hr-profile-view/{id}',[HrController::class, 'viewProfile'])->name('hr.view.profile');
 
 
 
-//Add department
+
+/* Department Route */
 Route::get('department-view',[DepartmentController::class,'index'])->name('department.view');
 Route::get('department-create',[DepartmentController::class,'create'])->name('deprtment.create');
 Route::post('department-add',[DepartmentController::class,'store'])->name('department.add');
@@ -79,7 +85,8 @@ Route::post('department-update', [DepartmentController::class, 'update'])->name(
 
 
 
-//Admin Dashboard reoutes
+
+/* Admin Dashboard Route */
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 Route::get('/admin/auth/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
 Route::get('/admin-dashboard/user-show', [AdminController::class, 'showUser'])->name('admin.show.user');
@@ -99,29 +106,34 @@ Route::post('/admin-profile/admin-profile-update', [AdminController::class, 'upd
 Route::get('/admin-profile/admin-profile-view/{id}',[AdminController::class, 'viewProfile'])->name('admin.view.profile');
 
 
-//User Dashboard routes
+
+/* User Dashboard Route */
 Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
 Route::get('/user/auth/logout', [UserController::class, 'userLogout'])->name('user.logout');
 
-//for testing profiles routes
+
+/* User Profile Route */
 Route::get('/user-profile/user-profile-edit/{id}', [UserController::class, 'editProfile'])->name('user.edit.profile');
 Route::post('/user-profile/user-profile-update', [UserController::class, 'updateProfile'])->name('user.update.profile');
 Route::get('/user-profile/user-profile-view/{id}',[UserController::class, 'viewProfile'])->name('user.view.profile');
 
 
 
-//User Dashboard routes
+
+/* User Dashboard Route */
 Route::get('/head/dashboard', [HeadController::class, 'index'])->name('head.dashboard');
 Route::get('/head/auth/logout', [HeadController::class, 'headLogout'])->name('head.logout');
 
 
 
+/* Head Profile Route */
 Route::get('/head-profile/head-profile-edit/{id}', [HeadController::class, 'editProfile'])->name('head.edit.profile');
 Route::post('/head-profile/head-profile-update', [HeadController::class, 'updateProfile'])->name('head.update.profile');
 Route::get('/head-profile/head-profile-view/{id}',[HeadController::class, 'viewProfile'])->name('head.view.profile');
 
 
-//Sections Route
+
+/* Sections Route */
 Route::get('/section/dashboard',[SectionController::class,'index'])->name('section.dashboard');
 Route::get('/section/dashboard/section-create',[SectionController::class,'create'])->name('section.create');
 Route::post('/section/dashboard/section-add',[SectionController::class,'store'])->name('section.store');
@@ -130,7 +142,7 @@ Route::post('/section/dashboard/section-update',[SectionController::class,'updat
 Route::get('/section/dashboard/sections-show/{id}',[SectionController::class,'show'])->name('section.show');
 
 
-//Workspace Route
+/* Workspace Route */
 Route::get('/workspace/dashboard/{id}',[WorkspaceController::class,'index'])->name('add.dashboard');
 Route::get('/workspace/create/',[WorkspaceController::class,'create'])->name('workspace.create');
 Route::post('/workspace/add/',[WorkspaceController::class,'store'])->name('add.workspace');
@@ -140,6 +152,10 @@ Route::get('/workspace/get-user/{sectionId}', [WorkspaceController::class, 'getU
 
 // Route::get('/user-workspace-borad/',[WorkspaceController::class,'userWorkSpace'])->name('view.user.workspace');
 
+
+
+
+/* Board Route */
 Route::get('/user-board/dashboard/{id}',[BoardController::class,'index'])->name('view.board.dashboard');
 // Route::get('/user-board/create/',[BoardController::class,'create'])->name('user-board.create');
 // Route::post('/user-board/add',[BoardController::class,'store'])->name('add.user-board');
@@ -149,10 +165,25 @@ Route::post('/add-user-board', [BoardController::class, 'store'])->name('add.use
 
 
 
-// Route::get('/user-board',[BoardController::class''])
+/* Project Route */
+Route::get('/project/view',[ProjectController::class,'index'])->name('view.project');
+Route::get('/project/create',[ProjectController::class,'create'])->name('create.project');
+Route::post('/project/add',[ProjectController::class,'store'])->name('add.project');
+// Route::get('/project-show/{id}', [ProjectController::class, 'show'])->name('show.project');
+Route::get('/project-edit/{id}', [ProjectController::class, 'edit'])->name('edit.project');
+Route::post('/project-update', [ProjectController::class, 'update'])->name('update.project');
 
 
 
+
+
+/* Tasks Route */
+// Route::get('/project/view',[ProjectController::class,'index'])->name('view.project');
+Route::get('/task/create',[TaskController::class,'create'])->name('create.task');
+// Route::post('/project/add',[ProjectController::class,'store'])->name('add.project');
+// Route::get('/project-show/{id}', [ProjectController::class, 'show'])->name('show.project');
+// Route::get('/project-edit/{id}', [ProjectController::class, 'edit'])->name('edit.project');
+// Route::post('/project-update', [ProjectController::class, 'update'])->name('update.project');
 
 
 

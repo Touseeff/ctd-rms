@@ -12,11 +12,9 @@
 <!-- Begin page -->
 <div id="layout-wrapper">
     @include('admin_dashboard.header')
-
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
-
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
@@ -97,9 +95,6 @@
                                                 class="d-none d-md-inline-block">Overview</span>
                                         </a>
                                     </li>
-
-
-
                                 </ul>
                                 <div class="flex-shrink-0">
                                     <a href="{{ route('admin.edit.profile', ['id' => $user->id]) }}"

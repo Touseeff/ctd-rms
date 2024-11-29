@@ -161,9 +161,6 @@
                         </div> <!-- end .h-100-->
                     </div> <!-- end col -->
                 </div>
-
-
-
                 <div class="col-auto layout-rightside-col">
                     <div class="overlay"></div>
                     <div class="layout-rightside">
