@@ -18,7 +18,6 @@
                             <!-- Tab panes -->
                                             <div class="card">
                                                 <h5 class="card-header">Department Details</h5>
-                                             
                                                 <div class="card-body">
                                                     <div class="table-responsive table-card">
                                                         <table class="table table-borderless mb-0">
@@ -35,7 +34,6 @@
                                                                     <td class="fw-medium" scope="row">Regulating Authority</td>
                                                                     <td>{{$department->regulating_authority}}</td>
                                                                 </tr>
-                                                              
                                                                 <tr>
                                                                     <td class="fw-medium" scope="row">Status</td>
                                                                     <td>

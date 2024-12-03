@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -17,10 +20,12 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(){
-    $title = "Add Project";
-    $url = "add.project";
-    return view('task.add_task', compact('title', 'url'));
+    public function create()
+    {
+        $title = "Add Project";
+        $url = "add.tasks";
+        return view('task.add_task', compact('title', 'url'));
+
     }
     /**
      * Store a newly created resource in storage.
@@ -29,7 +34,7 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        //
+        dd($request->toArray());
     }
 
     /**
@@ -58,9 +63,36 @@ class TaskController extends Controller
         //
     }
 
+
+  // TaskController.php
+
+public function searchProjects(Request $request)
+{
+
+    $query = $request->get('q');
+    $projects = DB::table('projects')
+        ->where('project_name', 'LIKE', "%{$query}%")
+        ->get(['id', 'project_name']);
+
+    // Return the search results as JSON
+    return response()->json($projects);
+}
+
+
+
     /**
      * Remove the specified resource from storage.
      */
+
+
+    public function assignTask(Request $request)
+    {
+        // dd('fdfd');
+        // $task = Task::find($request->task_id);
+        // // Assuming a many-to-many relationship exists between Task and User
+        // $task->users()->sync($request->users);
+        // return response()->json(['message' => 'Task successfully assigned to users!']);
+    }
     public function destroy(string $id)
     {
         //

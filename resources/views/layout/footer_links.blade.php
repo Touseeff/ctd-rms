@@ -46,7 +46,16 @@
 <!-- dropzone js -->
 <script src="{{ asset('./public/assets/libs/dropzone/dropzone-min.js') }}"></script>
 <!-- project-create init -->
-<script src="{{ asset('./public/assets//js/pages/project-create.init.js') }}"></script>
+<script src="{{ asset('./public/assets/js/pages/project-create.init.js') }}"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script src="{{ asset('./public/assets/js/pages/select2.init.js')}}"></script>
+
+
+ 
 
 
 <script>

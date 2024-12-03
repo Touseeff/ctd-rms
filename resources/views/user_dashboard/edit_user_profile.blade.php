@@ -152,7 +152,6 @@
                                                     </select>
                                                 </div>
                                             </div>
-
                                             <!-- Qualification -->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
@@ -188,7 +187,6 @@
                                                         id="designationinput" name="designation">
                                                 </div>
                                             </div> --}}
-
                                             <!-- Date of Joining -->
                                             {{-- <div class="col-md-4">
                                                 <div class="mb-3">
@@ -218,9 +216,6 @@
                                                         placeholder="Enter permanent address">{{ isset($user) ? $user->address_two : '' }}</textarea>
                                                 </div>
                                             </div>
-                                          
-
-
                                             {{--  --}}
 
                                             {{--  --}}

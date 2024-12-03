@@ -62,7 +62,7 @@ Route::post('/hr-dashboard/user-update', [HrController::class, 'updateUser'])->n
 Route::get('/hr-dashboard/user-view/{id}',[HrController::class, 'viewUser'])->name('view.user');
 // Route::post('/hr-dashboard/user-store', [HrController::class, 'storeUser'])->name('store.user');
 
-// 
+//
 Route::get('/hr-dashboard/user-create/{department_id}', [HrController::class, 'getSections'])->name('get.sections');
 
 
@@ -96,8 +96,8 @@ Route::get('/admin-dashboard/user-edit/{id}', [AdminController::class, 'editUser
 Route::post('/admin-dashboard/user-update', [AdminController::class, 'updateUser'])->name('admin.update.user');
 Route::get('/admin-dashboard/user-view/{id}',[AdminController::class, 'viewUser'])->name('admin.view.user');
 
-//
-Route::get('/admin-dashboard/user-create/{department_id}', [AdminController::class, 'getSections'])->name('get.sections');
+//Hold 
+// Route::get('/admin-dashboard/user-create/{department_id}', [AdminController::class, 'getSections'])->name('get.sections');
 
 
 //Admin Profile Routes
@@ -179,15 +179,24 @@ Route::post('/project-update', [ProjectController::class, 'update'])->name('upda
 
 /* Tasks Route */
 // Route::get('/project/view',[ProjectController::class,'index'])->name('view.project');
-Route::get('/task/create',[TaskController::class,'create'])->name('create.task');
-// Route::post('/project/add',[ProjectController::class,'store'])->name('add.project');
+Route::get('/task/create', [TaskController::class, 'create'])->name('create.task');
+Route::post('/task/add',[TaskController::class,'store'])->name('add.tasks');
+
 // Route::get('/project-show/{id}', [ProjectController::class, 'show'])->name('show.project');
 // Route::get('/project-edit/{id}', [ProjectController::class, 'edit'])->name('edit.project');
 // Route::post('/project-update', [ProjectController::class, 'update'])->name('update.project');
 
+//get project for task 
+// Route for displaying the create task form
+
+// Route for searching projects via AJAX
+
+Route::get('/get-project', [TaskController::class, 'searchProjects']);
+
+// Route::get('/get-assign-user',[TaskController::class,'getAssignUser']);
 
 
-
+Route::get('/assign-task', [TaskController::class, 'assignTask'])->name('assign.task');
 
 
 
