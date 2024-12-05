@@ -336,7 +336,7 @@
                         // 'Content-Type': 'application/json',  // Explicitly set content type as JSON
                         // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  // Add CSRF token
                         // },
-                        success: function(data) {
+                            success: function(data) {
                             // console.log(data); // Log the response for debugging
 
                             if (Array.isArray(data) && data.length > 0) {

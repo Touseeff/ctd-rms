@@ -14,7 +14,7 @@
     @include('user_dashboard.header')
 
     <!-- ====== -->
-    <!-- Start right Content here -->
+    <!-- Start right Contewnt here -->
     <!-- ====== -->
 
     <div class="main-content">

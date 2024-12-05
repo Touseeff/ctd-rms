@@ -180,7 +180,10 @@ Route::post('/project-update', [ProjectController::class, 'update'])->name('upda
 /* Tasks Route */
 // Route::get('/project/view',[ProjectController::class,'index'])->name('view.project');
 Route::get('/task/create', [TaskController::class, 'create'])->name('create.task');
-Route::post('/task/add',[TaskController::class,'store'])->name('add.tasks');
+// Route::post('/task/add',[TaskController::class,'store'])->name('add.tasks');
+Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+// Route::post('/files/upload', [TaskController::class, 'store'])->name('files.upload');
+// Route::post('/files/remove', [TaskController::class, 'remove'])->name('files.remove');
 
 // Route::get('/project-show/{id}', [ProjectController::class, 'show'])->name('show.project');
 // Route::get('/project-edit/{id}', [ProjectController::class, 'edit'])->name('edit.project');
@@ -189,18 +192,19 @@ Route::post('/task/add',[TaskController::class,'store'])->name('add.tasks');
 //get project for task 
 // Route for displaying the create task form
 
+
+
+
 // Route for searching projects via AJAX
-
 Route::get('/get-project', [TaskController::class, 'searchProjects']);
-
 // Route::get('/get-assign-user',[TaskController::class,'getAssignUser']);
-
-
 Route::get('/assign-task', [TaskController::class, 'assignTask'])->name('assign.task');
 
 
 
-
+// Route::post('/upload', [TaskController::class, 'upload'])->name('file.upload');
+Route::delete('/delete', [TaskController::class, 'delete'])->name('delete');
+Route::post('/uploads', [TaskController::class, 'upload'])->name('upload');
 
 
 });

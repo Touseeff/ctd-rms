@@ -1,10 +1,10 @@
 <!-- JAVASCRIPT -->
-<script src="{{ asset('./public/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('./public/assets/libs/simplebar/simplebar.min.js') }}"></script>
-<script src="{{ asset('./public/assets/libs/node-waves/waves.min.js') }}"></script>
-<script src="{{ asset('./public/assets/libs/feather-icons/feather.min.js') }}"></script>
-<script src="{{ asset('./public/assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
-<script src="{{ asset('./public/assets/js/plugins.js') }}"></script>
+<script src="{{ asset('public/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('public/assets/libs/simplebar/simplebar.min.js') }}"></script>
+<script src="{{ asset('public/assets/libs/node-waves/waves.min.js') }}"></script>
+<script src="{{ asset('public/assets/libs/feather-icons/feather.min.js') }}"></script>
+<script src="{{ asset('public/assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
+<script src="{{ asset('public/assets/js/plugins.js') }}"></script>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -22,41 +22,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 {{--  --}}
 <!-- dragula init js -->
-<script src="{{ asset('./public/assets/libs/dragula/dragula.min.js') }}"></script>
+<script src="{{ asset('public/assets/libs/dragula/dragula.min.js') }}"></script>
 
 <!-- dom autoscroll -->
-<script src="{{ asset('./public/assets/libs/dom-autoscroller/dom-autoscroller.min.js') }}"></script>
+<script src="{{ asset('public/assets/libs/dom-autoscroller/dom-autoscroller.min.js') }}"></script>
 
 <!--taks-kanban-->
-<script src="{{ asset('./public/assets/js/pages/tasks-kanban.init.js') }}"></script>
+<script src="{{ asset('public/assets/js/pages/tasks-kanban.init.js') }}"></script>
 {{--  --}}
 
-<script src="{{ asset('./public/assets/js/pages/datatables.init.js') }}"></script>
+<script src="{{ asset('public/assets/js/pages/datatables.init.js') }}"></script>
 
-<!-- App js -->
-<script src="{{ asset('./public/assets/js/app.js') }}"></script>
+
 <!-- password-addon init -->
-<script src="{{ asset('./public/assets/js/pages/password-addon.init.js') }}"></script>
+<script src="{{ asset('public/assets/js/pages/password-addon.init.js') }}"></script>
 {{-- alert auto colose --}}
 
 
 <!-- ckeditor -->
-<script src="{{ asset('./public/assets/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
+ <script src="{{ asset('public/assets/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
+ 
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 
-<!-- dropzone js -->
-<script src="{{ asset('./public/assets/libs/dropzone/dropzone-min.js') }}"></script>
+
+
 <!-- project-create init -->
-<script src="{{ asset('./public/assets/js/pages/project-create.init.js') }}"></script>
-
+<script src="{{ asset('public/assets/js/pages/project-create.init.js') }}"></script>
+<!-- App js -->
+<script src="{{ asset('public/assets/js/app.js') }}"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<script src="{{ asset('./public/assets/js/pages/select2.init.js')}}"></script>
-
-
- 
-
+<script src="{{ asset('public/assets/js/pages/select2.init.js')}}"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

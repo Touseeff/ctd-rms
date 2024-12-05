@@ -44,4 +44,24 @@ class Task extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
+    public function files()
+    {
+        return $this->belongsToMany(File::class, 'task_file');
+    }
+
+
+
+
+    public function taskUsers()
+    {
+        return $this->hasMany(TaskUser::class);
+    }
+
+    // Define the relationship with TaskFile
+    public function taskFiles()
+    {
+        return $this->hasMany(TaskFile::class);
+    }
+    
 }

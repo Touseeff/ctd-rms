@@ -4,5 +4,6 @@
 @yield('forgot-section')
 @yield('reset_password')
 @yield('hr-dashboard')
+@yield('task-section')
 @yield('404-content')
 @include('layout.footer')
