@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 
+
+
+// use Log;
 use App\Models\File;
-use app\Http\Models\Task;
-// use Illuminate\Support\Facades\Log;
+use App\Models\Task;
+use App\Models\TaskFile;
+
+use App\Models\TaskUser;
 use Illuminate\Http\Request;
-use app\Http\Models\TaskFile;
-use app\Http\Models\TaskUser;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
@@ -22,22 +27,7 @@ class TaskController extends Controller
     {
         //
     }
-//     public function upload(Request $request)
-//     {
-//         // $validated = $request->validate([
-//         //     'files.*' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', // Adjust file types and size as needed
-//         // ]);
-
-//         $paths = [];
-
-//         if ($request->hasFile('files')) {
-//             foreach ($request->file('files') as $file) {
-//                 $paths[] = $file->store('/public/storage/uploads/pro', 'public');
-//             }
-//         }
-// // dd($paths);
-//         return response()->json(['paths' => $paths]);
-//     }
+ 
 
     /**
      * Show the form for creating a new resource.
@@ -52,75 +42,57 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        // Validate the request
-        // $validated = $request->validate([
-        //     'projectName' => 'required',
-        //     'task_description' => 'required',
-        //     'start_date' => 'required|date',
-        //     'end_date' => 'required|date',
-        //     'users' => 'required|array',
-        //     'file.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
-        // ]);
     
-        // Store the task using an object
-        // $task = new Task();
-        // $task->work_space_id = $request->input('workspace_id'); // Add workspace ID if necessary
-        // $task->board_id = $request->input('board_id'); // Add board ID if necessary
-        // $task->project_id = $request['projectName'];
-        // $task->card_title = $request->input('task_title');
-        // $task->descriptions = $request['task_description'];
-        // $task->process_status = $request->input('process_status');
-        // $task->status = $request->input('status');
-        // $task->start_date = $request['start_date'];
-        // $task->end_date = $request['end_date'];
-        // $task->save();
-    
-        // Assign users to the task
-        // foreach ($request['users'] as $userId) {
-        //     $taskUser = new TaskUser();
-        //     $taskUser->task_id = $task->id;
-        //     $taskUser->user_id = $userId;
-        //     $taskUser->save();
-        // }
-    
-        // Handle file uploads
-        if ($request->hasFile('file') && is_array($request->file('file'))) {
-            foreach ($request->file('file') as $file) {
-                if ($file->isValid()) {
-                    // Store the file and save its details
-                    $filePath = $file->store('uploads', 'public');
-    
-                    // Create file record
-                    $fileRecord = new File();
-                    $fileRecord->file_name = $file->getClientOriginalName();
-                    $fileRecord->file_size = $file->getSize();
-                    $fileRecord->file_path = $filePath;
-                    $fileRecord->save();
-    
-                    // Attach the file to the task
-                    // $taskFile = new TaskFile();
-                    // $taskFile->task_id = $task->id;
-                    // $taskFile->file_id = $fileRecord->id;
-                    // $taskFile->save();
-                }
-            }
+
+     public function store(Request $request)
+     {
+         // Validate the form data
+         // $request->validate([
+         //     'task_title' => 'required|string|max:255',
+         //     'task_description' => 'required|string',
+         //     'start_date' => 'nullable|date',
+         //     'end_date' => 'nullable|date',
+         //     'file' => 'nullable|array',
+         //     'file.*' => 'file|max:10240', // Max file size of 10MB for each file
+         // ]);
+     
+         // Create a task
+         $task = Task::create([
+             // 'user_id' => auth()->id(), // Assuming user is logged in
+             'work_space_id' => $request->workspace_id,
+             'board_id' => $request->board_id,
+             'project_id' => $request->project_id,
+             'task_title' => $request->task_title,
+             'task_description' => $request->task_description,
+             'start_date' => $request->start_date,
+             'end_date' => $request->end_date,
+         ]);
+     if($task){
+        foreach ($request->users as $userId) {
+            $taskUser = new TaskUser();
+            $taskUser->task_id = $task->id;
+            $taskUser->user_id = Auth::user()->id;
+            $taskUser->save();
         }
-    
-        // Return a response or redirect to another page
-        // return redirect()->route('tasks.index')->with('success', 'Task created successfully!');
-    }
-    
+     }
+         // Process files and store them
+         if ($request->hasFile('file')) {
+             foreach ($request->file('file') as $file) {
+                 // Store the file in the 'tasks' directory
+                 $path = $file->store('tasks');
+
+                 // Optionally, save file data in the database (TaskFile model)
+                 TaskFile::create([
+                     'task_id' => $task->id,
+                     'file_path' => $path,
+                 ]);
+             }
+         }
+         return response()->json(['success' => true, 'message' => 'Task created successfully!']);
+     }
 
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+
 
 
 
@@ -141,19 +113,19 @@ class TaskController extends Controller
     }
 
 
-  // TaskController.php
+    // TaskController.php
 
-public function searchProjects(Request $request)
-{
+    public function searchProjects(Request $request)
+    {
 
-    $query = $request->get('q');
-    $projects = DB::table('projects')
-        ->where('project_name', 'LIKE', "%{$query}%")
-        ->get(['id', 'project_name']);
+        $query = $request->get('q');
+        $projects = DB::table('projects')
+            ->where('project_name', 'LIKE', "%{$query}%")
+            ->get(['id', 'project_name']);
 
-    // Return the search results as JSON
-    return response()->json($projects);
-}
+        // Return the search results as JSON
+        return response()->json($projects);
+    }
 
 
 

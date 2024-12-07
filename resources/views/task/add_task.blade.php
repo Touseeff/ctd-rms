@@ -4,38 +4,6 @@
 @endphp
 @include('layout.header')
 <!-- Begin page -->
-<style>
-    /**
- * FilePond Custom Styles
- */
-.filepond--drop-label {
-	color: #4c4e53;
-}
-
-.filepond--label-action {
-	text-decoration-color: #babdc0;
-}
-
-.filepond--panel-root {
-	border-radius: 2em;
-	background-color: #edf0f4;
-	height: 1em;
-}
-
-.filepond--item-panel {
-	background-color: #595e68;
-}
-
-.filepond--drip-blob {
-	background-color: #7f8a9a;
-}
-
-
-/**
- * Page Styles
- */
-
-</style>
 
 
 <div id="layout-wrapper">
@@ -43,7 +11,7 @@
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
-     <div class="main-content">
+    <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
                 {{-- alert message --}}
@@ -61,7 +29,8 @@
                 {{-- add user str  --}}
                 <div class="row">
                     <div class="col-lg-12">
-                        <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('tasks.store') }}" id="taskForm" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="card">
                                 <div class="card-body">
@@ -74,8 +43,9 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <label for="basiInput" class="form-label">Task Title</label>
-                                            <input type="text" class="form-control" id="datepicker-deadline-input"
-                                                placeholder="Enter task title" data-provider="flatpickr">
+                                            <input type="text" name="task_title" class="form-control"
+                                                id="datepicker-deadline-input" placeholder="Enter task title"
+                                                data-provider="flatpickr">
                                         </div>
                                         <div class="col-lg-12">
                                             <div>
@@ -90,8 +60,8 @@
                                         <div class="col-lg-4">
                                             <div class="mb-3 mb-lg-0">
                                                 <label for="choices-priority-input" class="form-label">Priority</label>
-                                                <select class="form-select" data-choices data-choices-search-false
-                                                    id="choices-priority-input">
+                                                <select name="priority" class="form-select" data-choices
+                                                    data-choices-search-false id="choices-priority-input">
                                                     <option value="High" selected>High</option>
                                                     <option value="Medium">Medium</option>
                                                     <option value="Low">Low</option>
@@ -102,7 +72,7 @@
                                             <div>
                                                 <label for="datepicker-deadline-input" class="form-label">Start
                                                     Date</label>
-                                                <input type="date" class="form-control"
+                                                <input type="date" name="startDate" class="form-control"
                                                     id="datepicker-deadline-input" placeholder="Enter start date"
                                                     data-provider="flatpickr">
                                             </div>
@@ -111,14 +81,15 @@
                                             <div>
                                                 <label for="datepicker-deadline-input"
                                                     class="form-label">Deadline</label>
-                                                <input type="date" class="form-control"
+                                                <input type="date" name="dueDate" class="form-control"
                                                     id="datepicker-deadline-input" placeholder="Enter due date"
                                                     data-provider="flatpickr">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3 mb-lg-0">
-                                                <label for="choices-status-input" class="form-label">Status</label>
+                                                <label for="choices-status-input" name="status"
+                                                    class="form-label">Status</label>
                                                 <select class="form-select" data-choices data-choices-search-false
                                                     id="choices-status-input">
                                                     <option value="Inprogress" selected>Inprogress</option>
@@ -137,40 +108,28 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="row mt-2">
-                                        <div class="col-lg-12">
-                                            <div class="justify-content-between d-flex align-items-center mb-3">
-                                                <h5 class="mb-0 pb-1 text-decoration-underline">Filepond</h5>
-                                            </div>
-                                            <!-- end row -->
-                                        </div>
-                                        <!-- end col -->
-                                        <input type="file" class="filepond" name="files[]" multiple>
+
+                                    <div class="col-lg-12">
+                                        <label for="datepicker-deadline-input" class="form-label">Files</label>
+                                        <!-- end row -->
+                                        {{--  --}}
+                                        <input type="file" name="file[]" id="file" multiple />
+                                        {{-- <input type="file" class="filepond" name="file[]" multiple> --}}
+                                        {{-- <input type="file" class="filepond" name="file" accept="image/*" multiple> --}}
                                     </div>
-                                    <!-- end row -->
-                                   
-                                    
-                                    {{-- <button type="submit">Upload</button> --}}
-                                    <!-- end card body -->
                                 </div>
 
-                                <div id="dropzone-preview-list"></div>
                                 <div class="row">
                                     <div class="col d-flex justify-content-end ">
 
-                                        <button class="btn  btn-primary d-flex justify-content-end "
-                                            type="submit">submint</button>
+                                        <button id="taskForm" class="btn btn-primary d-flex justify-content-end "
+                                            type="submit">submit</button>
                                     </div>
                                 </div>
                                 <!-- end card -->
                         </form>
                     </div>
-                    {{-- <form method="POST" action="{{ route('tasks.store') }}" enctype="multipart/form-data"> --}}
-                        {{-- @csrf --}}
-                        {{-- <input type="file" class="filepond" name="files[]" multiple> --}}
-                        {{-- <button type="submit">Upload</button> --}}
-                    {{-- </form> --}}
-                    <!-- end col -->
+
 
                     <!-- end col -->
                 </div>
@@ -233,84 +192,56 @@
             });
             $(".js-example-basic-single").val(null).trigger('change');
         });
-        // $(".js-example-data-array").select2({
-        //     placeholder: "Search for a Project",
-        //     allowClear: true,
-        //     // width: '100%', // Ensures proper dropdown width
-        //     ajax: {
-        //         url: '/ctd_cms_project/get-project',
-        //         type: 'GET',
-        //         dataType: 'json',
-        //         delay: 250,
-        //         data: function(params) {
-        //             return {
-        //                 q: params.term // The search term
-        //             };
-        //         },
-        //         processResults: function(data) {
-        //             return {
-        //                 results: $.map(data, function(item) {
-        //                     return {
-        //                         id: item.id,
-        //                         text: item.project_name
-        //                     };
-        //                 })
-        //             };
-        //         },
-        //         error: function(xhr, status, error) {
-        //             console.error('AJAX error:', error);
-        //             console.log('Response:', xhr.responseText);
-        //         }
-        //     }
-        // });
-        // $(".js-example-data-array").val(null).trigger('change');
     </script>
- <script>
-    // // Register plugins
-    // FilePond.registerPlugin(
-    //     FilePondPluginFileValidateType,
-    //     FilePondPluginFileValidateSize,
-    //     FilePondPluginImagePreview
-    // );
 
-    // // Set options for FilePond
-    // FilePond.setOptions({
-    //     server: {
-    //         process: {
-    //             url: '{{ route('upload') }}',
-    //             method: 'POST',
-    //             headers: {
-    //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    //             }
-    //         },
-    //         revert: {
-    //             url: '{{ route('delete') }}',
-    //             method: 'DELETE',
-    //             headers: {
-    //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    //             }
-    //         }
-    //     }
-    // });
+    <script>
+        // Register FilePond plugins (if needed)
+        FilePond.registerPlugin(FilePondPluginImagePreview);
 
-    // // Turn all input elements into FilePond inputs
-    // FilePond.create(document.querySelector('.filepond'));
-</script>
-<script>
-    // Register FilePond
-    const inputElement = document.querySelector('.filepond');
-    FilePond.create(inputElement);
 
-    // Configure FilePond to handle server uploads
-    FilePond.setOptions({
-        server: {
-            process: {
-                url: '{{ route("tasks.store") }}',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        const pond = FilePond.create(document.querySelector('input[name="file[]"]'));
+
+        // FilePond options
+        FilePond.setOptions({
+            allowMultiple: true, 
+            instantUpload: false, 
+            maxFiles: 5, 
+            allowImagePreview: true,
+        });
+
+        // Form submission handler
+        document.getElementById('taskForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(this); // Collect the form data
+
+            // Append files from FilePond to FormData
+            const files = pond.getFiles();
+            files.forEach(file => {
+                formData.append('file[]', file.file);
+            });
+
+            try {
+                // Send the form data (including files) via a POST request
+                const response = await fetch('{{ route('tasks.store') }}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}', 
+                    },
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    console.log('task create successfully');
+                    // alert('Task created successfully!');
+                } else {
+                    console.error(result);
+                    alert(result.error || 'An error occurred');
                 }
-            },
-            revert: null, // Define if you need revert functionality
-        }
-    });
-</script>
+            } catch (error) {
+                console.error(error);
+                alert('An error occurred while submitting the form');
+            }
+        });
+    </script>

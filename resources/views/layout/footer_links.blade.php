@@ -41,9 +41,10 @@
 
 <!-- ckeditor -->
  <script src="{{ asset('public/assets/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
- 
-<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 
+{{-- <script src="https://unpkg.com/filepond/dist/filepond.js"></script> --}}
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
 
 
 <!-- project-create init -->

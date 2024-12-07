@@ -203,8 +203,8 @@ Route::get('/assign-task', [TaskController::class, 'assignTask'])->name('assign.
 
 
 // Route::post('/upload', [TaskController::class, 'upload'])->name('file.upload');
-Route::delete('/delete', [TaskController::class, 'delete'])->name('delete');
-Route::post('/uploads', [TaskController::class, 'upload'])->name('upload');
+// Route::delete('/delete', [TaskController::class, 'delete'])->name('delete');
+// Route::post('/uploads', [TaskController::class, 'upload'])->name('upload');
 
 
 });

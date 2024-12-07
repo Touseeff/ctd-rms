@@ -12,6 +12,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
 
     @include('layout.header_links')

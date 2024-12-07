@@ -58,7 +58,6 @@
                                     </div>
                                 </div>
                                 <!-- end col -->
-
                                 <div class="col-lg-6">
                                     <div class="p-lg-5 p-4">
                                         <h5 class="text-primary">Create new password</h5>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
+    protected $table = 'files';
     use HasFactory;
 
     protected $fillable = ['file_name', 'file_size', 'file_path'];
@@ -13,7 +14,8 @@ class File extends Model
     // Define the relationship with TaskFile
     public function taskFiles()
     {
-        return $this->hasMany(TaskFile::class);
+        return $this->hasMany(TaskFile::class, 'file_id');
     }
+    
 
 }
