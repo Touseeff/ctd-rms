@@ -30,7 +30,6 @@
                 @endif
                 {{-- add user str  --}}
                 <div class="row">
-                    {{-- {{dd($section_users->toArray())}} --}}
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header align-items-center d-flex">
@@ -49,7 +48,6 @@
                                             <!-- First Name -->
                                             <div class="col-md-12">
                                                 <div class="mb-3">
-                                                    <input type="hidden"  value="{{isset($workspace) ? $workspace->id : ''}}" name="id">
                                                     <input type="hidden" name="sectionId"
                                                         value="{{ isset($workspace) ? $workspace->section_id : (isset($sectionId) ? $sectionId : '') }}">
                                                     <input type="hidden" name="departmentId"
@@ -58,7 +56,7 @@
                                                     <label for="firstNameinput" class="form-label">Workspace
                                                         Title</label>
                                                     <input type="text"
-                                                        value="{{ isset($workspace) ? $workspace->work_space_name : '' }}"
+                                                        value="{{ isset($workspace) ? $workspace->title : '' }}"
                                                         class="form-control" placeholder="Enter workspace title"
                                                         id="workspaceTitleInput" name="workspaceTitle">
 
@@ -93,54 +91,22 @@
                                                     </select>
                                                 </div>
                                             </div> --}}
-                                        @if (isset($section_user))
-                                        <div class="col-md-3">
-                                            <div class="mb-3">
-                                                <label for="userSelect" class="form-label">Select User</label>
-                                                <select class="form-select" name="userSelect" id="userSelect">
-                                                    <option value="">Select User</option>
-                                                    @foreach ($section_users as $section_user)
-                                                        <option value="{{ $section_user->id }}"
-                                                            {{ isset($section_user) && $section_user->id == $section_user->id ? 'selected' : '' }}>
-                                                            {{ $section_user->first_name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </select>
-                                            </div>
-                                        </div>
-                                        @elseif (isset($workspace))
-                                        <div class="col-md-3">
-                                            <div class="mb-3">
-                                                <label for="statusSelect" class="form-label">Select User</label>
-                                        <select class="form-select" name="userSelect" id="userSelect">
-                                            <option value="">Select User</option>
-                                                <option value="{{ $workspace->user_id }}" 
-                                                    {{ isset($workspace) && $workspace->user_id ? 'selected':  '' }}>
-                                                    {{ $workspace->user->first_name }}
-                                                </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                        @else
-                                        <div class="col-md-3">
-                                            <div class="mb-3">
-                                                <label for="userSelect" class="form-label">Select User</label>
-                                                <select class="form-select" name="userSelect" id="userSelect">
-                                                    <option value="">Select User</option>
-                                                    @foreach ($section_users as $section_user)
-                                                        <option value="{{ $section_user->id }}"
-                                                            {{ isset($section_user) && $section_user->id == $section_user->id ? 'selected' : '' }}>
-                                                            {{ $section_user->first_name }}
-                                                        </option>
-                                                        {{-- <h1>fdfsfsd</h1> --}}
-                                                    @endforeach
-                                                </select>
-                                            </select>
-                                            </div>
-                                        </div>
-                                        @endif
                                             <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label for="userSelect" class="form-label">User</label>
+                                                    <select class="form-select" name="userSelect" id="userSelect">
+                                                        <option value="">Select User</option>
+                                                        @foreach ($section_users as $section_user)
+                                                            <option value="{{ $section_user->id }}"
+                                                                {{ isset($section_user) && $section_user->id == $section_user->id ? 'selected' : '' }}>
+                                                                {{ $section_user->first_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
                                                 <div class="mb-3">
                                                     <label for="statusSelect" class="form-label">Status</label>
                                                     <select name="status" class="form-select" data-choices=""

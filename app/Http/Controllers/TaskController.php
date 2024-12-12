@@ -32,11 +32,11 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($wId = null, $bId = null)
     {
         $title = "Add Project";
         $url = "add.tasks";
-        return view('task.add_task', compact('title', 'url'));
+        return view('task.add_task', compact('title', 'url','wId','bId'));
 
     }
     /**
@@ -46,6 +46,7 @@ class TaskController extends Controller
 
      public function store(Request $request)
      {
+        // dd($request->toArray());   
          // Validate the form data
          // $request->validate([
          //     'task_title' => 'required|string|max:255',
@@ -55,15 +56,16 @@ class TaskController extends Controller
          //     'file' => 'nullable|array',
          //     'file.*' => 'file|max:10240', // Max file size of 10MB for each file
          // ]);
-     
+
          // Create a task
          $task = Task::create([
              // 'user_id' => auth()->id(), // Assuming user is logged in
-             'work_space_id' => $request->workspace_id,
-             'board_id' => $request->board_id,
-             'project_id' => $request->project_id,
-             'task_title' => $request->task_title,
-             'task_description' => $request->task_description,
+             'work_space_id' => $request->workspceId,
+             'board_id' => $request->boardId,
+             'project_id' => $request->projectName,
+             'task_title' => $request->taskTitle,
+             'task_description' => $request->taskDescription,
+             'status'=>$request->status,
              'start_date' => $request->start_date,
              'end_date' => $request->end_date,
          ]);
@@ -71,7 +73,7 @@ class TaskController extends Controller
         foreach ($request->users as $userId) {
             $taskUser = new TaskUser();
             $taskUser->task_id = $task->id;
-            $taskUser->user_id = Auth::user()->id;
+            $taskUser->user_id = $userId;
             $taskUser->save();
         }
      }
@@ -88,13 +90,9 @@ class TaskController extends Controller
                  ]);
              }
          }
+        //  echo "success";
          return response()->json(['success' => true, 'message' => 'Task created successfully!']);
      }
-
-
-
-
-
 
     /**
      * Show the form for editing the specified resource.

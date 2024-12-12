@@ -7,7 +7,6 @@
     <!-- Start right Content here -->
     <!-- ====== -->
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
                 @if (session('success'))
@@ -20,8 +19,6 @@
                         {{ session('error') }}
                     </div>
                 @endif
-
-
                 <div class="row">
                     <div class="col">
                         <div class="h-100">
@@ -29,23 +26,18 @@
                                 <div class="col-12">
                                     <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                                         <div class="flex-grow-1">
-
                                         </div>
-                                        <div class="mt-3 mt-lg-0">
-
+                                    <div class="mt-3 mt-lg-0">
                                             <div class="row g-3 mb-0 align-items-center">
-
                                                 <!--end col-->
                                                 <div class="col-auto">
-                                                    <a href="{{ route('section.create') }}" type="button"
-                                                        class="btn btn-soft-success material-shadow-none"><i
+                                                    <a href="{{ route('workspace.create',['sectionId'=>$sectionId,'departmentId'=>$departmentId]) }}" type="button"
+                                                        class="btn btn-soft-primary material-shadow-none"><i
                                                             class="ri-add-circle-line align-middle me-1"></i>Add
-                                                        Section</a>
+                                                        Workspace</a>
                                                 </div>
-
                                             </div>
                                             <!--end row-->
-
                                         </div>
                                     </div><!-- end card header -->
                                 </div>
@@ -63,7 +55,7 @@
                                                     <div class="flex-grow-1 overflow-hidden">
                                                         <p
                                                             class="text-uppercase fw-medium text-muted text-truncate mb-0">
-                                                            {{ $workspace->first_name }}</p>
+                                                            {{ $workspace->work_space_name }}</p>
                                                         </p>
                                                     </div>
                                                     <div class="flex-shrink-0">
@@ -90,11 +82,11 @@
                                                                 <div class="dropdown-menu dropdown-menu-end"
                                                                     style="">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('section.show', ['id' => $workspace->user_id]) }}"><i
+                                                                        href="{{ route('show.workspace', ['id' => $workspace->id]) }}"><i
                                                                             class="ri-eye-fill align-bottom me-2 text-muted"></i>
                                                                         View</a>
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('section.edit', ['id' => $workspace->user_id]) }}"><i
+                                                                        href="{{ route('edit.workspace', ['id' => $workspace->id]) }}"><i
                                                                             class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                                         Edit</a>
                                                                     <div class="dropdown-divider"></div>
@@ -107,8 +99,8 @@
                                                 <div class="d-flex align-items-end justify-content-between mt-4">
                                                     <div>
                                                         {{-- <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{$workspace->users->count()}}">{{$section->users->count()}}</span> </h4> --}}
-                                                        <a href="{{ route('view.board.dashboard', ['id' => $workspace->workspace_id]) }}"
-                                                            class="text-decoration-underline">View more</a>
+                                                       <a href="{{ route('view.board.dashboard', ['id' => $workspace->id]) }}"
+                                                            class="text-decoration-underline">View more</a> 
                                                     </div>
                                                     <div class="avatar-sm flex-shrink-0">
                                                         <span class="avatar-title bg-success-subtle rounded fs-3">
@@ -276,7 +268,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="p-3 mt-2">
                                     <h6 class="text-muted mb-3 text-uppercase fw-semibold">Top 10 Categories
                                     </h6>
@@ -467,7 +458,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="p-3">
                                     <h6 class="text-muted mb-3 text-uppercase fw-semibold">Customer Reviews</h6>
                                     <div class="bg-light px-3 py-2 rounded-2 mb-2">
@@ -608,7 +598,6 @@
                                         </div><!-- end row -->
                                     </div>
                                 </div>
-
                                 <div class="card sidebar-alert bg-light border-0 text-center mx-4 mb-0 mt-3">
                                     <div class="card-body">
                                         <img src="assets/images/giftbox.png" alt="">
@@ -622,21 +611,16 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div> <!-- end card-->
                     </div> <!-- end .rightbar-->
 
                 </div> <!-- end col -->
             </div>
-
-
         </div>
         <!-- container-fluid -->
     </div>
-
     <!-- End Page-content -->
-
     <footer class="footer">
         <div class="container-fluid">
             <div class="row">
@@ -655,12 +639,9 @@
     </footer>
 </div>
 <!-- end main content-->
-
 </div>
-
 <!-- END layout-wrapper -->
 @include('head_dashboard.preloader')
 
 <!-- Theme Settings -->
-
 @include('layout.footer')

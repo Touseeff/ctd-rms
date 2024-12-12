@@ -52,7 +52,6 @@
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-                               
                                     <tbody>
                                         @php
                                             $count = 1;

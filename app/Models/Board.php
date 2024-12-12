@@ -33,6 +33,7 @@ class Board extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'board_id');
+        return $this->hasMany(Task::class, 'board_id', 'id');
+        // return $this->hasMany(Task::class, 'board_id', 'id');
     }
 }

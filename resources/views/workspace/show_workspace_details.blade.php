@@ -22,39 +22,39 @@
                                           
 
                                             <div class="card">
-                                                <h5 class="card-header">Section Details</h5>
+                                                <h5 class="card-header">Workspace Details</h5>
                                              
                                                 <div class="card-body">
                                                     <div class="table-responsive table-card">
                                                         <table class="table table-borderless mb-0">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td class="fw-medium" scope="row">Section :</td>
-                                                                    <td>{{$section->section_name}}</td>
+                                                                    <td class="fw-medium" scope="row">Workspace :</td>
+                                                                    <td>{{$workspace->work_space_name}}</td>
                                                                 </tr>
-                                                                <tr>
+                                                                {{-- <tr>
                                                                     <td class="fw-medium" scope="row">Section Lead Name</td>
-                                                                    <td>{{$section->section_lead_name}}</td>
-                                                                </tr>
+                                                                    <td>{{$workspace->section_lead_name}}</td>
+                                                                </tr> --}}
                                                               
                                                                 <tr>
                                                                     <td class="fw-medium" scope="row">Status</td>
                                                                     <td>
-                                                                    @if ($section->status == 'active')
+                                                                    @if ($workspace->status == 'active')
                                                                     <span class="badge badge-label bg-success"><i class="mdi mdi-circle-medium"></i>Active</span>
                                                                     @else
+                                                                    
                                                                     <span class="badge badge-label bg-danger"><i class="mdi mdi-circle-medium"></i> Inative</span>
                                                                     @endif
                                                                     </td>
                                                                 </tr>
-                                                             
+                                        
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <div class="card-header " style="display: flex; justify-content: end;">
-                                
-                                                        <a class="btn btn-dark" href="{{route('section.dashboard')}}">Cancel</a>
-                                                        <a class="btn btn-primary" style="margin-left:10px" href="{{route('section.edit',['id'=>$section->id])}}">Edit section</a>
+                                                        <a class="btn btn-dark" href="{{route('workspace.dashboard')}}">Cancel</a>
+                                                        <a class="btn btn-primary" style="margin-left:10px" href="{{route('edit.workspace',['id'=>$workspace->id])}}">Edit workspace</a>
                                                         
                                                     </div>
                                                 </div>

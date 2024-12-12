@@ -180,9 +180,7 @@ class HrController extends Controller
     {
         $id = $request->id;
         $user = User::find($id);
-
         // dd($user->toArray());
-
         $user->role_id = $request->role;
         $user->department_id = $request->department;
         $user->section_id = $request->section;
@@ -219,10 +217,10 @@ class HrController extends Controller
         $user = User::with(['department', 'section'])->where('id', $id)->first();
         return view('hr_dashboard.show_user_details', compact('user'));
 
-
         // $user = User::find($id);
         // // $user = DB::table('users')()
         // return view('hr_dashboard.show_user_details', compact('user'));
+        
 
     }
     public function edit(string $id)

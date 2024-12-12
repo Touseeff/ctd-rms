@@ -36,6 +36,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-6">
+                                            <input type="hidden" name="workspceId" value="{{$wId}}" id="">
+                                            <input type="hidden" name="boardId" value="{{$bId}}" id="">
                                             <label for="basiInput" class="form-label">Project Title</label>
                                             <select class="js-example-basic-single form-control" name="projectName"
                                                 style="width: 100%;">
@@ -43,7 +45,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <label for="basiInput" class="form-label">Task Title</label>
-                                            <input type="text" name="task_title" class="form-control"
+                                            <input type="text" name="taskTitle" class="form-control"
                                                 id="datepicker-deadline-input" placeholder="Enter task title"
                                                 data-provider="flatpickr">
                                         </div>
@@ -51,11 +53,10 @@
                                             <div>
                                                 <label for="ckeditor-classic" class="form-label">Task
                                                     Description</label>
-                                                <textarea id="ckeditor-classic" name="task_description"></textarea>
+                                                <textarea id="ckeditor-classic" name="taskDescription"></textarea>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row pt-2">
                                         <div class="col-lg-4">
                                             <div class="mb-3 mb-lg-0">
@@ -89,7 +90,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3 mb-lg-0">
                                                 <label for="choices-status-input" name="status"
-                                                    class="form-label">Status</label>
+                                                    class="form-label">Process Status</label>
                                                 <select class="form-select" data-choices data-choices-search-false
                                                     id="choices-status-input">
                                                     <option value="Inprogress" selected>Inprogress</option>
@@ -108,7 +109,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-lg-12">
                                         <label for="datepicker-deadline-input" class="form-label">Files</label>
                                         <!-- end row -->
@@ -129,8 +129,6 @@
                                 <!-- end card -->
                         </form>
                     </div>
-
-
                     <!-- end col -->
                 </div>
                 <!-- container-fluid -->
@@ -193,14 +191,10 @@
             $(".js-example-basic-single").val(null).trigger('change');
         });
     </script>
-
     <script>
         // Register FilePond plugins (if needed)
-        FilePond.registerPlugin(FilePondPluginImagePreview);
-
-
+        FilePond.registerPlugin(FilePondPluginImagePreview)
         const pond = FilePond.create(document.querySelector('input[name="file[]"]'));
-
         // FilePond options
         FilePond.setOptions({
             allowMultiple: true, 
@@ -208,7 +202,6 @@
             maxFiles: 5, 
             allowImagePreview: true,
         });
-
         // Form submission handler
         document.getElementById('taskForm').addEventListener('submit', async function(e) {
             e.preventDefault(); // Prevent the default form submission

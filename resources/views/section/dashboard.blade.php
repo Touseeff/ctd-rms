@@ -36,7 +36,7 @@
 
                                                     <!--end col-->
                                                     <div class="col-auto">
-                                                        <a href="{{route('section.create')}}" type="button" class="btn btn-soft-success material-shadow-none"><i class="ri-add-circle-line align-middle me-1"></i>Add Section</a>
+                                                        <a href="{{route('section.create')}}" type="button" class="btn btn-soft-primary material-shadow-none"><i class="ri-add-circle-line align-middle me-1"></i>Add Section</a>
                                                     </div>
                                                 </div>
                                                 <!--end row-->
@@ -76,7 +76,7 @@
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
                                                     <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{$section->users->count()}}">{{$section->users->count()}}</span> </h4>
-                                                    <a href="{{route('add.dashboard',['id'=>$section->id])}}" class="text-decoration-underline">View Section</a>
+                                                    <a href="{{route('workspace.dashboard',['sectionId'=>$section->id, 'departmentId'=>$section->department_id])}}" class="text-decoration-underline">View Section</a>
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
                                                     <span class="avatar-title bg-success-subtle rounded fs-3">

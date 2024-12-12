@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-
 <body>
+
     <center>
 
         <h1>Agent Dashboard</h1>
@@ -16,6 +16,6 @@
         <h1>Role ID = {{ Auth::user()->role_id }}</h1>
         <h1>User Name = {{ Auth::user()->first_name }}</h1>
     </center>
-</body>
 
+</body>
 </html>

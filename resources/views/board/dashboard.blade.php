@@ -1,9 +1,19 @@
 @include('layout.header')
+
+@php
+
+    use Illuminate\Support\Facades\DB;
+    //  dd($id);
+    // Fetch the data from the 'boards' table where 'work_space_id' matches $id
+    // $tables = DB::table('boards')->where('work_space_id', $id)->first();
+    $id = request()->route('id');
+    $workspace = DB::table('work_space')->where('id',$id)->first();
+    // dd($tables);
+    // dd($workspace);
+@endphp
 <!-- Begin page -->
 <div id="layout-wrapper">
     @include('head_dashboard.header')
-
-
     <!-- ====== -->
     <!-- Start right Content here -->
     <!-- ====== -->
@@ -12,13 +22,28 @@
             <div class="container-fluid">
                 <!-- start page title -->
                 <!-- end page title -->
+                {{-- {{dd($boards->toArray())}} --}}
                 <div class="card">
+                    @if (session('success'))
+                    <div id="alert-message" class="alert alert-success">
+                        {{ session('success') }}
+
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div id="alert-message" class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                     <div class="card-body">
                         <div class="row g-2">
                             <div class="col-lg-auto">
                                 <div class="hstack gap-2">
                                     <button class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#createboardModal" data-user-id="{{$board->user_id}}" data-workspace-id="{{$board->id}}">
+                                        data-bs-target="#createboardModal"
+                                        data-user-id="{{ isset($workspace->user_id) ? $workspace->user_id : 'NA' }}"
+                                        data-workspace-id="{{ isset($workspace->id) ? $workspace->id : 'NA' }}">
                                         <i class="ri-add-line align-bottom me-1"></i> Create Board
                                     </button>
                                 </div>
@@ -38,1643 +63,185 @@
                     <!--end card-body-->
                 </div>
                 <!--end card-->
+                {{-- <div id="tasks" style="display: flex;"> --}}
+                    <div class="tasks-board mb-3" id="kanbanboard">
+                            @foreach ($boards as $board)
+                            <div class="tasks-list">
+                                <div class="d-flex mb-3">
+                                    <div class="flex-grow-1">
+                                        <h6 class="fs-14 text-uppercase fw-semibold mb-0">
+                                            {{ $board->borad_name }} <!-- Displaying board name -->
+                                            <small
+                                                class="badge bg-info align-bottom ms-1 totaltask-badge">{{ $board->tasks->count() }}</small>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div data-simplebar="init" class="tasks-wrapper px-3 mx-n3 simplebar-scrollable-y">
+                                    <div class="simplebar-wrapper" style="margin: 0px -16px;">
+                                        <div class="simplebar-height-auto-observer-wrapper">
+                                            <div class="simplebar-height-auto-observer"></div>
+                                        </div>
+                                        <div class="simplebar-mask">
+                                            <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+                                                <div class="simplebar-content-wrapper" tabindex="0" role="region"
+                                                    aria-label="scrollable content"
+                                                    style="height: auto; overflow: hidden scroll;">
+                                                    <div class="simplebar-content" style="padding: 0px 16px;">
+                                                        <div id="reviews-task" class="tasks">
+                                                            <!--card one start-->
+                                                            @foreach ($board->tasks as $task)
+                                                                <div class="card tasks-box">
+                                                                    <div class="card-body">
+                                                                        @if ($board->projects->count() > 0)
+                                                                            <div class="d-flex mb-2">
+                                                                                <a href="javascript:void(0)"
+                                                                                    class="text-muted fw-medium fs-14 flex-grow-1">
+                                                                                    @foreach ($board->projects as $project)
+                                                                                        <h6>#{{ $project->id }}
+                                                                                        </h6>
+                                                                                    @endforeach
+                                                                                </a>
+                                                                                <div class="dropdown">
+                                                                                    <a href="javascript:void(0);"
+                                                                                        class="text-muted"
+                                                                                        id="dropdownMenuLink7"
+                                                                                        data-bs-toggle="dropdown"
+                                                                                        aria-expanded="false"><i
+                                                                                            class="ri-more-fill"></i></a>
+                                                                                    <ul class="dropdown-menu"
+                                                                                        aria-labelledby="dropdownMenuLink7">
+                                                                                        <li>
+                                                                                            <a class="dropdown-item"
+                                                                                                href="apps-tasks-details.html"><i
+                                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
+                                                                                                View</a>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a class="dropdown-item"
+                                                                                                href="apps-tasks-kanban.html#"><i
+                                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
+                                                                                                Edit</a>
+                                                                                        </li>
+                                                                                        {{-- <li>
+                                                                                        <a class="dropdown-item"
+                                                                                            data-bs-toggle="modal"
+                                                                                            href="apps-tasks-kanban.html#deleteRecordModal"><i
+                                                                                                class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
+                                                                                            Delete</a>
+                                                                                    </li> --}}
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        @else
+                                                                            <p>No projects available for this board.</p>
+                                                                        @endif
+                                                                        <h6 class="fs-15 text-truncate task-title">
+                                                                            <a href="apps-tasks-details.html"
+                                                                                class="d-block">{{ $task->card_title }}</a>
+                                                                        </h6>
+                                                                        <div class="tasks-img rounded"
+                                                                            style="background-image: url('assets/images/small/img-7.jpg');">
+                                                                        </div>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div class="flex-grow-1">
+                                                                                <span
+                                                                                    class="badge bg-primary-subtle text-primary">Ecommerce</span>
+                                                                            </div>
+                                                                            <div class="flex-shrink-0">
+                                                                                <div class="avatar-group">
+                                                                                    <a href="javascript: void(0);"
+                                                                                        class="avatar-group-item material-shadow"
+                                                                                        data-bs-toggle="tooltip"
+                                                                                        data-bs-trigger="hover"
+                                                                                        data-bs-placement="top"
+                                                                                        aria-label="Anna"
+                                                                                        data-bs-original-title="Anna">
+                                                                                        <img src="assets/images/users/avatar-1.jpg"
+                                                                                            alt=""
+                                                                                            class="rounded-circle avatar-xxs">
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card-footer border-top-dashed">
+                                                                        <div class="d-flex">
+                                                                            <div class="flex-grow-1">
+                                                                                <span class="text-muted"><i
+                                                                                        class="ri-time-line align-bottom"></i>
+                                                                                    16
+                                                                                    Nov,
+                                                                                    2021</span>
+                                                                            </div>
+                                                                            {{-- <div class="flex-shrink-0">
+                                                                            <ul class="link-inline mb-0">
+                                                                                <li class="list-inline-item">
+                                                                                    <a href="javascript:void(0)"
+                                                                                        class="text-muted"><i
+                                                                                            class="ri-eye-line align-bottom"></i>
+                                                                                        08</a>
+                                                                                </li>
+                                                                                <li class="list-inline-item">
+                                                                                    <a href="javascript:void(0)"
+                                                                                        class="text-muted"><i
+                                                                                            class="ri-question-answer-line align-bottom"></i>
+                                                                                        54</a>
+                                                                                </li>
+                                                                                <li class="list-inline-item">
+                                                                                    <a href="javascript:void(0)"
+                                                                                        class="text-muted"><i
+                                                                                            class="ri-attachment-2 align-bottom"></i>
+                                                                                        28</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div> --}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--end card-body-->
+                                                                    <div class="progress progress-sm">
+                                                                        <div class="progress-bar bg-success"
+                                                                            role="progressbar" style="width: 100%"
+                                                                            aria-valuenow="55" aria-valuemin="0"
+                                                                            aria-valuemax="100"></div>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                            <!--card one end-->
+                                                            <!--card two start-->
 
-                <div class="tasks-board mb-3" id="kanbanboard">
-                    <div class="tasks-list">
-                        <div class="d-flex mb-3">
-                            <div class="flex-grow-1">
-                                <h6 class="fs-14 text-uppercase fw-semibold mb-0">
-                                    Board Name
-                                    <small class="badge bg-info align-bottom ms-1 totaltask-badge">3</small>
-                                </h6>
-                            </div>
-                       
-                        </div>
-                        <div data-simplebar="init" class="tasks-wrapper px-3 mx-n3 simplebar-scrollable-y">
-                            <div class="simplebar-wrapper" style="margin: 0px -16px;">
-                                <div class="simplebar-height-auto-observer-wrapper">
-                                    <div class="simplebar-height-auto-observer"></div>
-                                </div>
-                                <div class="simplebar-mask">
-                                    <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                                        <div class="simplebar-content-wrapper" tabindex="0" role="region"
-                                            aria-label="scrollable content"
-                                            style="height: auto; overflow: hidden scroll;">
-                                            <div class="simplebar-content" style="padding: 0px 16px;">
-                                                <div id="reviews-task" class="tasks">
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2453</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink7"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink7">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Create Product Animations</a>
-                                                            </h6>
-                                                            <div class="tasks-img rounded"
-                                                                style="background-image: url('assets/images/small/img-7.jpg');">
-                                                            </div>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Ecommerce</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Anna"
-                                                                            data-bs-original-title="Anna">
-                                                                            <img src="assets/images/users/avatar-1.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 16
-                                                                        Nov,
-                                                                        2021</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                08</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                54</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                28</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-success" role="progressbar"
-                                                                style="width: 100%" aria-valuenow="55"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <!--card two ednd-->
                                                         </div>
                                                     </div>
-                                                    <!--end card-->
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2340</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink8"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink8">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Product Features Analysis</a>
-                                                            </h6>
-                                                            <p class="text-muted">
-                                                                An essential part of strategic planning is running a
-                                                                product feature analysis.
-                                                            </p>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Product</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Analysis</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Nancy"
-                                                                            data-bs-original-title="Nancy">
-                                                                            <img src="assets/images/users/avatar-5.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Alexis"
-                                                                            data-bs-original-title="Alexis">
-                                                                            <img src="assets/images/users/avatar-6.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 05
-                                                                        Jan,
-                                                                        2022</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                14</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                31</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                07</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-warning" role="progressbar"
-                                                                style="width: 67%" aria-valuenow="67"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end card-->
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2462</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink9"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink9">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Create a Graph of Sketch</a>
-                                                            </h6>
-                                                            <p class="text-muted">
-                                                                To make a pie chart with equal slices create a perfect
-                                                                circle by selecting an Oval Tool.
-                                                            </p>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Sketch</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Marketing</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Design</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Alexis"
-                                                                            data-bs-original-title="Alexis">
-                                                                            <img src="assets/images/users/avatar-4.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Thomas"
-                                                                            data-bs-original-title="Thomas">
-                                                                            <img src="assets/images/users/avatar-8.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Herbert"
-                                                                            data-bs-original-title="Herbert">
-                                                                            <img src="assets/images/users/avatar-2.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Anna"
-                                                                            data-bs-original-title="Anna">
-                                                                            <img src="assets/images/users/avatar-1.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 05
-                                                                        Nov,
-                                                                        2021</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                12</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                74</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                37</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-primary" role="progressbar"
-                                                                style="width: 0%" aria-valuenow="0" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end card-->
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="simplebar-placeholder" style="width: 332px; height: 841px;"></div>
                                     </div>
-                                </div>
-                                <div class="simplebar-placeholder" style="width: 332px; height: 841px;"></div>
-                            </div>
-                            <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-                                <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
-                            </div>
-                            <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
-                                <div class="simplebar-scrollbar"
-                                    style="height: 25px; transform: translate3d(0px, 0px, 0px); display: block;">
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="my-3">
-                            <button class="btn btn-soft-info w-100" data-bs-toggle="modal"
-                                data-bs-target="#creatertaskModal">
-                                Add More
-                            </button>
-                        </div> --}}
-                    </div>
-                    <div class="tasks-list">
-                        <div class="d-flex mb-3">
-                            <div class="flex-grow-1">
-                                <h6 class="fs-14 text-uppercase fw-semibold mb-0">
-                                    Board Name
-                                    <small class="badge bg-info align-bottom ms-1 totaltask-badge">3</small>
-                                </h6>
-                            </div>
-                       
-                        </div>
-                        <div data-simplebar="init" class="tasks-wrapper px-3 mx-n3 simplebar-scrollable-y">
-                            <div class="simplebar-wrapper" style="margin: 0px -16px;">
-                                <div class="simplebar-height-auto-observer-wrapper">
-                                    <div class="simplebar-height-auto-observer"></div>
-                                </div>
-                                <div class="simplebar-mask">
-                                    <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                                        <div class="simplebar-content-wrapper" tabindex="0" role="region"
-                                            aria-label="scrollable content"
-                                            style="height: auto; overflow: hidden scroll;">
-                                            <div class="simplebar-content" style="padding: 0px 16px;">
-                                                <div id="reviews-task" class="tasks">
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2453</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink7"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink7">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Create Product Animations</a>
-                                                            </h6>
-                                                            <div class="tasks-img rounded"
-                                                                style="background-image: url('assets/images/small/img-7.jpg');">
-                                                            </div>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Ecommerce</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Anna"
-                                                                            data-bs-original-title="Anna">
-                                                                            <img src="assets/images/users/avatar-1.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 16
-                                                                        Nov,
-                                                                        2021</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                08</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                54</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                28</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-success" role="progressbar"
-                                                                style="width: 100%" aria-valuenow="55"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end card-->
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2340</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink8"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink8">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Product Features Analysis</a>
-                                                            </h6>
-                                                            <p class="text-muted">
-                                                                An essential part of strategic planning is running a
-                                                                product feature analysis.
-                                                            </p>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Product</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Analysis</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Nancy"
-                                                                            data-bs-original-title="Nancy">
-                                                                            <img src="assets/images/users/avatar-5.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Alexis"
-                                                                            data-bs-original-title="Alexis">
-                                                                            <img src="assets/images/users/avatar-6.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 05
-                                                                        Jan,
-                                                                        2022</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                14</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                31</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                07</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-warning" role="progressbar"
-                                                                style="width: 67%" aria-valuenow="67"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end card-->
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2462</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink9"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink9">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Create a Graph of Sketch</a>
-                                                            </h6>
-                                                            <p class="text-muted">
-                                                                To make a pie chart with equal slices create a perfect
-                                                                circle by selecting an Oval Tool.
-                                                            </p>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Sketch</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Marketing</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Design</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Alexis"
-                                                                            data-bs-original-title="Alexis">
-                                                                            <img src="assets/images/users/avatar-4.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Thomas"
-                                                                            data-bs-original-title="Thomas">
-                                                                            <img src="assets/images/users/avatar-8.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Herbert"
-                                                                            data-bs-original-title="Herbert">
-                                                                            <img src="assets/images/users/avatar-2.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Anna"
-                                                                            data-bs-original-title="Anna">
-                                                                            <img src="assets/images/users/avatar-1.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 05
-                                                                        Nov,
-                                                                        2021</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                12</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                74</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                37</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-primary" role="progressbar"
-                                                                style="width: 0%" aria-valuenow="0" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end card-->
-                                                </div>
-                                            </div>
+                                    <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                                        <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+                                    </div>
+                                    <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
+                                        <div class="simplebar-scrollbar"
+                                            style="height: 25px; transform: translate3d(0px, 0px, 0px); display: block;">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="simplebar-placeholder" style="width: 332px; height: 841px;"></div>
-                            </div>
-                            <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-                                <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
-                            </div>
-                            <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
-                                <div class="simplebar-scrollbar"
-                                    style="height: 25px; transform: translate3d(0px, 0px, 0px); display: block;">
+                                <div class="my-3">
+                                    <a href="{{ route('create.task', ['wId' => $board->work_space_id, 'bId' => $board->id]) }}" class="btn btn-soft-info w-100" data-bs-toggle="modal111"
+                                        data-bs-target="#creatertaskModal111">
+                                        Add More
+                                    </a>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
-                        {{-- <div class="my-3">
-                            <button class="btn btn-soft-info w-100" data-bs-toggle="modal"
-                                data-bs-target="#creatertaskModal">
-                                Add More
-                            </button>
-                        </div> --}}
-                    </div>
-                    <div class="tasks-list">
-                        <div class="d-flex mb-3">
-                            <div class="flex-grow-1">
-                                <h6 class="fs-14 text-uppercase fw-semibold mb-0">
-                                    Board Name
-                                    <small class="badge bg-info align-bottom ms-1 totaltask-badge">3</small>
-                                </h6>
-                            </div>
-                       
-                        </div>
-                        <div data-simplebar="init" class="tasks-wrapper px-3 mx-n3 simplebar-scrollable-y">
-                            <div class="simplebar-wrapper" style="margin: 0px -16px;">
-                                <div class="simplebar-height-auto-observer-wrapper">
-                                    <div class="simplebar-height-auto-observer"></div>
-                                </div>
-                                <div class="simplebar-mask">
-                                    <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                                        <div class="simplebar-content-wrapper" tabindex="0" role="region"
-                                            aria-label="scrollable content"
-                                            style="height: auto; overflow: hidden scroll;">
-                                            <div class="simplebar-content" style="padding: 0px 16px;">
-                                                <div id="reviews-task" class="tasks">
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2453</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink7"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink7">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Create Product Animations</a>
-                                                            </h6>
-                                                            <div class="tasks-img rounded"
-                                                                style="background-image: url('assets/images/small/img-7.jpg');">
-                                                            </div>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Ecommerce</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Anna"
-                                                                            data-bs-original-title="Anna">
-                                                                            <img src="assets/images/users/avatar-1.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 16
-                                                                        Nov,
-                                                                        2021</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                08</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                54</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                28</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-success" role="progressbar"
-                                                                style="width: 100%" aria-valuenow="55"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end card-->
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2340</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink8"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink8">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Product Features Analysis</a>
-                                                            </h6>
-                                                            <p class="text-muted">
-                                                                An essential part of strategic planning is running a
-                                                                product feature analysis.
-                                                            </p>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Product</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Analysis</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Nancy"
-                                                                            data-bs-original-title="Nancy">
-                                                                            <img src="assets/images/users/avatar-5.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Alexis"
-                                                                            data-bs-original-title="Alexis">
-                                                                            <img src="assets/images/users/avatar-6.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 05
-                                                                        Jan,
-                                                                        2022</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                14</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                31</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                07</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-warning" role="progressbar"
-                                                                style="width: 67%" aria-valuenow="67"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end card-->
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2462</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink9"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink9">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Create a Graph of Sketch</a>
-                                                            </h6>
-                                                            <p class="text-muted">
-                                                                To make a pie chart with equal slices create a perfect
-                                                                circle by selecting an Oval Tool.
-                                                            </p>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Sketch</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Marketing</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Design</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Alexis"
-                                                                            data-bs-original-title="Alexis">
-                                                                            <img src="assets/images/users/avatar-4.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Thomas"
-                                                                            data-bs-original-title="Thomas">
-                                                                            <img src="assets/images/users/avatar-8.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Herbert"
-                                                                            data-bs-original-title="Herbert">
-                                                                            <img src="assets/images/users/avatar-2.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Anna"
-                                                                            data-bs-original-title="Anna">
-                                                                            <img src="assets/images/users/avatar-1.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 05
-                                                                        Nov,
-                                                                        2021</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                12</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                74</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                37</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-primary" role="progressbar"
-                                                                style="width: 0%" aria-valuenow="0" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end card-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="simplebar-placeholder" style="width: 332px; height: 841px;"></div>
-                            </div>
-                            <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-                                <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
-                            </div>
-                            <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
-                                <div class="simplebar-scrollbar"
-                                    style="height: 25px; transform: translate3d(0px, 0px, 0px); display: block;">
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="my-3">
-                            <button class="btn btn-soft-info w-100" data-bs-toggle="modal"
-                                data-bs-target="#creatertaskModal">
-                                Add More
-                            </button>
-                        </div> --}}
-                    </div>
-                    <div class="tasks-list">
-                        <div class="d-flex mb-3">
-                            <div class="flex-grow-1">
-                                <h6 class="fs-14 text-uppercase fw-semibold mb-0">
-                                    Board Name
-                                    <small class="badge bg-info align-bottom ms-1 totaltask-badge">3</small>
-                                </h6>
-                            </div>
-                       
-                        </div>
-                        <div data-simplebar="init" class="tasks-wrapper px-3 mx-n3 simplebar-scrollable-y">
-                            <div class="simplebar-wrapper" style="margin: 0px -16px;">
-                                <div class="simplebar-height-auto-observer-wrapper">
-                                    <div class="simplebar-height-auto-observer"></div>
-                                </div>
-                                <div class="simplebar-mask">
-                                    <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                                        <div class="simplebar-content-wrapper" tabindex="0" role="region"
-                                            aria-label="scrollable content"
-                                            style="height: auto; overflow: hidden scroll;">
-                                            <div class="simplebar-content" style="padding: 0px 16px;">
-                                                <div id="reviews-task" class="tasks">
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2453</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink7"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink7">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Create Product Animations</a>
-                                                            </h6>
-                                                            <div class="tasks-img rounded"
-                                                                style="background-image: url('assets/images/small/img-7.jpg');">
-                                                            </div>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Ecommerce</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Anna"
-                                                                            data-bs-original-title="Anna">
-                                                                            <img src="assets/images/users/avatar-1.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 16
-                                                                        Nov,
-                                                                        2021</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                08</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                54</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                28</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-success" role="progressbar"
-                                                                style="width: 100%" aria-valuenow="55"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end card-->
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2340</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink8"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink8">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Product Features Analysis</a>
-                                                            </h6>
-                                                            <p class="text-muted">
-                                                                An essential part of strategic planning is running a
-                                                                product feature analysis.
-                                                            </p>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Product</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Analysis</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Nancy"
-                                                                            data-bs-original-title="Nancy">
-                                                                            <img src="assets/images/users/avatar-5.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Alexis"
-                                                                            data-bs-original-title="Alexis">
-                                                                            <img src="assets/images/users/avatar-6.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 05
-                                                                        Jan,
-                                                                        2022</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                14</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                31</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                07</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-warning" role="progressbar"
-                                                                style="width: 67%" aria-valuenow="67"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end card-->
-                                                    <div class="card tasks-box">
-                                                        <div class="card-body">
-                                                            <div class="d-flex mb-2">
-                                                                <a href="javascript:void(0)"
-                                                                    class="text-muted fw-medium fs-14 flex-grow-1">#VL2462</a>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="text-muted"
-                                                                        id="dropdownMenuLink9"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-expanded="false"><i
-                                                                            class="ri-more-fill"></i></a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuLink9">
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-details.html"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                View</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                href="apps-tasks-kanban.html#"><i
-                                                                                    class="ri-edit-2-line align-bottom me-2 text-muted"></i>
-                                                                                Edit</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item"
-                                                                                data-bs-toggle="modal"
-                                                                                href="apps-tasks-kanban.html#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-5-line align-bottom me-2 text-muted"></i>
-                                                                                Delete</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="fs-15 text-truncate task-title">
-                                                                <a href="apps-tasks-details.html"
-                                                                    class="d-block">Create a Graph of Sketch</a>
-                                                            </h6>
-                                                            <p class="text-muted">
-                                                                To make a pie chart with equal slices create a perfect
-                                                                circle by selecting an Oval Tool.
-                                                            </p>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-grow-1">
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Sketch</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Marketing</span>
-                                                                    <span
-                                                                        class="badge bg-primary-subtle text-primary">Design</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <div class="avatar-group">
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Alexis"
-                                                                            data-bs-original-title="Alexis">
-                                                                            <img src="assets/images/users/avatar-4.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Thomas"
-                                                                            data-bs-original-title="Thomas">
-                                                                            <img src="assets/images/users/avatar-8.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top"
-                                                                            aria-label="Herbert"
-                                                                            data-bs-original-title="Herbert">
-                                                                            <img src="assets/images/users/avatar-2.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                        <a href="javascript: void(0);"
-                                                                            class="avatar-group-item material-shadow"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-trigger="hover"
-                                                                            data-bs-placement="top" aria-label="Anna"
-                                                                            data-bs-original-title="Anna">
-                                                                            <img src="assets/images/users/avatar-1.jpg"
-                                                                                alt=""
-                                                                                class="rounded-circle avatar-xxs">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer border-top-dashed">
-                                                            <div class="d-flex">
-                                                                <div class="flex-grow-1">
-                                                                    <span class="text-muted"><i
-                                                                            class="ri-time-line align-bottom"></i> 05
-                                                                        Nov,
-                                                                        2021</span>
-                                                                </div>
-                                                                <div class="flex-shrink-0">
-                                                                    <ul class="link-inline mb-0">
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-eye-line align-bottom"></i>
-                                                                                12</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-question-answer-line align-bottom"></i>
-                                                                                74</a>
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="text-muted"><i
-                                                                                    class="ri-attachment-2 align-bottom"></i>
-                                                                                37</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--end card-body-->
-                                                        <div class="progress progress-sm">
-                                                            <div class="progress-bar bg-primary" role="progressbar"
-                                                                style="width: 0%" aria-valuenow="0" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end card-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="simplebar-placeholder" style="width: 332px; height: 841px;"></div>
-                            </div>
-                            <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-                                <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
-                            </div>
-                            <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
-                                <div class="simplebar-scrollbar"
-                                    style="height: 25px; transform: translate3d(0px, 0px, 0px); display: block;">
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="my-3">
-                            <button class="btn btn-soft-info w-100" data-bs-toggle="modal"
-                                data-bs-target="#creatertaskModal">
-                                Add More
-                            </button>
-                        </div> --}}
-                    </div>
+                {{-- </div> --}}
 
-                </div>
                 <!--end task-board-->
 
 
-                <div class="modal fade" id="createboardModal" tabindex="-1"
-                    aria-labelledby="createboardModalLabel" aria-hidden="true">
+                <div class="modal fade" id="createboardModal" tabindex="-1" aria-labelledby="createboardModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content border-0">
                             <div class="modal-header p-3 bg-info-subtle">
@@ -1687,8 +254,8 @@
                             <div class="modal-body">
                                 <form action="{{ route('add.user-board') }}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="userId" >
-                                    <input type="hidden" name="workspaceId" >
+                                    <input type="hidden" value="{{$workspace->user_id}}" name="userId">
+                                    <input type="hidden" value="{{$workspace->id}}" name="workspaceId">
                                     <label for="boardName" class="form-label">Board Name</label>
                                     <input type="text" name="boardName" class="form-control" id="boardName"
                                         placeholder="Enter board name">
@@ -1704,8 +271,8 @@
                     </div>
                 </div>
                 <!--end add board modal-->
-                <div class="modal fade" id="creatertaskModal" tabindex="-1"
-                    aria-labelledby="creatertaskModalLabel" aria-hidden="true">
+                <div class="modal fade" id="creatertaskModal" tabindex="-1" aria-labelledby="creatertaskModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content border-0">
                             <div class="modal-header p-3 bg-info-subtle">
@@ -1754,8 +321,7 @@
                                                             <div class="simplebar-content-wrapper" tabindex="0"
                                                                 role="region" aria-label="scrollable content"
                                                                 style="height: auto; overflow: hidden;">
-                                                                <div class="simplebar-content"
-                                                                    style="padding: 0px;">
+                                                                <div class="simplebar-content" style="padding: 0px;">
                                                                     <ul class="list-unstyled vstack gap-2 mb-0">
                                                                         <li>
                                                                             <div
@@ -1958,8 +524,7 @@
                                         <!--end col-->
                                         <div class="mt-4">
                                             <div class="hstack gap-2 justify-content-end">
-                                                <button type="button" class="btn btn-light"
-                                                    data-bs-dismiss="modal">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
                                                     Close
                                                 </button>
                                                 <button type="button" class="btn btn-success">
@@ -1980,8 +545,8 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close" id="delete-btn-close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    id="delete-btn-close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="mt-2 text-center">
@@ -1999,9 +564,9 @@
                                     <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">
                                         Close
                                     </button>
-                                    <button type="button" class="btn w-sm btn-danger" id="delete-record">
+                                    {{-- <button type="button" class="btn w-sm btn-danger" id="delete-record">
                                         Yes, Delete It!
-                                    </button>
+                                    </button> --}}
                                 </div>
                             </div>
                         </div>
@@ -2050,7 +615,8 @@
 
             // Get data attributes from the button
             const userId = button.getAttribute('data-user-id'); // Get 'data-user-id' value
-            const workspaceId = button.getAttribute('data-workspace-id'); // Get 'data-workspace-id' value
+            const workspaceId = button.getAttribute(
+                'data-workspace-id'); // Get 'data-workspace-id' value
 
             // Find the input fields inside the modal
             const userIdInput = createBoardModal.querySelector('input[name="userId"]');
@@ -2062,4 +628,3 @@
         });
     });
 </script>
-

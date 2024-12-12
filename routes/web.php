@@ -96,7 +96,7 @@ Route::get('/admin-dashboard/user-edit/{id}', [AdminController::class, 'editUser
 Route::post('/admin-dashboard/user-update', [AdminController::class, 'updateUser'])->name('admin.update.user');
 Route::get('/admin-dashboard/user-view/{id}',[AdminController::class, 'viewUser'])->name('admin.view.user');
 
-//Hold 
+
 // Route::get('/admin-dashboard/user-create/{department_id}', [AdminController::class, 'getSections'])->name('get.sections');
 
 
@@ -143,16 +143,19 @@ Route::get('/section/dashboard/sections-show/{id}',[SectionController::class,'sh
 
 
 /* Workspace Route */
-Route::get('/workspace/dashboard/{id}',[WorkspaceController::class,'index'])->name('add.dashboard');
-Route::get('/workspace/create/',[WorkspaceController::class,'create'])->name('workspace.create');
+Route::get('/workspace/dashboard/{sectionId?}/{departmentId?}',[WorkspaceController::class,'index'])->name('workspace.dashboard');
+Route::get('/workspace/create/{sectionId?}/{departmentId?}',[WorkspaceController::class,'create'])->name('workspace.create');
 Route::post('/workspace/add/',[WorkspaceController::class,'store'])->name('add.workspace');
-Route::get('/workspace/get-user/{sectionId}', [WorkspaceController::class, 'getUsers'])->name('get.user');
+Route::get('/work-space/show/{id}',[WorkspaceController::class,'show'])->name('show.workspace');
+Route::get('/work-space/edit/{id}',[WorkspaceController::class,'edit'])->name('edit.workspace');
+Route::post('/work-space/update/',[WorkspaceController::class,'update'])->name('update.workspace');
 
+
+
+// Route::get('/workspace/get-user/{departmentId}', [WorkspaceController::class, 'getSection'])->name('get.section');
+// Route::get('/workspace/get-user/{sectionId}', [WorkspaceController::class, 'getUser'])->name('get.user');
 // Route::get('/user-workspace/{sec_id}',[WorkspaceController::class,'userWorkSpace'])->name('view.user.workspace');
-
 // Route::get('/user-workspace-borad/',[WorkspaceController::class,'userWorkSpace'])->name('view.user.workspace');
-
-
 
 
 /* Board Route */
@@ -161,7 +164,6 @@ Route::get('/user-board/dashboard/{id}',[BoardController::class,'index'])->name(
 // Route::post('/user-board/add',[BoardController::class,'store'])->name('add.user-board');
 // Route::get('/user-board/edit/{ws_id}',[BoardController::class,'edit'])->name('edit.user-board');
 Route::post('/add-user-board', [BoardController::class, 'store'])->name('add.user-board');
-
 
 
 
@@ -179,7 +181,9 @@ Route::post('/project-update', [ProjectController::class, 'update'])->name('upda
 
 /* Tasks Route */
 // Route::get('/project/view',[ProjectController::class,'index'])->name('view.project');
-Route::get('/task/create', [TaskController::class, 'create'])->name('create.task');
+// Route::get('/task/create/{wId=?}/{bId=?}', [TaskController::class, 'create'])->name('create.task');
+Route::get('/task/create/{wId?}/{bId?}', [TaskController::class, 'create'])->name('create.task');
+
 // Route::post('/task/add',[TaskController::class,'store'])->name('add.tasks');
 Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
 // Route::post('/files/upload', [TaskController::class, 'store'])->name('files.upload');
@@ -189,7 +193,7 @@ Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
 // Route::get('/project-edit/{id}', [ProjectController::class, 'edit'])->name('edit.project');
 // Route::post('/project-update', [ProjectController::class, 'update'])->name('update.project');
 
-//get project for task 
+//get project for task
 // Route for displaying the create task form
 
 
@@ -201,7 +205,7 @@ Route::get('/get-project', [TaskController::class, 'searchProjects']);
 Route::get('/assign-task', [TaskController::class, 'assignTask'])->name('assign.task');
 
 
-
+//
 // Route::post('/upload', [TaskController::class, 'upload'])->name('file.upload');
 // Route::delete('/delete', [TaskController::class, 'delete'])->name('delete');
 // Route::post('/uploads', [TaskController::class, 'upload'])->name('upload');

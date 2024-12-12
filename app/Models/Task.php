@@ -40,7 +40,8 @@ class Task extends Model
     // Task belongs to a Board
     public function board()
     {
-        return $this->belongsTo(Board::class);
+        return $this->belongsTo(Board::class, 'board_id', 'id');
+        // return $this->belongsTo(Board::class, 'board_id');
     }
 
     // Task belongs to a Project

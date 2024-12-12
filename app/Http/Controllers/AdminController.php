@@ -297,9 +297,7 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-
-
-     
+    
     //  Profile controller methods 
 
     public function viewProfile(string $id)

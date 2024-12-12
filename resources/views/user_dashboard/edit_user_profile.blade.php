@@ -15,7 +15,6 @@
     <!-- Start right Content here -->
     <!-- ====== -->
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
                 {{-- alert message --}}
@@ -31,7 +30,6 @@
                         {{ session('error') }}
                     </div>
                 @endif
-
                 {{-- add user str  --}}
                 <div class="row">
                     <div class="col-12">
@@ -49,11 +47,8 @@
                             </div><!-- end card header -->
 
                             <div class="card-body">
-
                                 <div class="live-preview">
-
                                     {{--  --}}
-
                                     <form action="{{ route($url) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">

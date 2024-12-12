@@ -60,7 +60,7 @@
                                                     <!--end col-->
                                                     <div class="col-auto">
                                                         <a href="{{ route('hr.edit.profile',['id'=>Auth::user()->id]) }}" type="button"
-                                                            class="btn btn-soft-success material-shadow-none"><i
+                                                            class="btn btn-soft-primary material-shadow-none"><i
                                                                 class="ri-add-circle-line align-middle me-1"></i>Edit Profile</a>
                                                     </div>
                                                     <!--end col-->
